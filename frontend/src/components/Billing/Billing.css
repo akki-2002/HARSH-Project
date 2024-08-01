@@ -1,0 +1,262 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #fffbf5;
+}
+
+.billingMain {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    background-color: #fffbf5;
+    flex-wrap: wrap;
+}
+
+/* .billingLeftMain, .billingRgt {
+    padding: 20px;
+} */
+
+.billingLeftMain {
+    width: 100%;
+    max-width: 700px;
+    border-right: 0.7px solid #B4B4B4;
+    margin-bottom: 20px;
+}
+
+.billingLeft {
+    width: 100%;
+    margin: auto;
+}
+
+.billingRgt {
+    width: 100%;
+    max-width: 500px;
+}
+
+.cartRgtt {
+    width: 100%;
+    padding-top: 20px;
+}
+
+.backToCart {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: max-content;
+    margin: 20px 0;
+    cursor: pointer;
+}
+
+.backToCart img {
+    transition: 0.2s ease-in-out;
+    font-size: 1rem;
+}
+
+.backToCart:hover img {
+    transform: translateX(-5px);
+}
+
+.backToCart p {
+    font-size: 18px;
+    font-weight: 500;
+    color: #000000;
+}
+
+.blHeading h1 {
+    font-size: 25px;
+    font-weight: 600;
+    color: #454545;
+    margin-bottom: 20px;
+}
+
+.form {
+    gap: 10px;
+    width: 100%;
+}
+
+.firstname,
+.newPass {
+    margin-bottom: 15px;
+}
+
+.firstname input,
+.newPass input {
+    border: 0.7px solid #B4B4B4;
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    outline: none;
+}
+
+.newPass input {
+    cursor: context-menu;
+    caret-color: transparent;
+}
+
+.newPass p {
+    font-size: 12px;
+    font-weight: 400;
+    color: red;
+    padding-left: 5px;
+}
+
+.firstname select {
+    width: 100%;
+    padding: 7px;
+    border-radius: 10px;
+    background-color: transparent;
+    border: 0.7px solid #B4B4B4;
+    outline: none;
+}
+
+.firstname p {
+    font-size: 12px;
+    font-weight: 400;
+    color: red;
+    padding-left: 5px;
+}
+
+.additionalInfo {
+    font-size: 15px;
+    font-weight: 700;
+    color: #363636;
+    margin-top: 10px;
+}
+
+.cartTotalHeading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    padding-bottom: 20px;
+    border-bottom: 0.7px solid #b4b4b4;
+}
+
+.cartTotalHeading p {
+    font-size: 12px;
+    font-weight: 400;
+    color: #454545;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.cartTotalHeading h1 {
+    font-size: 25px;
+    font-weight: 600;
+    color: #454545;
+}
+
+.clContentt {
+    padding: 20px;
+    height: 600px;
+    border-bottom: 0.7px solid #b4b4b4;
+    overflow-y: auto;
+}
+
+.clTotal {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0;
+}
+
+.cartCheckoutBtn {
+    padding: 20px;
+    border-top: 0.7px solid #b4b4b4;
+}
+
+.cartCheckoutBtn button {
+    width: 100%;
+    padding: 15px;
+    border-radius: 7px;
+    color: #fffbf5;
+    font-size: 16px;
+    font-weight: 700;
+    background-color: #98168B;
+    border: 1.43px solid #98168B;
+    cursor: pointer;
+    transition: 0.2s ease-in;
+}
+
+.cartCheckoutBtn button:hover {
+    background-color: #7b136f;
+    border-color: #7b136f;
+}
+
+.cItem1 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 0.7px solid #b4b4b4;
+}
+
+.cItemImg img {
+    width: 86px;
+    height: 92px;
+    border-radius: 6.5px;
+}
+
+.cItemDetails {
+    flex-grow: 1;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.cItemDetails h2 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #454545;
+}
+
+.cItemDetails p {
+    font-size: 12px;
+    font-weight: 500;
+    color: #363636;
+}
+
+.cItemPrice h3 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #454545;
+}
+
+.cItemDelete {
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.cItemDelete img {
+    width: 20px;
+    height: 20px;
+}
+
+@media (max-width: 768px) {
+    .billingMain {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .billingLeftMain {
+        width: 100%;
+        max-width: 100%;
+        border-right: none;
+        margin-bottom: 20px;
+    }
+
+    .billingRgt {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .cartTotalHeading {
+        padding: 0 20px;
+    }
+}
