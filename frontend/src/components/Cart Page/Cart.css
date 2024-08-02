@@ -200,7 +200,7 @@
   .cartCheckoutBtn button:hover {
     box-shadow: #98168b 1.95px 1.95px 2.6px;
     background-color: transparent;
-    color: #454545;
+    color: #000000;
   }
   
   .cartBottom {

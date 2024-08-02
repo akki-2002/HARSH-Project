@@ -13,7 +13,7 @@ function OrderLeft() {
 
     <div className="orderLeft">
         <div className="olHeading">
-        <h1>Hello</h1>
+       <Link to="/admin" ><h1>Hello</h1></Link> 
         <h2>Akshat</h2>
         </div>
         <div className="olContent">

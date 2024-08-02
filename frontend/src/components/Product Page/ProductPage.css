@@ -151,7 +151,7 @@
   margin-top: 20px;
 }
 
-.abBtns button {
+.abBtns Link button {
   padding: 15px 0;
   width: 50%;
   border: 2px solid #98168B;
@@ -163,12 +163,12 @@
   transition: background-color 0.3s;
 }
 
-.abBtns button:nth-child(1) {
+/* .abBtns button:nth-child(1) {
   background-color: white;
-}
+} */
 
 .abBtns button:nth-child(1):hover {
-  background-color: #f0f0f0;
+  background-color: #7c126f;
 }
 
 .abBtns button:nth-child(2) {
