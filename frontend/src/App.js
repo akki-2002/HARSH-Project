@@ -24,48 +24,45 @@ import AcDetails from "./components/Order/AcDetails";
 import Signin from "./components/Login Signup/Signin";
 import Signup from "./components/Login Signup/Signup";
 
+import AllAdminProducts from "./components/Admin/AllAdminProducts/AllAdminProducts";
+import AddProduct from "./components/Admin/Add Product/AddProduct";
+import NavbarAdmin from "./components/Admin/Navbar/NavbarAdmin"; // Correct import path
+
 function App() {
   return (
     <>
       <Router>
-        <Navbar />
-
         <Routes>
           <Route
             path="/"
             element={
               <>
+                <Navbar />
                 <Slider />
                 <BestSelling />
                 <ReligiousAccessories />
                 <DailyAccessories />
                 <Testimonials />
+                <Footer />
               </>
             }
           />
-
           <Route path="/religiousAll" element={<ReligiousAll />} />
-
           <Route path="/dailyAll" element={<DailyAll />} />
-
           <Route path="/product" element={<ProductPage />} />
-
           <Route path="/cart" element={<Cart />} />
-
           <Route path="/billing" element={<Billing />} />
-
           <Route path="/order" element={<Order />}>
             <Route path="/order" element={<OrderHistory />} />
             <Route path="/order/addresses" element={<Addresses />} />
             <Route path="/order/acdetails" element={<AcDetails />} />
           </Route>
-
           <Route path="/signin" element={<Signin />} />
-
           <Route path="/signup" element={<Signup />} />
-
+          
+          <Route path="/admin" element={<AllAdminProducts />} />
+          <Route path="/addProduct" element={<AddProduct />} />
         </Routes>
-        <Footer />
       </Router>
     </>
   );

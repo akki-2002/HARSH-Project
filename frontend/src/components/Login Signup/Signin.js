@@ -4,6 +4,7 @@ import emailImg from "../../components/Images/email.png";
 import lock from "../../components/Images/lock.png";
 import show from "../../components/Images/show.png";
 import hide from "../../components/Images/hide.png";
+import logo from "../../components/Images/logo.png"
 import { Link } from "react-router-dom";
 
 function Signin() {
@@ -51,6 +52,8 @@ function Signin() {
     <>
       <div className="signupMain">
         <div className="signup">
+        <img src={logo} alt="" style={{ width: "20%" }}/>
+
           <div className="signupHeading">Log in</div>
           <form action="">
             <div className="signupContent" onClick={handleEmailClick}>
