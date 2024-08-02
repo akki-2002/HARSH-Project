@@ -43,7 +43,6 @@ function App() {
                 <ReligiousAccessories />
                 <DailyAccessories />
                 <Testimonials />
-                <Footer />
               </>
             }
           />
