@@ -1,5 +1,6 @@
 const express = require('express');
-const {signupUser, loginUser, getUsers} = require('../controllers/userController')
+const {signupUser, loginUser, getUsers, updateUser, deleteUser, addToCart, removeFromCart} = require('../controllers/userController')
+const requireAuth = require('../middlewares/requireAuth')
 
 const router = express.Router();
 
@@ -7,6 +8,14 @@ router.post('/signup', signupUser);
 
 router.post('/login', loginUser);
 
-router.get('/getusers', getUsers);
+router.get('/getusers',requireAuth('Admin'), getUsers);
+
+router.put('/updateuser/:id', updateUser)
+
+router.delete('/deleteuser/:id',requireAuth('Admin'), deleteUser)
+
+router.post('/addtocart/:userId', requireAuth('User'), addToCart)
+
+router.delete('/removefromcart/:userId', requireAuth('User'), removeFromCart)
 
 module.exports = router;

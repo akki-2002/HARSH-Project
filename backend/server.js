@@ -5,6 +5,7 @@ require('dotenv').config();
 const bodyParser = require('body-parser');
 const userRoutes = require('./routes/userRoutes')
 const productRoutes = require('./routes/productRoutes')
+const billRoutes = require('./routes/billingRoutes')
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -17,6 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/uploads', express.static('uploads'));
 app.use('/users', userRoutes)
 app.use('/products', productRoutes)
+app.use('/bills', billRoutes)
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })

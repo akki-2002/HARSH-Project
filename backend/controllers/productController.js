@@ -21,8 +21,16 @@ const addProduct = async (req, res) =>{
 }
 
 const getAllProducts = async(req, res)=>{
-    const products = await Product.find({}).sort({createdAt: -1})
-    res.status(200).json({products})
+
+    try {
+        const products = await Product.find({}).sort({createdAt: -1})
+        res.status(200).json({products})
+
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+    
+    
 }
 
     const getProductById = async(req, res)=>{
@@ -61,7 +69,6 @@ const getAllProducts = async(req, res)=>{
     }
 
     const deleteProduct = async(req, res)=>{
-        const data = req.body 
         const {id} = req.params
 
         try{
