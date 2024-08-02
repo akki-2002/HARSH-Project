@@ -146,6 +146,7 @@ function Billing() {
       price: 2000,
       image: backprint_t,
     },
+    
     // Add more items if needed
   ]);
 

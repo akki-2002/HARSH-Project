@@ -19,7 +19,8 @@ import img16 from "../../components/Images/Product Photos/16.jpeg";
 import img17 from "../../components/Images/Product Photos/17.jpeg";
 import img18 from "../../components/Images/Product Photos/18.jpeg";
 import img19 from "../../components/Images/Product Photos/19.jpeg";
-import PersonalizedGiftImg from "../Images/daily.png";
+import Daily from "../Images/daily.png";
+import Religious from "../Images/religious.png"
 
 import { FaCartPlus } from "react-icons/fa";
 import Testimonials from "../Home/Testimonials/Testimonials";
@@ -57,20 +58,24 @@ function CustomizedGiftAllProduct() {
   return (
     <>
     <Navbar/>
+
       <div className="daily-accessories-container">
         <img
-          src={PersonalizedGiftImg}
+          src={Daily}
           alt="Personalized Gifts"
           className="daily-accessories-image"
         />
         <div className="overlay2">
           <div className="text-content2">
+            
             <h1>Daily Accessories</h1>
             <p>Accessories for every occasion.</p>
           </div>
         </div>
       </div>
 
+
+      <span style={{ margin: "16px" }}><Link to="/" style={{ textDecoration: "none", cursor: "pointer", fontSize: "19px", color:"black" }}>Home</Link> &gt; <span style={{ textDecoration: "none", cursor: "pointer", fontSize: "19px" }}>Daily Accessories</span> </span>
       <div className="sub-title">
         <div className="header">
           <Link to="/" style={{ textDecoration: "none", cursor: "pointer" }}>
@@ -99,6 +104,28 @@ function CustomizedGiftAllProduct() {
               </div>
             </div>
           ))}
+        </div>
+      </div>
+
+      <div className="religious-accessories-container">
+        <img
+          src={Religious}
+          alt="Corporate Gifts"
+          className="religious-accessories-image"
+        />
+        <div className="overlay">
+          <div className="text-content">
+            <h1>Religious Accesories</h1>
+            <p>
+            Kadas, murtis and many more..
+            </p>
+          </div>
+          <Link
+            to={"/religiousAll"}
+            style={{ textDecoration: "none", cursor: "pointer" }}
+          >
+            <button className="shop-now-button">Shop Now</button>
+          </Link>
         </div>
       </div>
 

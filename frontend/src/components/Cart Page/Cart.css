@@ -26,15 +26,13 @@
     border-right: 0.7px solid #b4b4b4;
     width: 60%;
     min-width: 300px;
-    overflow-y: auto; /* Allow scrolling within this area */
-    max-height: 60vh; /* Set max height to allow space for footer */
+    max-height: auto; /* Set max height to allow space for footer */
   }
   
   .cartLeft {
     width: 100%;
     max-width: 600px;
     margin: auto;
-    padding: 30px 0px;
   }
   
   .cartLeft h1 {
@@ -156,7 +154,7 @@
   }
   
   .cartTotal p {
-    font-size: 12px;
+    font-size: 16px;
     font-weight: 700;
     padding: 50px 0;
     padding-left: 100px;

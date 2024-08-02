@@ -21,7 +21,7 @@ function BestSelling() {
     <div className="sub-title">
       <div className="header">
         <h2 className="trendingNow-text">Best Selling</h2>
-        <h3 className="view-all-best-selling">View All</h3>
+        {/* <h3 className="view-all-best-selling">View All</h3> */}
         {/* <Link to="/bestSellingProducts" style={{ textDecoration: 'none', cursor: 'pointer' }}>
           <h3 className="view-all-best-selling">View All</h3>
         </Link> */}

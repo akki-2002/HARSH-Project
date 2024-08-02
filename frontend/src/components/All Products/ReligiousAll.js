@@ -20,6 +20,7 @@ import img17 from "../../components/Images/Product Photos/17.jpeg";
 import img18 from "../../components/Images/Product Photos/18.jpeg";
 import img19 from "../../components/Images/Product Photos/19.jpeg";
 import Religious from "../../components/Images/religious.png";
+import Daily from "../Images/daily.png";
 
 import { FaCartPlus } from "react-icons/fa";
 import Testimonials from "../Home/Testimonials/Testimonials";
@@ -66,6 +67,7 @@ function ReligiousAll() {
         </div>
       </div>
 
+      <span style={{ margin: "16px" }}><Link to="/" style={{ textDecoration: "none", cursor: "pointer", fontSize: "19px", color:"black" }}>Home</Link> &gt; <span style={{ textDecoration: "none", cursor: "pointer", fontSize: "19px" }}>Religious Accessories</span> </span>
       <div className="sub-title">
         <div className="header">
           <Link to="/" style={{ textDecoration: "none", cursor: "pointer" }}>
@@ -94,6 +96,26 @@ function ReligiousAll() {
               </div>
             </div>
           ))}
+        </div>
+      </div>
+
+      <div className="daily-accessories-container">
+        <img
+          src={Daily}
+          alt="Personalized Gifts"
+          className="daily-accessories-image"
+        />
+        <div className="overlay2">
+          <div className="text-content2">
+            <h1>Daily Accessories</h1>
+            <p>Accessories for every occasion.</p>
+          </div>
+          <Link
+            to={"/dailyAll"}
+            style={{ textDecoration: "none", cursor: "pointer" }}
+          >
+            <button className="shop-now-button2">Shop Now</button>
+          </Link>
         </div>
       </div>
 

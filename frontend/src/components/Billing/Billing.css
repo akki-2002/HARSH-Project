@@ -6,7 +6,8 @@
 
 body {
     font-family: 'Montserrat', sans-serif;
-    background-color: #fffbf5;
+    background-color: #f7f7f7;
+    color: #333;
 }
 
 .billingMain {
@@ -14,24 +15,25 @@ body {
     display: flex;
     justify-content: center;
     padding: 20px;
-    background-color: #fffbf5;
+    background-color: #f7f7f7;
     flex-wrap: wrap;
 }
-
-/* .billingLeftMain, .billingRgt {
-    padding: 20px;
-} */
 
 .billingLeftMain {
     width: 100%;
     max-width: 700px;
-    border-right: 0.7px solid #B4B4B4;
     margin-bottom: 20px;
+    padding-right: 20px;
+    border-right: 1px solid #ccc;
 }
 
 .billingLeft {
     width: 100%;
     margin: auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .billingRgt {
@@ -41,7 +43,10 @@ body {
 
 .cartRgtt {
     width: 100%;
-    padding-top: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .backToCart {
@@ -51,6 +56,8 @@ body {
     width: max-content;
     margin: 20px 0;
     cursor: pointer;
+    text-decoration: none;
+    color: #98168b;
 }
 
 .backToCart img {
@@ -65,33 +72,41 @@ body {
 .backToCart p {
     font-size: 18px;
     font-weight: 500;
-    color: #000000;
 }
 
 .blHeading h1 {
-    font-size: 25px;
+    font-size: 28px;
     font-weight: 600;
-    color: #454545;
+    color: #333;
     margin-bottom: 20px;
+    border-bottom: 2px solid #98168b;
+    padding-bottom: 10px;
 }
 
 .form {
-    gap: 10px;
+    gap: 15px;
     width: 100%;
 }
 
 .firstname,
 .newPass {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .firstname input,
 .newPass input {
-    border: 0.7px solid #B4B4B4;
+    border: 1px solid #ccc;
     padding: 10px;
     width: 100%;
     border-radius: 5px;
     outline: none;
+    transition: border-color 0.3s;
+    font-size: 16px;
+}
+
+.firstname input:focus,
+.newPass input:focus {
+    border-color: #98168b;
 }
 
 .newPass input {
@@ -108,11 +123,17 @@ body {
 
 .firstname select {
     width: 100%;
-    padding: 7px;
-    border-radius: 10px;
+    padding: 10px;
+    border-radius: 5px;
     background-color: transparent;
-    border: 0.7px solid #B4B4B4;
+    border: 1px solid #ccc;
     outline: none;
+    transition: border-color 0.3s;
+    font-size: 16px;
+}
+
+.firstname select:focus {
+    border-color: #98168b;
 }
 
 .firstname p {
@@ -135,13 +156,13 @@ body {
     justify-content: space-between;
     padding: 0 20px;
     padding-bottom: 20px;
-    border-bottom: 0.7px solid #b4b4b4;
+    border-bottom: 1px solid #ccc;
 }
 
 .cartTotalHeading p {
-    font-size: 12px;
-    font-weight: 400;
-    color: #454545;
+    font-size: 14px;
+    font-weight: 500;
+    color: #98168b;
     text-decoration: underline;
     cursor: pointer;
 }
@@ -149,43 +170,44 @@ body {
 .cartTotalHeading h1 {
     font-size: 25px;
     font-weight: 600;
-    color: #454545;
+    color: #333;
 }
 
 .clContentt {
     padding: 20px;
-    height: 600px;
-    border-bottom: 0.7px solid #b4b4b4;
-    overflow-y: auto;
+    border-bottom: 1px solid #ccc;
+    overflow-y: visible; /* Allow content to expand naturally */
+    height: auto; /* Remove fixed height to let content expand */
 }
 
 .clTotal {
     display: flex;
     justify-content: space-between;
     padding: 20px 0;
+    font-size: 18px;
+    font-weight: 600;
 }
 
 .cartCheckoutBtn {
     padding: 20px;
-    border-top: 0.7px solid #b4b4b4;
+    border-top: 1px solid #ccc;
 }
 
 .cartCheckoutBtn button {
     width: 100%;
     padding: 15px;
     border-radius: 7px;
-    color: #fffbf5;
+    color: #fff;
     font-size: 16px;
     font-weight: 700;
-    background-color: #98168B;
-    border: 1.43px solid #98168B;
+    background-color: #98168b;
+    border: none;
     cursor: pointer;
-    transition: 0.2s ease-in;
+    transition: background-color 0.3s;
 }
 
 .cartCheckoutBtn button:hover {
     background-color: #7b136f;
-    border-color: #7b136f;
 }
 
 .cItem1 {
@@ -193,7 +215,7 @@ body {
     align-items: center;
     justify-content: space-between;
     padding: 10px 0;
-    border-bottom: 0.7px solid #b4b4b4;
+    border-bottom: 1px solid #ccc;
 }
 
 .cItemImg img {
@@ -213,19 +235,19 @@ body {
 .cItemDetails h2 {
     font-size: 14px;
     font-weight: 600;
-    color: #454545;
+    color: #333;
 }
 
 .cItemDetails p {
     font-size: 12px;
     font-weight: 500;
-    color: #363636;
+    color: #555;
 }
 
 .cItemPrice h3 {
     font-size: 14px;
     font-weight: 600;
-    color: #454545;
+    color: #333;
 }
 
 .cItemDelete {
@@ -236,27 +258,56 @@ body {
 .cItemDelete img {
     width: 20px;
     height: 20px;
+    transition: transform 0.2s;
+}
+
+.cItemDelete:hover img {
+    transform: scale(1.1);
 }
 
 @media (max-width: 768px) {
     .billingMain {
         flex-direction: column;
         align-items: center;
+        padding: 10px;
     }
 
     .billingLeftMain {
-        width: 100%;
         max-width: 100%;
         border-right: none;
-        margin-bottom: 20px;
+        padding-right: 0;
     }
 
     .billingRgt {
-        width: 100%;
         max-width: 100%;
     }
 
     .cartTotalHeading {
-        padding: 0 20px;
+        padding: 0 10px;
+    }
+
+    .clTotal {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .cartCheckoutBtn button {
+        font-size: 18px;
+        padding: 20px;
+    }
+
+    .cItem1 {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .cItemDetails {
+        padding-left: 0;
+        text-align: center;
+    }
+
+    .clContentt {
+        padding: 10px;
     }
 }

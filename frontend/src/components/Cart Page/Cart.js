@@ -29,6 +29,13 @@ const initialCartItems = [
     category: "Corporate Gifts",
     price: 2000,
   },
+  {
+    id: 3,
+    name: "Corporate Gift Set",
+    image: prod1,
+    category: "Corporate Gifts",
+    price: 2000,
+  },
 ];
 
 function Cart() {
@@ -42,6 +49,7 @@ function Cart() {
   return (
     <>
     <Navbar></Navbar>
+    
     <div className="cartMain">
       <div className="cartTop">
         <div className="cartLeftMain">

@@ -4,12 +4,13 @@ import pd1 from '../../components/Images/Product Photos/1.jpeg';
 import pd2 from '../../components/Images/Product Photos/10.jpeg';
 import './ProductPage.css';
 import Testimonials from '../Home/Testimonials/Testimonials';
-
 import Navbar from "../Home/Navbar/Navbar";
 import Footer from "../Home/Footer/Footer";
 
+
+
 const product = {
-  name: 'Personalized Gift Set',
+  name: 'ABCDEFG',
   price: 2000,
   description: 'At Love Port, we believe in the power of personalization. Our wide range of customizable gifts ensures that each item is crafted with attention to detail and sentiment, making every moment special.',
   images: [pd1, pd2],
@@ -19,6 +20,7 @@ const product = {
 function ProductPage() {
   const [quantity, setQuantity] = useState(1);
   const [totalPrice, setTotalPrice] = useState(product.price);
+  const [selectedImage, setSelectedImage] = useState(product.images[0]);
 
   const incrementQuantity = () => {
     setQuantity(quantity + 1);
@@ -32,25 +34,31 @@ function ProductPage() {
     }
   };
 
+  const handleImageClick = (image) => {
+    setSelectedImage(image);
+  };
+
   return (
     <>
-    <Navbar></Navbar>
+      <Navbar />
+      <span style={{ margin: "16px" }}>
+        <Link to="/" style={{ textDecoration: "none", cursor: "pointer", fontSize: "19px", color:"black" }}>Home</Link> &gt; 
+        <span style={{ textDecoration: "none", cursor: "pointer", fontSize: "19px" }}>{product.name}</span>
+      </span>
       <div className="productMain">
         <div className="prdImgs">
           <div className="prdiMin">
             {product.images.map((img, index) => (
-              <img key={index} src={img} alt={`pd${index + 1}`} />
+              <img key={index} src={img} alt={`pd${index + 1}`} onClick={() => handleImageClick(img)} />
             ))}
           </div>
           <div className="prdiMax">
-            {product.images.map((img, index) => (
-              <img key={index} src={img} alt={`pd${index + 1}`} />
-            ))}
+            <img src={selectedImage} alt="Selected Product" />
           </div>
         </div>
         <div className="prdDets">
           <h1>{product.name}</h1>
-          <h1 className='price'>${totalPrice}</h1>
+          <h1 className='price'> ₹{totalPrice}</h1>
           <p className='tax'>Inclusive of all taxes</p>
           <p className="desc">Description</p>
           <p>{product.description}</p>
@@ -68,10 +76,10 @@ function ProductPage() {
 
           <div className="abBtns">
             <button>
-              <Link to={'/cart'} style={{ textDecoration: 'none', cursor: 'pointer' }}>ADD TO CART</Link>
+              <Link to={'/cart'} style={{ textDecoration: 'none', cursor: 'pointer', color: "black" }}>ADD TO CART</Link>
             </button>
             <button>
-              <Link to={'/billing'} style={{ textDecoration: 'none', cursor: 'pointer' }}>BUY NOW</Link>
+              <Link to={'/billing'} style={{ textDecoration: 'none', cursor: 'pointer', color: "black" }}>BUY NOW</Link>
             </button>
           </div>
 
@@ -87,8 +95,9 @@ function ProductPage() {
           </div>
         </div>
       </div>
+  
       <Testimonials />
-      <Footer></Footer>
+      <Footer />
     </>
   );
 }

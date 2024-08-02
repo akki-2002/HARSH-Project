@@ -4,13 +4,13 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    max-width: 90%;
-    margin: 0 auto;
+    max-width: 100%;
+    margin-bottom: 3rem;
   }
   
   .religious-accessories-image {
     width: 100%;
-    border-radius: 10px;
+    /* border-radius: 10px; */
   }
   
   .overlay {
@@ -25,9 +25,10 @@
     align-items: center;
     color: white;
     text-align: left;
-    border-radius: 10px;
+    /* border-radius: 10px; */
     padding: 20px;
     box-sizing: border-box;
+
   }
   
   .text-content {
@@ -42,7 +43,7 @@
   
   .text-content h1 {
     font-family: MonteCarlo;
-    font-size: 70px;
+    font-size: 82px;
     font-weight: 400;
     line-height: 108.8px;
     text-align: left;
@@ -51,7 +52,7 @@
   
   .text-content p {
     font-family: Montserrat;
-    font-size: 20px;
+    font-size: 25px;
     font-weight: 500;
     line-height: 24.38px;
     text-align: left;
@@ -115,11 +116,11 @@
         flex-direction: column;
     }
     .text-content h1 {
-      font-size: 30px;
+      font-size: 36px;
     }
   
     .text-content p {
-      font-size: 10px;
+      font-size: 12px;
       text-align: center;
     }
   
