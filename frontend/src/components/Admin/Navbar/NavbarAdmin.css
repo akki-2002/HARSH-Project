@@ -1,0 +1,102 @@
+.navMain1 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+    background-color: rgb(242, 235, 235);
+    z-index: 5;
+    padding: 1rem;
+    position: sticky;
+    top: 0;
+    border: none;
+    width: 100%;
+  }
+  
+  .logo1 {
+    padding: 10px;
+    width: 100px; /* Set the desired width */
+    height: auto; /* Maintains the aspect ratio */
+  }
+  
+  .navComps1 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 60%;
+  }
+  
+  .navLinks1 {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .navIcons1 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .navMain1 a {
+    text-decoration: none;
+    color: #4a4747;
+    font-size: 0.8rem;
+  }
+  
+  .navLinks1 a {
+    font-size: 0.8rem;
+  }
+  
+  .navIcons1 .smallSearchBar1 {
+    border: 2px solid #98168b;
+    display: flex;
+    align-items: center;
+    border-radius: 15px;
+    padding: 0px 10px;
+  }
+  
+  .navIcons1 .smallSearchBar1 input {
+    padding: 5px;
+    border: none;
+    outline: none;
+    background-color: rgb(242, 235, 235);
+  }
+  
+  .navIcons1 .smallSearchBar1 img {
+    width: 20px;
+    margin-left: 5px;
+  }
+  
+  /* Responsive CSS */
+  @media (max-width: 480px) {
+
+    .logo1{
+        width: 65px;
+    }
+    .navComps1 {
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100%;
+      margin-right: 10px;
+      gap: 8px;
+    }
+
+    .navMain1{
+        padding: 0rem;
+    }
+  
+    .navLinks1 {
+    
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+    }
+  
+    .navIcons1 {
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+      /* margin-top: 10px; */
+    }
+  }
+  

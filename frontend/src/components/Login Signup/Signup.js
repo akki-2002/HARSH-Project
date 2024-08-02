@@ -5,6 +5,7 @@ import emailImg from "../../components/Images/email.png";
 import lock from "../../components/Images/lock.png";
 import show from "../../components/Images/show.png";
 import hide from "../../components/Images/hide.png";
+import logo from "../../components/Images/logo.png"
 
 function Signup() {
   const [move, setMove] = useState();
@@ -66,6 +67,7 @@ function Signup() {
     <>
       <div className="signupMain">
         <div className="signup">
+        <img src={logo} alt="" style={{ width: "20%" }}/>
           <div className="signupHeading">Create Account</div>
           <form action="">
             {/* Name input field */}

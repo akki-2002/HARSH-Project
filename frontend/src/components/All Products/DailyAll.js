@@ -24,6 +24,9 @@ import PersonalizedGiftImg from "../Images/daily.png";
 import { FaCartPlus } from "react-icons/fa";
 import Testimonials from "../Home/Testimonials/Testimonials";
 
+import Navbar from "../Home/Navbar/Navbar";
+import Footer from "../Home/Footer/Footer";
+
 function CustomizedGiftAllProduct() {
   // Array of product objects
   const products = [
@@ -47,8 +50,13 @@ function CustomizedGiftAllProduct() {
     { id: 18, name: "Corporate Gift Set", price: 599, image: img18 },
     { id: 19, name: "Corporate Gift Set", price: 599, image: img19 },
   ];
+
+
+
+ 
   return (
     <>
+    <Navbar/>
       <div className="daily-accessories-container">
         <img
           src={PersonalizedGiftImg}
@@ -95,6 +103,7 @@ function CustomizedGiftAllProduct() {
       </div>
 
       <Testimonials />
+      <Footer/>
     </>
   );
 }

@@ -23,6 +23,8 @@ import Religious from "../../components/Images/religious.png";
 
 import { FaCartPlus } from "react-icons/fa";
 import Testimonials from "../Home/Testimonials/Testimonials";
+import Navbar from "../Home/Navbar/Navbar";
+import Footer from "../Home/Footer/Footer";
 
 function ReligiousAll() {
   // Array of product objects
@@ -49,6 +51,7 @@ function ReligiousAll() {
   ];
   return (
     <>
+    <Navbar></Navbar>
       <div className="religious-accessories-container">
         <img
           src={Religious}
@@ -95,6 +98,7 @@ function ReligiousAll() {
       </div>
 
       <Testimonials />
+      <Footer></Footer>
     </>
   );
 }

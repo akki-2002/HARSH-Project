@@ -5,6 +5,9 @@ import pd2 from '../../components/Images/Product Photos/10.jpeg';
 import './ProductPage.css';
 import Testimonials from '../Home/Testimonials/Testimonials';
 
+import Navbar from "../Home/Navbar/Navbar";
+import Footer from "../Home/Footer/Footer";
+
 const product = {
   name: 'Personalized Gift Set',
   price: 2000,
@@ -31,6 +34,7 @@ function ProductPage() {
 
   return (
     <>
+    <Navbar></Navbar>
       <div className="productMain">
         <div className="prdImgs">
           <div className="prdiMin">
@@ -84,6 +88,7 @@ function ProductPage() {
         </div>
       </div>
       <Testimonials />
+      <Footer></Footer>
     </>
   );
 }

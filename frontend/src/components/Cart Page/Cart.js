@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import prod1 from "../../components/Images/Product Photos/12.jpeg";
 import cross from "../../components/Images/cross.png";
 import arrow_back from "../../components/Images/Arrow_back.png";
+import Navbar from "../Home/Navbar/Navbar";
+import Footer from "../Home/Footer/Footer";
 
 const initialCartItems = [
   {
@@ -38,6 +40,8 @@ function Cart() {
   };
 
   return (
+    <>
+    <Navbar></Navbar>
     <div className="cartMain">
       <div className="cartTop">
         <div className="cartLeftMain">
@@ -82,7 +86,7 @@ function Cart() {
               ₹{cartItems.reduce((total, item) => total + item.price, 0)}
             </span>
           </div>
-          <Link to={"/billing"}>
+          <Link to={"/billing"} style={{ textDecoration: "none", cursor: "pointer" }}>
             <div className="cartCheckoutBtn">
               <button>Proceed to Checkout</button>
             </div>
@@ -98,7 +102,10 @@ function Cart() {
         </div>
       </div>
     </div>
+    <Footer></Footer>
+    </>
   );
+
 }
 
 export default Cart;

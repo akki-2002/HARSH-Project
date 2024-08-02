@@ -3,6 +3,8 @@ import "./Billing.css";
 import { Link } from "react-router-dom";
 import backprint_t from "../../components/Images/Product Photos/12.jpeg";
 import del from "../../components/Images/cross.png";
+import Navbar from "../Home/Navbar/Navbar";
+import Footer from "../Home/Footer/Footer";
 
 function Billing() {
   const [country, setCountry] = useState({
@@ -156,6 +158,7 @@ function Billing() {
 
   return (
     <>
+    <Navbar></Navbar>
       <div className="billingMain">
         <div className="billingLeftMain">
           <div className="billingLeft">
@@ -313,7 +316,7 @@ function Billing() {
                 <h2>Total:</h2>
                 <h2>₹{totalAmount}</h2>
               </div>
-              <Link to={'/order'}>
+              <Link to={'/order'} style={{ textDecoration: "none", cursor: "pointer" }}>
                 <div className="cartCheckoutBtn">
                   <button>Place Order</button>
                 </div>
@@ -322,6 +325,7 @@ function Billing() {
           </div>
         </div>
       </div>
+      <Footer></Footer>
     </>
   );
 }
