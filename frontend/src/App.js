@@ -23,6 +23,7 @@ import AcDetails from "./components/Order/AcDetails";
 
 import Signin from "./components/Login Signup/Signin";
 import Signup from "./components/Login Signup/Signup";
+import Typing from "./components/Typing";
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
                 <ReligiousAccessories />
                 <DailyAccessories />
                 <Testimonials />
+                {/* <Typing/> */}
               </>
             }
           />
