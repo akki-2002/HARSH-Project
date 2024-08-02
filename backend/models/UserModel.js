@@ -17,10 +17,24 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    cart: [
+        {
+            product: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Product',
+                required: true
+              },
+              quantity: {
+                type: Number,
+                required: true,
+                min: 1
+              }
+        }
+    ],
     userType: {
         type: String,
         required: true,
-        enum: ['user', 'admin']
+        enum: ['User', 'Admin']
     }
 },{timestamps: true})
 
