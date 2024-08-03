@@ -137,6 +137,7 @@ function Billing() {
       name: "Corporate Gift Set",
       category: "Corporate Gifts",
       price: 2000,
+      quantity: 2,
       image: backprint_t,
     },
     {
@@ -144,13 +145,17 @@ function Billing() {
       name: "Corporate Gift Set",
       category: "Corporate Gifts",
       price: 2000,
+      quantity: 1,
       image: backprint_t,
     },
     
     // Add more items if needed
   ]);
 
-  const totalAmount = orderItems.reduce((total, item) => total + item.price, 0);
+  const totalAmount = orderItems.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
 
   const handleDeleteItem = (id) => {
     const updatedItems = orderItems.filter(item => item.id !== id);
@@ -301,6 +306,7 @@ function Billing() {
                     <div className="cItemDetails cItemDetailss">
                       <h2>{item.name}</h2>
                       <p>{item.category}</p>
+                      <p className="quantity">Quantity: x{item.quantity}</p>
                     </div>
                     <div className="cItemPrice cItemPricee">
                       <h3>₹{item.price}</h3>

@@ -78,11 +78,19 @@
   margin-bottom: 10px;
   font-size: 0.8rem;
   color: #666;
+  font-family: montserrat, sans-serif;
 }
 
 .desc {
   font-weight: 600;
   margin-bottom: 10px;
+  font-family: montserrat, sans-serif;
+}
+
+.desc-p{
+  font-weight: 400;
+  margin-bottom: 10px;
+  font-family: montserrat, sans-serif;
 }
 
 .qua {
@@ -181,17 +189,21 @@
 }
 
 .productDetails {
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 .productDetails h2 {
-  margin: 10px;
+  margin: 1px;
   color: #98168B;
   font-size: 1.4rem;
 }
 
-.productDetails ul {
+.productDetails ul li {
   padding: 10px;
+  font-weight: 400;
+  /* margin: 2px; */
+  text-align: justify;
+  font-family: montserrat, sans-serif;
 }
 
 /* Media Queries for Responsive Design */

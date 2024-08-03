@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import './AddProduct.css'; // Updated styles
+import { IoMdArrowRoundBack } from "react-icons/io";
+import '../Add Product/AddProduct.css'; // Updated styles
 import NavbarAdmin from '../Navbar/NavbarAdmin';
 import Footer from '../../Home/Footer/Footer';
-import { IoMdArrowRoundBack } from "react-icons/io";
 
-function AddProduct() {
+function EditProduct() {
   const [productName, setProductName] = useState('');
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
@@ -45,10 +45,9 @@ function AddProduct() {
   return (
     <>
       <NavbarAdmin />
-   
       <div className="admin-upload-form">
       <Link to="/admin" style={{ textDecoration: 'none', cursor: 'pointer', fontSize: "1.5rem" }}><IoMdArrowRoundBack /></Link>
-        <h1>Upload New Product</h1>
+        <h1> Edit Product</h1>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="productName">Product Name</label>
@@ -127,7 +126,7 @@ function AddProduct() {
             </select>
           </div>
 
-          <button type="submit">Upload Product</button>
+          <button type="submit">Edit Product</button>
         </form>
       </div>
       <Footer />
@@ -135,4 +134,4 @@ function AddProduct() {
   );
 }
 
-export default AddProduct;
+export default EditProduct;

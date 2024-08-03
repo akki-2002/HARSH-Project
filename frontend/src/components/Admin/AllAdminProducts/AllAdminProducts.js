@@ -4,6 +4,7 @@ import './AllAdminProducts.css';
 import NavbarAdmin from '../Navbar/NavbarAdmin';
 import Footer from '../../Home/Footer/Footer';
 import { MdDeleteForever } from 'react-icons/md';
+import { MdEdit } from 'react-icons/md'
 
 // Import product images
 import img1 from '../../../components/Images/Product Photos/1.jpeg';
@@ -87,28 +88,31 @@ function AllAdminProducts() {
           <h2 className="trendingNow-text">All Products</h2>
 
           <Link to="/addProduct" style={{ textDecoration: 'none', cursor: 'pointer' }}>
-            <h3>Add New</h3>
+            <h3>Add New +</h3>
           </Link>
         </div>
 
         <div className="product-section">
-          {currentProducts.map((product) => (
-            <div className="product-item" key={product.id}>
-              <Link to={`/product/${product.id}`}>
-                <img src={product.image} alt={product.name} className="hoverable" />
-              </Link>
-              <div className="product-details">
-                <p className="model-type">{product.name}</p>
-                <div className="price-container">
-                  <p className="price">&#8377;{product.price}</p>
-                  <Link to={`/deleteProduct/${product.id}`}>
-                    <MdDeleteForever className="fa-cart-plus" />
-                  </Link>
-                </div>
-              </div>
-            </div>
-          ))}
+  {currentProducts.map((product) => (
+    <div className="product-item" key={product.id}>
+    
+        <img src={product.image} alt={product.name} className="hoverable" />
+  
+      <div className="product-details">
+        <p className="model-type">{product.name}</p>
+        <div className="price-container">
+          <p className="price">&#8377;{product.price}</p>
+          <Link to={`/deleteProduct`}>
+            <MdDeleteForever className="fa-cart-plus" />
+          </Link>
         </div>
+      </div>
+      <Link to={`/editProduct`} className="edit-button">
+        <MdEdit className="edit-icon" />
+      </Link>
+    </div>
+  ))}
+</div>
 
         <div className="pagination">
           {pageNumbers.map((number) => (

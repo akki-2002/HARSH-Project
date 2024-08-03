@@ -4,9 +4,9 @@
   margin: 0;
   padding: 0;
   font-family: "Montserrat", sans-serif;
-  font-family: "Roboto", sans-serif;
 }
 
+/* Base styles */
 .order {
   display: flex;
   align-items: center;
@@ -25,6 +25,7 @@
   gap: 50px;
   border: none;
   border-right: 1px solid #B4B4B4;
+  position: relative;
 }
 
 .olHeading,
@@ -115,222 +116,24 @@
 }
 
 .orderHistory {
-
   margin: 30px auto;
   border-collapse: separate;
 }
 
-.orderHistory:hover .ohisHeading {
-  box-shadow: inset 0px 0px 10px 0px #ffd0b4;
+.form1{
+  padding: 1rem;
 }
 
-.orderHistory tbody {
-  border-radius: 10px;
-  outline: 1px solid #767676;
-}
-
-.orderHistory thead {
-  border-collapse: separate;
-}
-
-.ohisHeading,
-.ohisHead1 {
-  display: flex;
-}
-
-.ohisHeading {
-  outline: 1px solid #98168B;
-  border-radius: 10px;
-  background-color: #FFFBF5;
-  margin-bottom: -15px;
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.ohisHeading th {
-  text-align: left;
-  font-family: Montserrat;
-  font-size: 15px;
-  font-weight: 600;
-  line-height: 18px;
-  color: #363636;
-  padding: 15px 17px;
-  width: 200px;
-}
-
-.ohisHead1 td {
-  font-family: Montserrat;
-  font-size: 12px;
-  font-weight: 600;
-  line-height: 15px;
-  color: #454545;
-  width: 200px;
-  gap: 10px;
-  display: flex;
-  align-items: center;
-  padding: 20px 17px;
-}
-
-.ohisHead11 {
+/* Hamburger Menu */
+.hamburger {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+  background: none;
   border: none;
-  border-bottom: 0.7px solid #B4B4B4;
-  padding-top: 15px;
-}
-
-.ohisHead1 button,
-.oaHeading button {
-  border: 0.5px solid #454545;
-  width: max-content;
-  padding: 3px 8px;
-  border-radius: 10px;
-  font-family: Montserrat;
-  font-size: 10px;
-  font-weight: 600;
-  line-height: 12px;
   color: #454545;
-  background-color: transparent;
-  cursor: pointer;
-}
-
-.ohisHead1 button:hover,
-.oaHeading button:hover {
-  background-color: rgb(231, 231, 231);
-}
-
-.orderHisExplore {
-  width: 90%;
-  margin: auto;
-  display: flex;
-  align-items: center;
-  justify-content: end;
-}
-
-.orderHisExplore p {
-  font-family: Montserrat;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 15px;
-  color: #363636;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  cursor: pointer;
-  width: max-content;
-}
-
-.orderHisExplore img {
-  width: 18px;
-  transition: 0.1s ease-in-out;
-}
-
-.orderHisExplore p:hover img {
-  transform: translateX(5px);
-}
-
-.ohisHeading th:first-child {
-  padding: 20px 40px;
-}
-
-/* .oaHeading th:first-child {
-  width: 745px;
-} */
-
-.ohisHead1 td:first-child {
-  padding: 20px 40px;
-}
-
-/* .oaHead1 td:first-child {
-  width: 745px;
-} */
-
-.ohisHeading th:nth-child(2),
-.ohisHead1 td:nth-child(2) {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px 25px;
-}
-
-.formMain {
-  width: 90%;
-  margin: auto;
-}
-
-.form {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 40px 0;
-}
-
-.form label {
-  font-family: Montserrat;
-  font-size: 10px;
-  font-weight: 400;
-  line-height: 12px;
-  color: #454545;
-}
-
-.customerName {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.customerName .firstname {
-  width: 45%;
-}
-
-.firstname,
-.newPass {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 2px;
-}
-
-.firstname input,
-.newPass input {
-  width: 100%;
-  outline: none;
-  border: 0.7px solid #000000;
-  border-radius: 10px;
-  background-color: transparent;
-  padding: 7px;
-}
-
-.saveChanges {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.saveChanges button {
-  font-family: Montserrat;
-  font-size: 20px;
-  font-weight: 500;
-  line-height: 24px;
-  padding: 5px 20px;
-  color: #363636;
-  border: 1px solid #98168B;
-  border-radius: 10px;
-  background-color: transparent;
-  cursor: pointer;
-  transition: 0.3s ease-in-out;
-}
-
-.saveChanges button:hover {
-  box-shadow: #ff58214f 0px 30px 60px -12px inset, #ff58214f 0px 18px 36px -18px inset;
-}
-
-.star {
-  color: #98168B;
+  padding: 10px;
+  margin: 0;
 }
 
 /* Responsive Styles */
@@ -345,30 +148,37 @@
     border-bottom: 1px solid #B4B4B4;
     min-height: auto;
     padding-bottom: 20px;
+    position: relative;
   }
 
   .orderRgt {
     width: 100%;
   }
 
-  .orderHistory {
-    width: 100%;
+  .hamburger {
+    display: block;
+    position: absolute;
+    top: 0px;
+    right: 15px;
+    padding: 5px;
+    width: 20px;
   }
 
-  .customerName {
-    flex-direction: column;
-    align-items: flex-start;
+  .olHeading {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
   }
 
-  .customerName .firstname,
-  .newPass input {
-    width: 100%;
+ 
+  .olContent,
+  .olLogout {
+    display: none;
   }
 
-  .ohisHeading th,
-  .ohisHead1 td {
-    width: auto;
-    padding: 10px 5px;
+  .orderLeft.open .olContent,
+  .orderLeft.open .olLogout {
+    display: flex;
   }
 }
 
@@ -377,9 +187,7 @@
     font-size: 25px;
   }
 
-  .olHeading h2 {
-    font-size: 20px;
-  }
+
 
   .olContent h3 {
     font-size: 16px;

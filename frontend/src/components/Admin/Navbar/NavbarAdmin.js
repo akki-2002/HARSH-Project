@@ -35,7 +35,7 @@ function NavbarAdmin() {
             <input type="text" placeholder="Search" />
             <img src={search} alt="search" />
           </div>
-          <Link to={"/order"}>
+          <Link to={"/profile"}>
             <img src={userProfImg} className="icon1" alt="userProfImg" />
           </Link>
         </div>

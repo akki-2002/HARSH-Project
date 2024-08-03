@@ -84,7 +84,7 @@ function ProductPage() {
           <h1 className="price"> ₹{totalPrice}</h1>
           <p className="tax">Inclusive of all taxes</p>
           <p className="desc">Description</p>
-          <p>{product.description}</p>
+          <p className="desc-p">{product.description}</p>
 
           <div className="qua">
             <p>Quantity</p>
@@ -126,23 +126,26 @@ function ProductPage() {
           <div className="productDetails">
             <h2>Delivery Information</h2>
             <ul>
-              <li>Standard Delivery: 5-7 business days.</li>
+              <li>Standard Delivery: 7-9 business days.</li>
               <li>
-                We strive to match the image displayed; however, the actual
-                product may vary in shape or design due to availability.
+                Although we make 100% efforts to match the image displayed, the
+                actual product delivered may vary in shape or design as per the
+                availability.
               </li>
               <li>
                 Most orders are delivered on time, but delays can occur due to
                 traffic congestion or remote delivery addresses.
               </li>
               <li>
-                Once the order is prepared for delivery, it cannot be redirected
-                to another address.
+                Once the order is placed for delivery, it cannot be redirected
+                to another address also it cannot be cancelled.
               </li>
               <li>
-                In rare cases, substitution may be necessary due to temporary or
-                regional unavailability, and we may do this without prior notice
-                to ensure timely delivery.
+                Although we try not to, occasionally, substitution is necessary
+                due to temporary and/or regional unavailability issues. Please
+                be noted that we may have to do this without informing you
+                because we give utmost importance to delivery on time since most
+                of our orders are gifts for a certain occasion.
               </li>
             </ul>
           </div>

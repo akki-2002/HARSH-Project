@@ -4,7 +4,7 @@ function AcDetails() {
   return (
     <>
       <div className="formMain">
-        <form className="form" action="">
+        <form className="form1" action="">
           <div className="olContent">
             <h3> Edit Account Details</h3>
           </div>

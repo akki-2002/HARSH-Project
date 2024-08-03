@@ -51,17 +51,18 @@ body {
     display: block;
     width: 100%;
     padding: 12px;
-    background-color: #7c126f;
-    color: white;
+    background-color: white;
+    color: #7c126f;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
     margin-top: 20px;
+    border: 2px solid #7c126f;
   }
   
   button:hover {
-    background-color: #ffffff;
+    /* background-color: white; */
     color: black;
   }
   
