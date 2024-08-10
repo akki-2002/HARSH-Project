@@ -31,26 +31,39 @@ import CustOrders from "./components/Admin/Cust Orders/CustOrders";
 import ViewCustOrders from "./components/Admin/View Order/ViewCustOrder"
 import OrderDetails from "./components/Order/OrderDetails";
 import Profile from "./components/Admin/Profile/Profile";
+import { useAuthContext } from "./hooks/useAuthContext";
 
 function App() {
+  const {user} = useAuthContext()
+  console.log(user)
   return (
     <>
       <Router>
         <Routes>
+          {/* {user?.user?.userType === 'User' &&  */}
+            
+         
+        {/* } */}
+        {user?.user?.userType === 'Admin' ? <Route path="/" element={<AllAdminProducts />}/> :
           <Route
-            path="/"
-            element={
-              <>
-                <Navbar />
-                <Slider />
-                <BestSelling />
-                <ReligiousAccessories />
-                <DailyAccessories />
-                <Testimonials />
-                <Footer />
-              </>
-            }
+          path="/"
+          element={
+            
+            <>
+              <Navbar />
+              <Slider />
+              <BestSelling />
+              <ReligiousAccessories />
+              <DailyAccessories />
+              <Testimonials />
+              <Footer />
+            </> 
+              
+          }
           />
+        }
+        
+            
           <Route path="/religiousAll" element={<ReligiousAll />} />
           <Route path="/dailyAll" element={<DailyAll />} />
           <Route path="/product" element={<ProductPage />} />
@@ -66,7 +79,6 @@ function App() {
           <Route path="/signin" element={<Signin />} />
           <Route path="/signup" element={<Signup />} />
           
-          <Route path="/admin" element={<AllAdminProducts />} />
           <Route path="/addProduct" element={<AddProduct />} />
           <Route path="/editProduct" element={<EditProduct />} />
           <Route path="/adminOrders" element={<CustOrders />} />

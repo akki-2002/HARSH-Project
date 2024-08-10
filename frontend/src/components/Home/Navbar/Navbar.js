@@ -9,12 +9,13 @@ import { useAuthContext } from '../../../hooks/useAuthContext';
 
 function Navbar() {
     const [scrollY, setScrollY] = useState(0);
+    const [isUser, setIsUser] = useState('')
     const {user} = useAuthContext()
     console.log("user", user)
 
 
     useEffect(() => {
-        
+        setIsUser(user)
         const handleScroll = () => {
             setScrollY(window.scrollY);
         };
@@ -25,7 +26,7 @@ function Navbar() {
             window.removeEventListener('scroll', handleScroll);
         };
         
-    }, [scrollY]);
+    }, [scrollY, user]);
 
     return (
         <>
@@ -41,7 +42,7 @@ function Navbar() {
                         <img src={search} alt="search" />
                     </div>
 
-                    {user ? 
+                    {isUser?.token ?
                     
                     <div className='cno'>
                     <Link to={'/cart'}>

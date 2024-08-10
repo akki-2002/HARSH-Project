@@ -117,21 +117,20 @@ const handleSubmit = async (e) => {
         <div className="signup">
           <img src={logo} alt="logo" style={{ width: "20%" }} />
           <div className="signupHeading">Create Account</div>
-          <form action="" onSubmit={handleSubmit}>
-            {/* Name input field */}
-            <div className="signupContent" onClick={handleNameClick}>
-              <label htmlFor="" style={move}>
-                {" "}
-                <img src={emailImg} alt="email" />{" "}
+          <form onSubmit={handleSubmit}>
+            <div className="signupContent">
+              <input
+                type="text"
+                placeholder=" "
+                onChange={(e) => setUsername(e.target.value)}
+                value={username}
+              />
+              <label>
+                <img src={emailImg} alt="name" />
                 <p>
                   Name <span>*</span>
                 </p>
               </label>
-              <input
-                type="text"
-                onChange={(e) => setUsername(e.target.value)}
-                value={username}
-              />
             </div>
 
             <div className="signupContent">
@@ -171,20 +170,29 @@ const handleSubmit = async (e) => {
 
             <div className="signupBtns">
               <div className="signupBtn">
-              {/* <Link to={'/'} style={{ textDecoration: 'none',  cursor: 'pointer' }}> */}
-              <button className="rbn">REGISTER</button>
-              {/* </Link> */}
+                {/* <Link
+                  to={"/"}
+                  style={{ textDecoration: "none", cursor: "pointer" }}
+                > */}
+                  <button className="rbn">REGISTER</button>
+                {/* </Link> */}
               </div>
 
               <p className="or">OR</p>
 
               <div className="loginBtn">
-                <Link to={'/signin'} style={{ textDecoration: 'none',  cursor: 'pointer' }}><div className="lbn">LOG IN</div></Link>
+                <Link
+                  to={"/signin"}
+                  style={{ textDecoration: "none", cursor: "pointer" }}
+                >
+                  <button>LOG IN</button>
+                </Link>
               </div>
             </div>
           </form>
         </div>
       </div>
+
     </>
   );
 }
