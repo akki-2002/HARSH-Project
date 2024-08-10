@@ -1,9 +1,18 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 function OrderLeft() {
     const [olh, setOlh] = useState("oh");
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const navigate = useNavigate()
+
+    const handlelogout = () => {
+        localStorage.removeItem('user');
+        setTimeout(() => {
+          navigate('/');
+        }, 1000);
+      };
 
     const handleClick = (e) => {
         setOlh(e);
@@ -34,9 +43,9 @@ function OrderLeft() {
                     </h3>
                 </div>
                 <div className="olLogout">
-                    <Link to={'/signin'} style={{ textDecoration: 'none', cursor: 'pointer' }}>
-                        <h3>Log out</h3>
-                    </Link>
+                    {/* <Link to={'/signin'} style={{ textDecoration: 'none', cursor: 'pointer' }}> */}
+                        <h3 onClick={handlelogout}>Log out</h3>
+                    {/* </Link>  */}
                 </div>
             </div>
         </>
