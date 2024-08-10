@@ -21,10 +21,10 @@ function ReligiousAccessories() {
     { id: 2, name: "CABC", price: 599, image: img6 },
     { id: 3, name: "CABC", price: 599, image: img7 },
     { id: 4, name: "CABC", price: 599, image: img8 },
-    { id: 4, name: "ABCt", price: 599, image: img9 },
-    { id: 4, name: "CABC", price: 599, image: img10 },
-    { id: 4, name: "ABCt", price: 599, image: img11 },
-    { id: 4, name: "CABC", price: 599, image: img12 },
+    { id: 5, name: "ABCt", price: 599, image: img9 },
+    { id: 6, name: "CABC", price: 599, image: img10 },
+    { id: 7, name: "ABCt", price: 599, image: img11 },
+    { id: 8, name: "CABC", price: 599, image: img12 },
 
     // Add more products as needed
   ];
