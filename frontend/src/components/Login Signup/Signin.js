@@ -7,6 +7,7 @@ import hide from "../../components/Images/hide.png";
 import logo from "../../components/Images/logo.png";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import useLogin from "../../hooks/useLogin";
 
 function Signin() {
   const [move, setMove] = useState();
@@ -14,44 +15,17 @@ function Signin() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const {login, error, isLoading} = useLogin()
 
   const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
   
-    try {
-  
-        const formdata = {
-          email,
-          password
-        }
-  
-        console.log(formdata)
-  
-        const response = await fetch('http://localhost:5000/users/login', {
-            method: "POST",
-            body: JSON.stringify(formdata),
-            headers:{
-              'Content-Type': 'application/json'
-            }
-        });
-  
-        const json = await response.json();
-        if (response.ok) {
-            console.log("Successfully logged in ", json);
-
-            localStorage.setItem('user', JSON.stringify(json))
-
-            setTimeout(() => {
-              
-              navigate('/')
-            }, 1000);
-        } else {
-            console.log('Login failed:', json);
-        }
-    } catch (error) {
-        console.log(error);
+    await login(email, password);
+    if(!error)
+    {
+      console.log("Successfully logged in")
     }
   };
 

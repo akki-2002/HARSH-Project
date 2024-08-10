@@ -9,13 +9,11 @@ import { useAuthContext } from '../../../hooks/useAuthContext';
 
 function Navbar() {
     const [scrollY, setScrollY] = useState(0);
-    const [isUser, setIsUser] = useState('')
-    const {user} = useAuthContext()
-    console.log("user", user)
 
+    const {user} = useAuthContext()
+    console.log("navbar", user)
 
     useEffect(() => {
-        setIsUser(user)
         const handleScroll = () => {
             setScrollY(window.scrollY);
         };
@@ -25,64 +23,61 @@ function Navbar() {
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
-        
-    }, [scrollY, user]);
+    }, []);
+
+    // Debugging output to check the value of 'user'
+    // console.log("User state in Navbar: ", user);
 
     return (
-        <>
-            <div className='navMain'>
-                <Link to={'/'}>
-                    <img src={logoImg} className='logo' alt="" />
-                </Link>
-                <div className='navComps'>
-                    <Link to={'/dailyAll'}>DAILY ACCESSORIES</Link>
-                    <Link to={'/religiousAll'}>RELIGIOUS ACCESSORIES</Link>
-                    <div className='navSearchBar'>
-                        <input type="text" placeholder='Search' />
-                        <img src={search} alt="search" />
-                    </div>
-
-                    {isUser?.token ?
-                    
-                    <div className='cno'>
-                    <Link to={'/cart'}>
-                        <img src={cart} alt="cart" />
-                    </Link>
-                    <Link to={'/order'}>
-                        <img src={userProfImg} alt="userProfImg" />
-                    </Link>
-                    </div> : 
-                    <Link to={'/signin'}>
-                    <button className='nvLoginBtn'>Login</button>
-                    </Link>
-                    
-                }
-                
+        <div className='navMain'>
+            <Link to={'/'}>
+                <img src={logoImg} className='logo' alt="logo" />
+            </Link>
+            <div className='navComps'>
+                <Link to={'/dailyAll'}>DAILY ACCESSORIES</Link>
+                <Link to={'/religiousAll'}>RELIGIOUS ACCESSORIES</Link>
+                <div className='navSearchBar'>
+                    <input type="text" placeholder='Search' />
+                    <img src={search} alt="search" />
                 </div>
-                <div className='navIcons'>
-                    <div className='smallSearchBar'>
-                        <input type="text" placeholder='Search' />
-                        <img src={search} alt="search" />
+
+                {user?.user ? 
+                    <div className='cno'>
+                        <Link to={'/cart'}>
+                            <img src={cart} alt="cart" />
+                        </Link>
+                        <Link to={'/order'}>
+                            <img src={userProfImg} alt="user profile" />
+                        </Link>
                     </div>
-                    
-                    {user  ? 
+                 : 
+                    <Link to={'/signin'}>
+                        <button className='nvLoginBtn'>Login</button>
+                    </Link>
+                }
+            </div>
+            <div className='navIcons'>
+                <div className='smallSearchBar'>
+                    <input type="text" placeholder='Search' />
+                    <img src={search} alt="search" />
+                </div>
+                
+                {user?.user ? 
                     <div className='cno'> 
                         <Link to={'/cart'}>
-                        <img src={cart} className='icon' alt="cart" />
-                    </Link>
-                    <Link to={'/order'}>
-                        <img src={userProfImg} className='icon' alt="userProfImg" />
-                    </Link>
-                    </div>: 
-                    
+                            <img src={cart} className='icon' alt="cart" />
+                        </Link>
+                        <Link to={'/order'}>
+                            <img src={userProfImg} className='icon' alt="user profile" />
+                        </Link>
+                    </div>
+                : 
                     <Link to={'/signin'}>
-                    <button className='nvLoginBtn'>Login</button>
+                        <button className='nvLoginBtn'>Login</button>
                     </Link>
-                    }
-                    
-                </div>
+                }
             </div>
-        </>
+        </div>
     );
 }
 

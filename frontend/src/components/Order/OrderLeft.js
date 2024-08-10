@@ -9,6 +9,7 @@ function OrderLeft() {
 
     const handlelogout = () => {
         localStorage.removeItem('user');
+        // localStorage.setItem('hasReloaded', 'true');
         setTimeout(() => {
           navigate('/');
         }, 1000);
