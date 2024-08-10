@@ -7,6 +7,7 @@ import show from "../../components/Images/show.png";
 import hide from "../../components/Images/hide.png";
 import logo from "../../components/Images/logo.png";
 import { useNavigate } from "react-router-dom";
+import useSignup from "../../hooks/useSignup";
 
 
 function Signup() {
@@ -16,6 +17,7 @@ function Signup() {
   const [username, setUsername] = useState(""); // State for name
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const {signup, error, isLoading} = useSignup()
 
   const navigate = useNavigate()
 
@@ -23,39 +25,13 @@ function Signup() {
 
 const handleSubmit = async (e) => {
   e.preventDefault();
+  await signup(username, email, password, 'User');
 
-  try {
-
-      const formdata = {
-        username, 
-        email,
-        password,
-        "userType": "User"
-      }
-
-      console.log(formdata)
-
-      const response = await fetch('http://localhost:5000/users/signup', {
-          method: "POST",
-          body: JSON.stringify(formdata),
-          headers:{
-            'Content-Type': 'application/json'
-          }
-      });
-
-      const json = await response.json();
-      if (response.ok) {
-          localStorage.setItem('user', JSON.stringify(json))
-          setTimeout(() => {
-              
-            navigate('/')
-          }, 1000);
-      } else {
-          console.log('Signup failed:', json);
-      }
-  } catch (error) {
-      console.log(error);
+  if(!error)
+  {
+    console.log("Successfully registered")
   }
+      
 };
 
 

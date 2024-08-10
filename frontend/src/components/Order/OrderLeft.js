@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
+import { useLogout } from '../../hooks/useLogout';
 
 function OrderLeft() {
     const [olh, setOlh] = useState("oh");
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const navigate = useNavigate()
+    const {logout} = useLogout()
+    
 
     const handlelogout = () => {
-        localStorage.removeItem('user');
+        logout()
         setTimeout(() => {
           navigate('/');
         }, 1000);
