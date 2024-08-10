@@ -8,13 +8,15 @@ router.post('/signup', signupUser);
 
 router.post('/login', loginUser);
 
-router.get('/getusers',requireAuth('Admin'), getUsers);
+// router.get('/getusers',requireAuth('Admin'), getUsers);
+router.get('/getusers', getUsers);
 
 router.get('/getuserbyid/:id',requireAuth('Admin'), getUserById);
 
 router.put('/updateuser/:id', updateUser)
 
-router.delete('/deleteuser/:id',requireAuth('Admin'), deleteUser)
+// router.delete('/deleteuser/:id',requireAuth('Admin'), deleteUser)
+router.delete('/deleteuser/:id', deleteUser)
 
 router.post('/addtocart/:userId', requireAuth('User'), addToCart)
 

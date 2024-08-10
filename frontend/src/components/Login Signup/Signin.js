@@ -91,16 +91,21 @@ function Signin() {
 
   return (
     <>
-      <div className="signupMain">
+     <div className="signupMain">
         <div className="signup">
           <img src={logo} alt="logo" style={{ width: "20%" }} />
 
           <div className="signupHeading">Log in</div>
-          <form action="" onSubmit={handleSubmit}>
-            <div className="signupContent" onClick={handleEmailClick}>
-              <label htmlFor="" style={move}>
-                {" "}
-                <img src={emailImg} alt="email" />{" "}
+          <form onSubmit={handleSubmit}>
+            <div className="signupContent">
+              <input
+                type="email"
+                placeholder=" "
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
+              />
+              <label>
+                <img src={emailImg} alt="email" />
                 <p>
                   Email Address <span>*</span>
                 </p>
@@ -129,20 +134,29 @@ function Signin() {
 
             <div className="signupBtns">
               <div className="signupBtn">
-              {/* <Link to={'/'} style={{ textDecoration: 'none',  cursor: 'pointer' }}>  */}
-              <button className="rbn">LOG IN</button> 
-              {/* </Link> */}
+                {/* <Link
+                  to={"/"}
+                  style={{ textDecoration: "none", cursor: "pointer" }}
+                > */}
+                  <button className="lbn">LOG IN</button>
+                {/* </Link> */}
               </div>
 
               <p className="or">OR</p>
 
               <div className="loginBtn">
-                <Link to={'/signup'} style={{ textDecoration: 'none',  cursor: 'pointer' }}><div className="lbn">REGISTER</div></Link> 
+                <Link
+                  to={"/signup"}
+                  style={{ textDecoration: "none", cursor: "pointer" }}
+                >
+                  <button>REGISTER</button>
+                </Link>
               </div>
             </div>
           </form>
         </div>
       </div>
+
     </>
   );
 }
