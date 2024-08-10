@@ -1,13 +1,12 @@
 const User = require("../models/UserModel");
 const Product = require("../models/ProductModel");
-const jsonwebtoken = require("jsonwebtoken");
+const jwt = require('jsonwebtoken')
+require('dotenv').config()
 
-const createToken = (id) => {
-  const token = jsonwebtoken.sign({ id }, process.env.SECRET, {
-    expiresIn: "1h",
-  });
-  return token;
-};
+const createToken = (id) =>{
+  return jwt.sign({id}, process.env.SECRET, {expiresIn: '3d'})
+} 
+
 
 const signupUser = async (req, res) => {
   const { username, email, password, userType } = req.body;
@@ -15,7 +14,7 @@ const signupUser = async (req, res) => {
   try {
     const user = await User.signup(username, email, password, userType);
     const token = createToken(user._id);
-    res.json({ user, token });
+    res.status(200).json({user: user, token: token});
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -25,8 +24,11 @@ const loginUser = async (req, res) => {
   const { email, password } = req.body;
   try {
     const user = await User.login(email, password);
+    if(!user){
+      return res.status(404).json("User not found")
+  }
     const token = createToken(user._id);
-    res.json({ user, token });
+    res.status(200).json({user: user, token: token});
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

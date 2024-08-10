@@ -94,6 +94,8 @@
     width: 20px;
     height: 20px;
     cursor: pointer;
+    position: absolute;
+    right: 14px;
   }
   
   .eye img {
@@ -105,6 +107,7 @@
   .signupContent1 input {
     width: 100%;
     border: 0.9px solid #000000;
+    /* border: none; */
     padding: 14px;
     font-size: 16px;
     border-radius: 12px;
@@ -118,7 +121,8 @@
     align-items: center;
     justify-content: center;
     border-radius: 12px;
-    border: 0.9px solid #000000;
+    /* position: relative; */
+    /* border: 0.9px solid #000000; */
   }
   
   .signupBtns {
@@ -134,8 +138,8 @@
     width: 100%;
   }
   
-  .signupBtn button,
-  .loginBtn button {
+  .rbn,
+  .lbn {
     width: 100%;
     border: none;
     padding: 10px 0;
@@ -148,6 +152,7 @@
     color: #ffffff;
     cursor: pointer;
     transition: 0.2s ease-in-out;
+    text-align: center;
   }
   
   .signupBtn button:hover {
