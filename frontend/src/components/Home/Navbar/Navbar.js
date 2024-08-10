@@ -41,7 +41,7 @@ function Navbar() {
                     <img src={search} alt="search" />
                 </div>
 
-                {user?.user ? 
+                {user ? 
                     <div className='cno'>
                         <Link to={'/cart'}>
                             <img src={cart} alt="cart" />
@@ -62,7 +62,7 @@ function Navbar() {
                     <img src={search} alt="search" />
                 </div>
                 
-                {user?.user ? 
+                {user ? 
                     <div className='cno'> 
                         <Link to={'/cart'}>
                             <img src={cart} className='icon' alt="cart" />

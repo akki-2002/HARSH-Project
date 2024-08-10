@@ -25,7 +25,8 @@ function Signin() {
     await login(email, password);
     if(!error)
     {
-      console.log("Successfully logged in")
+      console.log("Successfully logged in");
+      navigate('/')
     }
   };
 
