@@ -53,11 +53,11 @@ function DailyAccessories() {
                 <p className="model-type">{product.name}</p>
                 <div className="price-container">
                   <p className="price">&#8377;{product.price}</p>
-                  <Link to={"/cart"}>
+
                   <Link to={"/cart"}>
                     <FaCartPlus className="fa-cart-plus" />
                   </Link>
-                  </Link>
+
                 </div>
               </div>
             </div>

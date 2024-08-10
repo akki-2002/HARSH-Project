@@ -115,7 +115,7 @@ const handleSubmit = async (e) => {
     <>
       <div className="signupMain">
         <div className="signup">
-        <img src={logo} alt="" style={{ width: "20%" }}/>
+          <img src={logo} alt="logo" style={{ width: "20%" }} />
           <div className="signupHeading">Create Account</div>
           <form action="" onSubmit={handleSubmit}>
             {/* Name input field */}
@@ -134,43 +134,37 @@ const handleSubmit = async (e) => {
               />
             </div>
 
-            {/* Email input field */}
-            <div className="signupContent" onClick={handleEmailClick}>
-              <label htmlFor="" style={move}>
-                {" "}
-                <img src={emailImg} alt="email" />{" "}
+            <div className="signupContent">
+              <input
+                type="email"
+                placeholder=" "
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
+              />
+              <label>
+                <img src={emailImg} alt="email" />
                 <p>
                   Email Address <span>*</span>
                 </p>
               </label>
-              <input
-                type="email"
-                onChange={(e) => setEmail(e.target.value)}
-                value={email}
-              />
             </div>
 
-            {/* Password input field */}
-            <div className="signupContent1" onClick={handlePasswordClick}>
-              <label htmlFor="" style={move2}>
-                {" "}
-                <img src={lock} alt="lock" />{" "}
-                <p>
-                  Password <span>*</span>
-                </p>
-              </label>
+            <div className="signupContent1">
               <div className="ip">
                 <input
                   type={passInput}
+                  placeholder=" "
                   onChange={(e) => setPassword(e.target.value)}
                   value={password}
                 />
-                <div className="eye">
-                  <img
-                    src={isVisible ? show : hide}
-                    alt=""
-                    onClick={toggleVisibility}
-                  />
+                <label>
+                  <img src={lock} alt="lock" />
+                  <p>
+                    Password <span>*</span>
+                  </p>
+                </label>
+                <div className="eye" onClick={toggleVisibility}>
+                  <img src={isVisible ? show : hide} alt="visibility toggle" />
                 </div>
               </div>
             </div>
@@ -182,7 +176,7 @@ const handleSubmit = async (e) => {
               {/* </Link> */}
               </div>
 
-              <p>OR</p>
+              <p className="or">OR</p>
 
               <div className="loginBtn">
                 <Link to={'/signin'} style={{ textDecoration: 'none',  cursor: 'pointer' }}><div className="lbn">LOG IN</div></Link>

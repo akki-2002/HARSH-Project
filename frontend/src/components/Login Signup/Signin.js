@@ -4,7 +4,7 @@ import emailImg from "../../components/Images/email.png";
 import lock from "../../components/Images/lock.png";
 import show from "../../components/Images/show.png";
 import hide from "../../components/Images/hide.png";
-import logo from "../../components/Images/logo.png"
+import logo from "../../components/Images/logo.png";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
@@ -93,7 +93,7 @@ function Signin() {
     <>
       <div className="signupMain">
         <div className="signup">
-        <img src={logo} alt="" style={{ width: "20%" }}/>
+          <img src={logo} alt="logo" style={{ width: "20%" }} />
 
           <div className="signupHeading">Log in</div>
           <form action="" onSubmit={handleSubmit}>
@@ -105,33 +105,24 @@ function Signin() {
                   Email Address <span>*</span>
                 </p>
               </label>
-              <input
-                type="email"
-                onChange={(e) => setEmail(e.target.value)}
-                value={email}
-              />
             </div>
 
-            <div className="signupContent1" onClick={handlePasswordClick}>
-              <label htmlFor="" style={move2}>
-                {" "}
-                <img src={lock} alt="lock" />{" "}
-                <p>
-                  Password <span>*</span>
-                </p>
-              </label>
+            <div className="signupContent1">
               <div className="ip">
                 <input
                   type={passInput}
+                  placeholder=" "
                   onChange={(e) => setPassword(e.target.value)}
                   value={password}
                 />
-                <div className="eye">
-                  <img
-                    src={isVisible ? show : hide}
-                    alt=""
-                    onClick={toggleVisibility}
-                  />
+                <label>
+                  <img src={lock} alt="lock" />
+                  <p>
+                    Password <span>*</span>
+                  </p>
+                </label>
+                <div className="eye" onClick={toggleVisibility}>
+                  <img src={isVisible ? show : hide} alt="visibility toggle" />
                 </div>
               </div>
             </div>
@@ -143,7 +134,7 @@ function Signin() {
               {/* </Link> */}
               </div>
 
-              <p>OR</p>
+              <p className="or">OR</p>
 
               <div className="loginBtn">
                 <Link to={'/signup'} style={{ textDecoration: 'none',  cursor: 'pointer' }}><div className="lbn">REGISTER</div></Link> 
