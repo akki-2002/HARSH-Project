@@ -1,109 +1,126 @@
-  import React, { useEffect, useState } from 'react';
-  import { Link } from 'react-router-dom';
-  import './AllAdminProducts.css';
-  import NavbarAdmin from '../Navbar/NavbarAdmin';
-  import Footer from '../../Home/Footer/Footer';
-  import { MdDeleteForever } from 'react-icons/md';
-  import { MdEdit } from 'react-icons/md'
-  import { useAuthContext } from '../../../hooks/useAuthContext';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import './AllAdminProducts.css';
+import NavbarAdmin from '../Navbar/NavbarAdmin';
+import Footer from '../../Home/Footer/Footer';
+import { MdDeleteForever } from 'react-icons/md';
+import { MdEdit } from 'react-icons/md';
+import { useAuthContext } from '../../../hooks/useAuthContext';
 
+// Utility function to normalize file paths
+const normalizePath = (filePath) => filePath.replace(/\\/g, '/');
 
-  function AllAdminProducts() {
-    // Initializing the product list
-    const {user} = useAuthContext()
-    const [products, setProducts] = useState([]);
-    useEffect(()=>{
-      const fetchData = async()=>{
-        const response = await fetch('http://localhost:5000/products/getallproducts');
-        const json = await response.json();
-        if(response.ok)
-        {
-          setProducts(json.products)
-          console.log("products", json.products)
-        }
-      }
+function AllAdminProducts() {
+  // Initializing the product list
+  const { user } = useAuthContext();
+  const [products, setProducts] = useState([]);
 
-      if(user)
-      {
-        fetchData();
-      }
+  const fetchData = async () => {
+    const response = await fetch('http://localhost:5000/products/getallproducts');
+    const json = await response.json();
+    if (response.ok) {
+      setProducts(json.products);
+      console.log("products", json.products);
+    }
+  };
+  useEffect(() => {
+    
 
-    },[user])
+    if (user) {
+      fetchData();
+    }
 
-      // State for pagination
-      const [currentPage, setCurrentPage] = useState(1);
-      const productsPerPage = 12;
+  }, [user]);
 
-      // Calculate the indexes for the current page
-      const indexOfLastProduct = currentPage * productsPerPage;
-      const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-      const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+  // State for pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 12;
 
-      // Function to change the page
-      const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  // Calculate the indexes for the current page
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
 
-      // Create page numbers array
-      const pageNumbers = [];
-      for (let i = 1; i <= Math.ceil(products.length / productsPerPage); i++) {
-        pageNumbers.push(i);
-      }
+  // Function to change the page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-    return (
-      <>
-        <NavbarAdmin />
+  // Create page numbers array
+  const pageNumbers = [];
+  for (let i = 1; i <= Math.ceil(products.length / productsPerPage); i++) {
+    pageNumbers.push(i);
+  }
 
-        <div className="sub-title">
-          <div className="header">
-            <h2 className="trendingNow-text">All Products</h2>
+  const handleDeleteProduct = async(productId)=>{
 
-            <Link to="/addProduct" style={{ textDecoration: 'none', cursor: 'pointer' }}>
-              <h3>Add New +</h3>
-            </Link>
-          </div>
+    const response = await fetch(`http://localhost:5000/products/deleteproduct/${productId}`,{
+      method: "DELETE"
+    })
+    const json = await response.json()
 
-          <div className="product-section">
-    {currentProducts.map((product) => (
-      <div className="product-item" key={product._id}>
-      {product.productImages && product.productImages.length > 0 ? (
+    if(response.ok){
+      console.log('Deleted successfully', json)
+      fetchData();
+    }
+  } 
 
-                <img src={`http://localhost:5000/uploads/${product.productImages[0]}`} alt={`http://localhost:5000/uploads/${product.productImages[0]}`} className="hoverable" />
-      
+  return (
+    <>
+      <NavbarAdmin />
+
+      <div className="sub-title">
+        <div className="header">
+          <h2 className="trendingNow-text">All Products</h2>
+
+          <Link to="/addProduct" style={{ textDecoration: 'none', cursor: 'pointer' }}>
+            <h3>Add New +</h3>
+          </Link>
+        </div>
+
+        <div className="product-section">
+          {currentProducts.map((product) => (
+            <div className="product-item" key={product._id}>
+              {product.productImages && product.productImages.length > 0 ? (
+                <img
+                  src={`http://localhost:5000/${normalizePath(product.productImages[0])}`}
+                  alt={`http://localhost:5000/${normalizePath(product.productImages[0])}`}
+                  className="hoverable"
+                />
               ) : (
                 <p>No image available</p>
               )}
-    
-        <div className="product-details">
-          <p className="model-type">{product.title}</p>
-          <div className="price-container">
-            <p className="price">&#8377;{product.price}</p>
-            <Link to={`/deleteProduct`}>
-              <MdDeleteForever className="fa-cart-plus" />
-            </Link>
-          </div>
+
+              <div className="product-details">
+                <p className="model-type">{product.title}</p>
+                <div className="price-container">
+                  <p className="price">&#8377;{product.price}</p>
+                  {/* <Link to={`/deleteProduct`}> */}
+                    <MdDeleteForever className="fa-cart-plus" onClick={()=>handleDeleteProduct(product._id)}/>
+                  {/* </Link> */}
+                </div>
+              </div>
+              <Link to={`/editProduct`} className="edit-button">
+                <MdEdit className="edit-icon" />
+              </Link>
+            </div>
+          ))}
         </div>
-        <Link to={`/editProduct`} className="edit-button">
-          <MdEdit className="edit-icon" />
-        </Link>
+
+        <div className="pagination">
+          {pageNumbers.map((number) => (
+            <button
+              key={number}
+              onClick={() => paginate(number)}
+              className={currentPage === number ? 'active' : ''}
+            >
+              {number}
+            </button>
+          ))}
+        </div>
       </div>
-    ))}
-  </div>
 
-          <div className="pagination">
-            {pageNumbers.map((number) => (
-              <button
-                key={number}
-                onClick={() => paginate(number)}
-                className={currentPage === number ? 'active' : ''}
-              >
-                {number}
-              </button>
-            ))}
-          </div>
-        </div>
+      <Footer />
+    </>
+  );
+}
 
-        <Footer />
-      </>
-    );
-  }
-
-  export default AllAdminProducts;
+export default AllAdminProducts;
