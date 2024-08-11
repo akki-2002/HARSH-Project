@@ -4,49 +4,64 @@ import './AllAdminProducts.css';
 import NavbarAdmin from '../Navbar/NavbarAdmin';
 import Footer from '../../Home/Footer/Footer';
 import { MdDeleteForever } from 'react-icons/md';
-import { MdEdit } from 'react-icons/md'
+import { MdEdit } from 'react-icons/md';
 import { useAuthContext } from '../../../hooks/useAuthContext';
 
+// Utility function to normalize file paths
+const normalizePath = (filePath) => filePath.replace(/\\/g, '/');
 
 function AllAdminProducts() {
   // Initializing the product list
-  const {user} = useAuthContext()
+  const { user } = useAuthContext();
   const [products, setProducts] = useState([]);
-  useEffect(()=>{
-    const fetchData = async()=>{
-      const response = await fetch('http://localhost:5000/products/getallproducts');
-      const json = await response.json();
-      if(response.ok)
-      {
-        setProducts(json.products)
-        console.log("products", json.products)
-      }
-    }
 
-    if(user)
-    {
+  const fetchData = async () => {
+    const response = await fetch('http://localhost:5000/products/getallproducts');
+    const json = await response.json();
+    if (response.ok) {
+      setProducts(json.products);
+      console.log("products", json.products);
+    }
+  };
+  useEffect(() => {
+    
+
+    if (user) {
       fetchData();
     }
 
-  },[user])
+  }, [user]);
 
-    // State for pagination
-    const [currentPage, setCurrentPage] = useState(1);
-    const productsPerPage = 12;
+  // State for pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 12;
 
-    // Calculate the indexes for the current page
-    const indexOfLastProduct = currentPage * productsPerPage;
-    const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-    const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+  // Calculate the indexes for the current page
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
 
-    // Function to change the page
-    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  // Function to change the page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-    // Create page numbers array
-    const pageNumbers = [];
-    for (let i = 1; i <= Math.ceil(products.length / productsPerPage); i++) {
-      pageNumbers.push(i);
+  // Create page numbers array
+  const pageNumbers = [];
+  for (let i = 1; i <= Math.ceil(products.length / productsPerPage); i++) {
+    pageNumbers.push(i);
+  }
+
+  const handleDeleteProduct = async(productId)=>{
+
+    const response = await fetch(`http://localhost:5000/products/deleteproduct/${productId}`,{
+      method: "DELETE"
+    })
+    const json = await response.json()
+
+    if(response.ok){
+      console.log('Deleted successfully', json)
+      fetchData();
     }
+  } 
 
   return (
     <>
@@ -62,26 +77,33 @@ function AllAdminProducts() {
         </div>
 
         <div className="product-section">
-  {currentProducts.map((product) => (
-    <div className="product-item" key={product._id}>
-    
-        <img src={product.productImages[0]} alt={product.name} className="hoverable" />
-  
-      <div className="product-details">
-        <p className="model-type">{product.title}</p>
-        <div className="price-container">
-          <p className="price">&#8377;{product.price}</p>
-          <Link to={`/deleteProduct`}>
-            <MdDeleteForever className="fa-cart-plus" />
-          </Link>
+          {currentProducts.map((product) => (
+            <div className="product-item" key={product._id}>
+              {product.productImages && product.productImages.length > 0 ? (
+                <img
+                  src={`http://localhost:5000/${normalizePath(product.productImages[0])}`}
+                  alt={`http://localhost:5000/${normalizePath(product.productImages[0])}`}
+                  className="hoverable"
+                />
+              ) : (
+                <p>No image available</p>
+              )}
+
+              <div className="product-details">
+                <p className="model-type">{product.title}</p>
+                <div className="price-container">
+                  <p className="price">&#8377;{product.price}</p>
+                  {/* <Link to={`/deleteProduct`}> */}
+                    <MdDeleteForever className="fa-cart-plus" onClick={()=>handleDeleteProduct(product._id)}/>
+                  {/* </Link> */}
+                </div>
+              </div>
+              <Link to={`/editProduct`} className="edit-button">
+                <MdEdit className="edit-icon" />
+              </Link>
+            </div>
+          ))}
         </div>
-      </div>
-      <Link to={`/editProduct`} className="edit-button">
-        <MdEdit className="edit-icon" />
-      </Link>
-    </div>
-  ))}
-</div>
 
         <div className="pagination">
           {pageNumbers.map((number) => (
