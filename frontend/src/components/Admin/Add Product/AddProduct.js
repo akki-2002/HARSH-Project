@@ -9,47 +9,65 @@ function AddProduct() {
   const [productName, setProductName] = useState('');
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
-  const [image1, setImage1] = useState(null);
-  const [image2, setImage2] = useState(null);
+  const [image1, setImage1] = useState('');
+  const [image2, setImage2] = useState('');
   const [stock, setStock] = useState(true);
   const [category, setCategory] = useState('Religious Accessories');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!image1) {
       alert('Please upload at least one image.');
       return;
     }
-
-    const newProduct = {
-      name: productName,
-      price: parseFloat(price),
-      description,
-      images: [image1, image2].filter((img) => img), // Filter out null values
-      stock,
-      category,
-    };
-    console.log('New Product:', newProduct);
-    // Here, you can send `newProduct` to a backend API to save it in a database
-    alert('Product Uploaded Successfully!');
+  
+    // Create a FormData object
+    const formData = new FormData();
+    formData.append('title', productName);
+    formData.append('price', parseFloat(price));
+    formData.append('description', description);
+    formData.append('itemInStock', stock);
+    formData.append('category', category);
+  
+    // Append images if they exist
+    if (image1) {
+      formData.append('productImages', image1);
+    }
+    if (image2) {
+      formData.append('productImages', image2);
+    }
+  
+    const response = await fetch('http://localhost:5000/products/addproduct', {
+      method: 'POST',
+      body: formData,
+    });
+  
+    if (response.ok) {
+      const result = await response.json();
+      console.log('Product added successfully:', result);
+    } else {
+      console.error('Failed to add product:', response.statusText);
+    }
+  
     // Reset form after submission
     setProductName('');
     setPrice('');
     setDescription('');
-    setImage1(null);
-    setImage2(null);
+    setImage1('');
+    setImage2('');
     setStock(true);
     setCategory('Religious Accessories');
   };
+  
 
   return (
     <>
       <NavbarAdmin />
    
       <div className="admin-upload-form">
-      <Link to="/admin" style={{ textDecoration: 'none', cursor: 'pointer', fontSize: "1.5rem" }}><IoMdArrowRoundBack /></Link>
+      <Link to="/" style={{ textDecoration: 'none', cursor: 'pointer', fontSize: "1.5rem" }}><IoMdArrowRoundBack /></Link>
         <h1>Upload New Product</h1>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} encType='multipart/form-data'>
           <div className="form-group">
             <label htmlFor="productName">Product Name</label>
             <input
@@ -101,6 +119,7 @@ function AddProduct() {
             <input
               type="file"
               id="image1"
+              name="productImages"
               onChange={(e) => setImage1(e.target.files[0])}
               required
             />
@@ -111,6 +130,7 @@ function AddProduct() {
             <input
               type="file"
               id="image2"
+              name="productImages"
               onChange={(e) => setImage2(e.target.files[0])}
             />
           </div>
