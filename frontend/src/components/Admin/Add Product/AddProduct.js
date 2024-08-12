@@ -16,6 +16,7 @@ function AddProduct() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
     if (!image1) {
       alert('Please upload at least one image.');
       return;
@@ -36,28 +37,23 @@ function AddProduct() {
     if (image2) {
       formData.append('productImages', image2);
     }
+
+    console.log(formData)
   
-    const response = await fetch('http://localhost:5000/products/addproduct', {
+    // Send the FormData directly
+    const response = await fetch(`http://localhost:5000/products/addproduct`, {
       method: 'POST',
       body: formData,
     });
   
     if (response.ok) {
       const result = await response.json();
-      console.log('Product added successfully:', result);
+      console.log('Product edited successfully:', result);
     } else {
-      console.error('Failed to add product:', response.statusText);
+      console.error('Failed to edit product:', response.statusText);
     }
-  
-    // Reset form after submission
-    setProductName('');
-    setPrice('');
-    setDescription('');
-    setImage1('');
-    setImage2('');
-    setStock(true);
-    setCategory('Religious Accessories');
   };
+
   
 
   return (
