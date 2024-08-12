@@ -57,7 +57,7 @@ function App() {
             
           <Route path="/religiousAll" element={<ReligiousAll />} />
           <Route path="/dailyAll" element={<DailyAll />} />
-          <Route path="/product" element={<ProductPage />} />
+          <Route path="/product/:id" element={<ProductPage />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/billing" element={<Billing />} />
           <Route path="/order" element={<Order />}>
@@ -71,7 +71,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           
           <Route path="/addProduct" element={<AddProduct />} />
-          <Route path="/editProduct" element={<EditProduct />} />
+          <Route path="/editProduct/:id" element={<EditProduct />} />
           <Route path="/adminOrders" element={<CustOrders />} />
           <Route path="/viewCustOrder" element={<ViewCustOrders />} />
           <Route path="/profile" element={<Profile />} />

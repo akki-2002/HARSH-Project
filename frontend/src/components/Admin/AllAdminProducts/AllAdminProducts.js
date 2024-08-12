@@ -7,8 +7,6 @@ import { MdDeleteForever } from 'react-icons/md';
 import { MdEdit } from 'react-icons/md';
 import { useAuthContext } from '../../../hooks/useAuthContext';
 
-// Utility function to normalize file paths
-const normalizePath = (filePath) => filePath.replace(/\\/g, '/');
 
 function AllAdminProducts() {
   // Initializing the product list
@@ -78,11 +76,11 @@ function AllAdminProducts() {
 
         <div className="product-section">
           {currentProducts.map((product) => (
-            <div className="product-item" key={product._id}>
+            <Link to={`/product/${product._id}`} className="product-item" key={product._id}>
               {product.productImages && product.productImages.length > 0 ? (
                 <img
-                  src={`http://localhost:5000/${normalizePath(product.productImages[0])}`}
-                  alt={`http://localhost:5000/${normalizePath(product.productImages[0])}`}
+                  src={`http://localhost:5000/uploads/${product.productImages[0]}`}
+                  alt={`http://localhost:5000/uploads/${product.productImages[0]}`}
                   className="hoverable"
                 />
               ) : (
@@ -98,10 +96,10 @@ function AllAdminProducts() {
                   {/* </Link> */}
                 </div>
               </div>
-              <Link to={`/editProduct`} className="edit-button">
+              <Link to={`/editProduct/${product._id}`} className="edit-button">
                 <MdEdit className="edit-icon" />
               </Link>
-            </div>
+            </Link>
           ))}
         </div>
 

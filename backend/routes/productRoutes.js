@@ -12,7 +12,7 @@ router.get('/getallproducts', getAllProducts)
 
 router.get('/getproductbyid/:id', getProductById)
 
-router.put('/updateproduct/:id', updateProduct)
+router.put('/updateproduct/:id', upload, updateProduct)
 
 router.delete('/deleteproduct/:id', deleteProduct)
 
