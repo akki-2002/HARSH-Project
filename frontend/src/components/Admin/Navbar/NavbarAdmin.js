@@ -27,7 +27,7 @@ function NavbarAdmin() {
       </Link>
       <div className="navComps1">
         <div className="navLinks1">
-          <Link to={"/admin"}>PRODUCTS</Link>
+          <Link to={"/"}>PRODUCTS</Link>
           <Link to={"/adminOrders"}>ORDERS</Link>
         </div>
         <div className="navIcons1">

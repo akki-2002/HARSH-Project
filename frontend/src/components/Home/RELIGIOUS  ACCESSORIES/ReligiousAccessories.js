@@ -76,7 +76,7 @@ function ReligiousAccessories() {
     try {
       const formData = {
         'productId': product._id,
-        'quantity': '1'
+        'quantity': 1
       }
       console.log(formData)
       
@@ -130,8 +130,8 @@ function ReligiousAccessories() {
         <div className="product-section">
           {products.map((product) => (
             <div className="product-item" key={product._id}>
-              <Link to={'/product'}>
-              <img src={`http://localhost:5000/uploads/${product.productImages[0]}`} alt={product.ṭītle} className="hoverable" />
+              <Link to={`/product/${product._id}`}>
+              <img src={`http://localhost:5000/uploads/${product.productImages[0]}`} alt={product.title} className="hoverable" />
             </Link>
               <div className="product-details">
                 <p className="model-type">{product.title}</p>

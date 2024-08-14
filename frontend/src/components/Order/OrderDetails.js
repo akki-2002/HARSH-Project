@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import backprint_t from "../Images/Product Photos/12.jpeg";
 import Navbar from "../Home/Navbar/Navbar";
 import { useAuthContext } from "../../hooks/useAuthContext";
@@ -18,10 +18,12 @@ function OrderDetails() {
     phone: "",
     email: "",
   });
+  const [cartItems, setCartItems] = useState([]);
   const { id } = useParams();
 
+  // Fetch order details
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchOrderData = async () => {
       try {
         const response = await fetch(`http://localhost:5000/bills/getbillbyid/${id}`, {
           headers: {
@@ -31,7 +33,10 @@ function OrderDetails() {
         const json = await response.json();
 
         if (response.ok) {
-          setOrderItems(json.orderItems || []); // Ensure the data is structured correctly
+          // Assuming orderItems include product IDs and quantities
+          setOrderItems(json.productIds || []); 
+          // Example structure: [{ productId: 'id1', quantity: 2 }, ...]
+          console.log(json.productIds)
           setFormData({
             firstName: json.firstName || "",
             lastName: json.lastName || "",
@@ -43,86 +48,69 @@ function OrderDetails() {
             phone: json.phoneNumber || "",
             email: json.email || "",
           });
-          console.log("User Order Data:", json);
         } else {
-          console.log("Failed to fetch orders", json);
+          console.log("Failed to fetch order details", json);
         }
       } catch (error) {
-        console.log('Error fetching orders:', error);
+        console.log('Error fetching order details:', error);
       }
     };
 
     if (user) {
-      fetchData();
+      fetchOrderData();
     }
   }, [user, id]);
 
-
-  const [adtItems, setAdtItems] = useState([]);
-  const [cartItems, setCartItems] = useState([]);
-
-  const fetchData = async () => {
-    if (user) {
-      const response = await fetch(`http://localhost:5000/users/getuserbyid/${user.user?._id}`, {
-        headers: {
-          'Authorization': `Bearer ${user.token}`,
-        },
-      });
-      const json = await response.json();
-      if (response.ok) {
-        setAdtItems(json.cart);
-      }
-    }
-  };
-
-useEffect(() => {
+  // Fetch product data based on order items
+  console.log('ordasd', orderItems)
+  useEffect(() => {
+    const fetchProductData = async () => {
+      try {
+        // Fetch product details based on the product IDs in orderItems
+        const productPromises = orderItems.map(orderItem =>
+          fetch(`http://localhost:5000/products/getproductbyid/${orderItem.product}`, {
+            headers: {
+              'Authorization': `Bearer ${user.token}`,
+            }
+          }).then(response => response.json())
+        );
   
-
-  fetchData();
-}, [user]);
-
-// Use another useEffect to monitor cartItems changes
-useEffect(() => {
-  const fetchData = async () => {
-    try {
-      const productPromises = adtItems.map(item => 
-        fetch(`http://localhost:5000/products/getproductbyid/${item.product}`, {
-          headers: {
-            'Authorization': `Bearer ${user.token}`,
-          }
-        }).then(response => response.json())
-      );
-
-      const products = await Promise.all(productPromises);
-     
-      // setCartItems(products)
-      
-
-      // Assuming you want to set the fetched products in the cart items
-      const updatedCartItems = products.map((product, index) => ({
-        ...adtItems[index],
-        productDetails: product // Adding product details to each cart item
-      }));
-
-      setCartItems(updatedCartItems);
-      
-    } catch (error) {
-      console.error('Error fetching product data:', error);
+        const products = await Promise.all(productPromises);
+  
+        console.log('Fetched Products:', products); // Debugging
+  
+        // Combine product details with quantities
+        const updatedCartItems = orderItems.map(orderItem => {
+          // Find the product matching the current orderItem
+          const product = products.find(p => p.product?._id === orderItem.product);
+          
+          console.log('Order Item:', orderItem); // Debugging
+          console.log('Product Found:', product); // Debugging
+          
+          return {
+            ...orderItem,
+            productDetails: product // Add product details to each order item
+          };
+        });
+  
+        console.log('Updated Cart Items:', updatedCartItems); // Debugging
+  
+        setCartItems(updatedCartItems);
+      } catch (error) {
+        console.error('Error fetching product data:', error);
+      }
+    };
+  
+    if (orderItems.length > 0) {
+      fetchProductData();
     }
-  };
-
-  // console.log('products', cartItems)
-
-  if (adtItems && adtItems.length > 0) {
-    fetchData();
-    console.log('adtItems', cartItems)
-  }
-}, [adtItems, user]);
-
-const totalAmount = cartItems.reduce(
-  (total, item) => total + item.productDetails?.product?.price * item.quantity,
-  0
-);
+  }, [orderItems, user]);
+  
+  console.log('cartItems', cartItems)
+  const totalAmount = cartItems.reduce(
+    (total, item) => total + (item.productDetails?.product?.price || 0) * (item.quantity || 0),
+    0
+  );
 
   return (
     <>
@@ -242,10 +230,11 @@ const totalAmount = cartItems.reduce(
               <h1>Order Summary</h1>
             </div>
             <div className="clContentt">
-              {cartItems.map((item) => (
-                <div key={item._id} className="cItem1">
+              {cartItems.map((item, index) => (
+                console.log(item),
+                <div key={index} className="cItem1">
                   <div className="cItemImg">
-                    <img src={`http://localhost:5000/uploads/${item.productDetails?.product?.productImages[0]}` || backprint_t} alt={item.name} />
+                    <img src={`http://localhost:5000/uploads/${item?.productDetails?.product?.productImages[0]}` || backprint_t} alt={item.productDetails?.product?.name} />
                   </div>
                   <div className="cItemDetails">
                     <h2>{item.productDetails?.product?.name}</h2>

@@ -11,7 +11,7 @@ function Navbar() {
     const [scrollY, setScrollY] = useState(0);
 
     const {user} = useAuthContext()
-    console.log("navbar", user)
+    // console.log("navbar", user)
 
     useEffect(() => {
         const handleScroll = () => {

@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import "./Billing.css";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import backprint_t from "../../components/Images/Product Photos/12.jpeg";
 import del from "../../components/Images/cross.png";
 import Navbar from "../Home/Navbar/Navbar";
 import Footer from "../Home/Footer/Footer";
 import { useAuthContext } from "../../hooks/useAuthContext";
 
-function Billing() {
+function BillingForOne() {
+    const {id} = useParams();
+    const {count} = useParams();
   const [country, setCountry] = useState({
     display: "none",
   });
@@ -136,54 +138,41 @@ function Billing() {
 
   const {user} = useAuthContext()
   // const [cartItems, setCartItems]
-  const [adtItems, setAdtItems] = useState([]);
+//   const [adtItems, setAdtItems] = useState([]);
   const [cartItems, setCartItems] = useState([]);
 
-  const fetchData = async () => {
-    if (user) {
-      const response = await fetch(`http://localhost:5000/users/getuserbyid/${user.user?._id}`, {
-        headers: {
-          'Authorization': `Bearer ${user.token}`,
-        },
-      });
-      const json = await response.json();
-      if (response.ok) {
-        setAdtItems(json.cart);
-      }
-    }
-  };
+//   const fetchData = async () => {
+//     if (user) {
+//       const response = await fetch(`http://localhost:5000/users/getuserbyid/${user.user?._id}`, {
+//         headers: {
+//           'Authorization': `Bearer ${user.token}`,
+//         },
+//       });
+//       const json = await response.json();
+//       if (response.ok) {
+//         setAdtItems(json.cart);
+//       }
+//     }
+//   };
 
-useEffect(() => {
+// useEffect(() => {
   
 
-  fetchData();
-}, [user]);
+//   fetchData();
+// }, [user]);
 
 // Use another useEffect to monitor cartItems changes
 useEffect(() => {
   const fetchData = async () => {
     try {
       
-      const productPromises = adtItems.map(item => 
-        fetch(`http://localhost:5000/products/getproductbyid/${item.product}`, {
-          headers: {
-            'Authorization': `Bearer ${user.token}`,
-          }
-        }).then(response => response.json())
-      );
-
-      const products = await Promise.all(productPromises);
-     
-      // setCartItems(products)
-      
-
-      // Assuming you want to set the fetched products in the cart items
-      const updatedCartItems = products.map((product, index) => ({
-        ...adtItems[index],
-        productDetails: product // Adding product details to each cart item
-      }));
-
-      setCartItems(updatedCartItems);
+      const response = await fetch(`http://localhost:5000/products/getproductbyid/${id}`)
+      const json = await response.json();
+      if(response.ok)
+      {
+        setCartItems(json)
+        console.log('cartItems', json)
+      }
       
     } catch (error) {
       console.error('Error fetching product data:', error);
@@ -192,25 +181,19 @@ useEffect(() => {
 
   // console.log('products', cartItems)
 
-  if (adtItems && adtItems.length > 0) {
+//   if (adtItems && adtItems.length > 0) {
+if(user)
+{
+
     fetchData();
-    console.log('adtItems', cartItems)
-  }
-}, [adtItems, user]);
+}
+    // console.log('adtItems', cartItems)
+//   }
+}, [user]);
 
-  const totalAmount = cartItems.reduce(
-    (total, item) => total + item.productDetails?.product?.price * item.quantity,
-    0
-  );
+  const totalAmount = cartItems.product?.price * count
 
-  const productIds = cartItems?.reduce((accumulator, item) => {
-    if (item?.productDetails?.product?._id) {
-      accumulator.push(item.productDetails.product._id);
-    }
-    return accumulator;
-  }, []);
   
-  console.log('productIds', productIds);
   
 
   const handleDeleteItem = (id) => {
@@ -227,20 +210,10 @@ useEffect(() => {
     e.preventDefault();
   
     try {
-      // Prepare the data object with product IDs and quantities
-      const productDataArray = cartItems.map(item => ({
-        product: item.productDetails.product._id,
-        quantity: item.quantity // Include the quantity for each product
-      }));
-  
-      if (productDataArray.length === 0) {
-        console.log('No product data to submit.');
-        return;
-      }
   
       // Prepare the data object for the request
       const data = {
-        productIds: productDataArray, // Changed from productIds to productData
+        productIds: {product: id, quantity: count},
         firstName: firstName,
         lastName: lastName,
         country: 'INDIA',
@@ -255,7 +228,7 @@ useEffect(() => {
       };
       console.log("data", data);
   
-      const response = await fetch(`http://localhost:5000/bills/billforcart/${user.user?._id}`, {
+      const response = await fetch(`http://localhost:5000/bills/billforone/${user.user?._id}/${id}`, {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
@@ -410,34 +383,34 @@ useEffect(() => {
           <div className="cartRgt cartRgtt">
             <div className="cartTotalHeading cartTotalHeadingg">
               <h1>Your Order</h1>
-              <Link to={`/cart/${user?.user?._id}`}>
+              <Link to={`/product/${id}`}>
               <p>Edit Order</p>
               </Link>
               {/* <p onClick={() => setShowDeleteIcons(!showDeleteIcons)}>Edit Order</p> */}
             </div>
             <div className="clContent clContentt">
-              {cartItems?.map((item) => (
-                <div key={item._id} className="cItem1 cItem11">
+              {cartItems &&  (
+                <div key={cartItems._id} className="cItem1 cItem11">
                   <div className="cItem cItemm">
                     <div className="cItemImg cItemImgg">
-                      <img src={`http://localhost:5000/uploads/${item.productDetails?.product?.productImages[0]}`} alt={item.productDetails?.product?.title} />
+                      <img src={`http://localhost:5000/uploads/${cartItems.product?.productImages[0]}`} alt={cartItems.product?.title} />
                     </div>
                     <div className="cItemDetails cItemDetailss">
-                      <h2>{item.productDetails?.product?.title}</h2>
-                      <p>{item.productDetails?.product?.category}</p>
-                      <p className="quantity">Quantity: x{item.quantity}</p>
+                      <h2>{cartItems.product?.title}</h2>
+                      <p>{cartItems.product?.category}</p>
+                      <p className="quantity">Quantity: x{count}</p>
                     </div>
                     <div className="cItemPrice cItemPricee">
-                      <h3>₹{item.productDetails?.product?.price}</h3>
+                      <h3>₹{cartItems.product?.price}</h3>
                     </div>
                     {showDeleteIcons && (
-                      <div className="cItemDelete" onClick={() => handleDeleteItem(item._id)}>
+                      <div className="cItemDelete" onClick={() => handleDeleteItem(cartItems._id)}>
                         <img src={del} alt="Delete" className="del" />
                       </div>
                     )}
                   </div>
                 </div>
-              ))}
+              )}
               <div className="clTotal clTotall">
                 <h2>Total:</h2>
                 <h2>₹{totalAmount}</h2>
@@ -456,4 +429,4 @@ useEffect(() => {
   );
 }
 
-export default Billing;
+export default BillingForOne;

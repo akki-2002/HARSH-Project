@@ -31,7 +31,9 @@ function OrderLeft() {
         <>
             <div className={`orderLeft ${isSidebarOpen ? 'open' : ''}`}>
                 <div className="olHeading">
-                    <Link to="/admin"><h1>Hello</h1></Link>
+                    {/* <Link to="/admin"> */}
+                    <h1>Hello</h1>
+                    {/* </Link> */}
                     <h2>Akshat</h2>
                     <button className="hamburger" onClick={toggleSidebar}>
                         ☰
