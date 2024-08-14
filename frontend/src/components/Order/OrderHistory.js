@@ -1,24 +1,55 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-
-const ordersData = {
-  Pending: [
-    { id: 123, name: 'Akshat Agrawal', address: 'Mumbai, 400001', date: '12/08/2024', price: '2000', status: 'Pending' },
-    { id: 124, name: 'Rahul Singh', address: 'Pune, 411007', date: '15/08/2024', price: '1500', status: 'Pending' },
-    { id: 123, name: 'Akshat Agrawal', address: 'Mumbai, 400001', date: '12/08/2024', price: '2000', status: 'Pending' },
-    { id: 123, name: 'Akshat Agrawal', address: 'Mumbai, 400001', date: '12/08/2024', price: '2000', status: 'Pending' },
-    { id: 123, name: 'Akshat Agrawal', address: 'Mumbai, 400001', date: '12/08/2024', price: '2000', status: 'Pending' },
-    { id: 123, name: 'Akshat Agrawal', address: 'Mumbai, 400001', date: '12/08/2024', price: '2000', status: 'Pending' },
-  ],
-};
+import { useAuthContext } from '../../hooks/useAuthContext';
 
 function OrderHistory() {
+  const { user } = useAuthContext();
+  const [ordersData, setOrdersData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/bills/getbills', {
+          headers: {
+            'Authorization': `Bearer ${user.token}`
+          }
+        });
+        const json = await response.json();
+
+        if (response.ok) {
+          // Filter orders for the current user
+          const userHistory = json.filter(order => order.userId === user.user?._id);
+
+          setOrdersData(userHistory);
+          console.log("User Order Data:", userHistory);
+        } else {
+          console.log("Failed to fetch orders", json);
+        }
+      } catch (error) {
+        console.log('Error fetching orders:', error);
+      }
+    };
+
+    if (user) {
+      fetchData();
+    }
+  }, [user]);
+
+  // Convert ISO date to a readable format
+  const formatDate = (isoDate) => {
+    const date = new Date(isoDate);
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+  };
+
   return (
     <>
-  
-    <div className="cust-orders-container">
-      {Object.entries(ordersData).map(([status, orders]) => (
-        <div className={`cust-orders-section cust-orders-${status.toLowerCase()}`} key={status}>
+      <div className="cust-orders-container">
+        <div className="cust-orders-section cust-orders">
+          <h2>Orders</h2> {/* Heading for the orders section */}
           <table className="cust-orders-table">
             <thead>
               <tr>
@@ -32,24 +63,27 @@ function OrderHistory() {
               </tr>
             </thead>
             <tbody>
-              {orders.map(order => (
-                <tr key={order.id}>
-                  <td>{order.id}</td>
-                  <td className="hidden-mobile">{order.name}</td>
+              {ordersData?.map((order, index) => (
+                <tr key={order._id}>
+                  <td>{index + 1}</td>
+                  <td className="hidden-mobile">{order.firstName}</td>
                   <td className="hidden-mobile">{order.address}</td>
-                  <td>{order.date}</td>
-                  <td className="hidden-mobile">₹{order.price}</td>
-                  <td className={`cust-orders-status cust-orders-status-${order.status.toLowerCase()}`}>{order.status}</td>
+                  <td>{formatDate(order.createdAt)}</td>
+                  <td className="hidden-mobile">₹{order.totalPrice}</td>
+                  <td className={`cust-orders-status cust-orders-status`}>
+                    {order.status}
+                  </td>
                   <td className='cust-orders-view-order'>
-                    <Link to="/orderDetails" style={{ textDecoration: 'none', cursor: 'pointer', color: "#9A318A" }}>DETAILS</Link>
-                  </td> 
+                    <Link to={`/orderDetails/${order._id}`} style={{ textDecoration: 'none', cursor: 'pointer', color: "#9A318A" }}>
+                      DETAILS
+                    </Link>
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-      ))}
-    </div>
+      </div>
     </>
   );
 }

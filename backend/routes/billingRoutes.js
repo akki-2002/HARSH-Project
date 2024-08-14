@@ -10,7 +10,7 @@ router.post('/billforone/:userId/:productId', requireAuth('User'), addBillForOne
 
 router.put('/editbill/:billId', requireAuth('User'), editBill)
 
-router.get('/getbills', requireAuth('Admin'),getBills)
+router.get('/getbills',getBills)
 
 router.get('/getbillbyid/:id',getBillById)
 

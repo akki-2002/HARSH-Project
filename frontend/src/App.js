@@ -64,7 +64,7 @@ function App() {
             <Route path="/order" element={<OrderHistory />} />
             <Route path="/order/acdetails" element={<AcDetails />} />
           </Route>
-          <Route path="/orderDetails" element={<OrderDetails />} />
+          <Route path="/orderDetails/:id" element={<OrderDetails />} />
 
 
           <Route path="/signin" element={<Signin />} />
