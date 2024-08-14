@@ -64,7 +64,7 @@ function DailyAccessories() {
     try {
       const formData = {
         'productId': product._id,
-        'quantity': '1'
+        'quantity': 1
       }
       console.log(formData)
       

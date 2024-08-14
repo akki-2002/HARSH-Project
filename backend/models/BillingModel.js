@@ -6,11 +6,21 @@ const billingSchema = mongoose.Schema({
         ref: 'User',
         required: true
     },
-    productIds: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Product',
-        required: true
-    }],
+    productIds: [
+        {
+            product: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Product',
+                required: true
+              },
+              quantity: {
+                type: Number,
+                default: 1,
+                min: 1
+              }
+        }
+
+    ],
     firstName: {
         type: String, 
         required: true
@@ -49,6 +59,10 @@ const billingSchema = mongoose.Schema({
     },
     totalPrice:{
         type: Number,
+        required: true
+    },
+    status: {
+        type: String,
         required: true
     }
 }, {timestamps: true})

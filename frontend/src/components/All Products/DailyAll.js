@@ -99,7 +99,7 @@ function CustomizedGiftAllProduct() {
     try {
       const formData = {
         'productId': product._id,
-        'quantity': '1'
+        'quantity': 1
       }
       console.log(formData)
       
@@ -156,7 +156,7 @@ function CustomizedGiftAllProduct() {
 
         <div className="product-section">
           {products?.map((product) => (
-            <div className="product-item" key={product.id}>
+            <div className="product-item" key={product._id}>
               <Link to={`/product/${product._id}`}>
                 <img
                   src={`http://localhost:5000/uploads/${product.productImages[0]}`}

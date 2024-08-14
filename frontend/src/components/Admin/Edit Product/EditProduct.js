@@ -12,6 +12,8 @@ function EditProduct() {
   const [description, setDescription] = useState('');
   const [image1, setImage1] = useState(null);
   const [image2, setImage2] = useState(null);
+  const [image1Preview, setImage1Preview] = useState('');
+  const [image2Preview, setImage2Preview] = useState('');
   const [stock, setStock] = useState(true);
   const [category, setCategory] = useState('Religious Accessories');
   const { id } = useParams();
@@ -26,8 +28,8 @@ function EditProduct() {
         setProductName(json.product.title);
         setPrice(json.product.price);
         setDescription(json.product.description);
-        setImage1(json.product?.productImages && json.product.productImages[0]);
-        setImage2(json.product?.productImages && json.product.productImages[1]);
+        setImage1Preview(`http://localhost:5000/uploads/${json.product?.productImages[0]}`);
+        setImage2Preview(`http://localhost:5000/uploads/${json.product?.productImages[1]}`);
         setStock(json.product.itemInStock);
         setCategory(json.product.category);
       }
@@ -40,12 +42,11 @@ function EditProduct() {
   const handleSubmit = async (e) => {
     e.preventDefault();
   
-    if (!image1) {
-      alert('Please upload at least one image.');
-      return;
-    }
+    // if (!image1) {ease upload at least one image.');
+    //   return;
+    // }
+    //   alert('Pl
   
-    // Create a FormData object
     const formData = new FormData();
     formData.append('title', productName);
     formData.append('price', parseFloat(price));
@@ -53,7 +54,6 @@ function EditProduct() {
     formData.append('itemInStock', stock);
     formData.append('category', category);
   
-    // Append images if they exist
     if (image1) {
       formData.append('productImages', image1);
     }
@@ -63,7 +63,6 @@ function EditProduct() {
 
     console.log(formData)
   
-    // Send the FormData directly
     const response = await fetch(`http://localhost:5000/products/updateproduct/${id}`, {
       method: 'PUT',
       body: formData,
@@ -77,8 +76,19 @@ function EditProduct() {
     }
   };
 
-  
+  const handleImageChange = (e, setImage, setPreview) => {
+    const file = e.target.files[0];
+    setImage(file);
 
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+  
   return (
     <>
       <NavbarAdmin />
@@ -134,20 +144,22 @@ function EditProduct() {
 
           <div className="form-group">
             <label htmlFor="image1">Product Image 1</label>
+            {image1Preview && <img src={image1Preview} alt="Preview" style={{ width: '100px', height: '100px' }} />}
             <input
               type="file"
               id="image1"
-              onChange={(e) => setImage1(e.target.files[0])}
-              required
+              onChange={(e) => handleImageChange(e, setImage1, setImage1Preview)}
+              // required
             />
           </div>
 
           <div className="form-group">
             <label htmlFor="image2">Product Image 2 (Optional)</label>
+            {image2Preview && <img src={image2Preview} alt="Preview" style={{ width: '100px', height: '100px' }} />}
             <input
               type="file"
               id="image2"
-              onChange={(e) => setImage2(e.target.files[0])}
+              onChange={(e) => handleImageChange(e, setImage2, setImage2Preview)}
             />
           </div>
 

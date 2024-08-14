@@ -79,7 +79,7 @@ useEffect(() => {
   const handleRemove = async(id) => {
     // const updatedCartItems = cartItems.filter((item) => item.id !== id);
     // setCartItems(updatedCartItems);
-    console.log(id)
+    // console.log(id)
 
     try {
       const formData = {

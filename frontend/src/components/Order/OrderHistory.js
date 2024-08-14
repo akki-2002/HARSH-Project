@@ -15,12 +15,19 @@ function OrderHistory() {
           }
         });
         const json = await response.json();
-
+        console.log('json', json)
         if (response.ok) {
           // Filter orders for the current user
-          const userHistory = json.filter(order => order.userId === user.user?._id);
-
+          let userHistory = '';
+          if(user.user?.userType === 'User')
+          {
+             userHistory = json.filter(order => order.userId === user.user?._id);
           setOrdersData(userHistory);
+
+          }else{
+            setOrdersData(json);
+          }
+          
           console.log("User Order Data:", userHistory);
         } else {
           console.log("Failed to fetch orders", json);
@@ -29,6 +36,7 @@ function OrderHistory() {
         console.log('Error fetching orders:', error);
       }
     };
+
 
     if (user) {
       fetchData();
@@ -70,7 +78,7 @@ function OrderHistory() {
                   <td className="hidden-mobile">{order.address}</td>
                   <td>{formatDate(order.createdAt)}</td>
                   <td className="hidden-mobile">₹{order.totalPrice}</td>
-                  <td className={`cust-orders-status cust-orders-status`}>
+                  <td className={`cust-orders-status cust-orders-status-${order.status.toLowerCase()}`}>
                     {order.status}
                   </td>
                   <td className='cust-orders-view-order'>

@@ -178,7 +178,7 @@ function ProductPage() {
               <button onClick={()=>handleAddToCart(product)}>ADD TO CART</button>
             {/* </Link> */}
             <Link
-              to="/billing"
+              to={`/billing/${product._id}/${quantity}`}
               style={{
                 textDecoration: "none",
                 cursor: "pointer",

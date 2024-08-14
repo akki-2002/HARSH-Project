@@ -28,6 +28,7 @@ import Profile from "./components/Admin/Profile/Profile";
 // import { useAuthContext } from "./hooks/useAuthContext";
 import Home from "./components/Home/Home";
 import { useAuthContext } from "./hooks/useAuthContext";
+import BillingForOne from "./components/Billing/BillingForOne";
 
 function App() {
   const {user} = useAuthContext()
@@ -60,6 +61,7 @@ function App() {
           <Route path="/product/:id" element={<ProductPage />} />
           <Route path="/cart/:id" element={<Cart />} />
           <Route path="/billing" element={<Billing />} />
+          <Route path="/billing/:id/:count" element={<BillingForOne />} />
           <Route path="/order" element={<Order />}>
             <Route path="/order" element={<OrderHistory />} />
             <Route path="/order/acdetails" element={<AcDetails />} />
@@ -73,7 +75,7 @@ function App() {
           <Route path="/addProduct" element={<AddProduct />} />
           <Route path="/editProduct/:id" element={<EditProduct />} />
           <Route path="/adminOrders" element={<CustOrders />} />
-          <Route path="/viewCustOrder" element={<ViewCustOrders />} />
+          <Route path="/viewCustOrder/:id" element={<ViewCustOrders />} />
           <Route path="/profile" element={<Profile />} />
 
         </Routes>
