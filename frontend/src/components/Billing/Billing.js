@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Billing.css";
 import { Link } from "react-router-dom";
 import backprint_t from "../../components/Images/Product Photos/12.jpeg";
 import del from "../../components/Images/cross.png";
 import Navbar from "../Home/Navbar/Navbar";
 import Footer from "../Home/Footer/Footer";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 function Billing() {
   const [country, setCountry] = useState({
@@ -131,41 +132,150 @@ function Billing() {
     }
   };
 
-  const [orderItems, setOrderItems] = useState([
-    {
-      id: 1,
-      name: "Corporate Gift Set",
-      category: "Corporate Gifts",
-      price: 2000,
-      quantity: 2,
-      image: backprint_t,
-    },
-    {
-      id: 2,
-      name: "Corporate Gift Set",
-      category: "Corporate Gifts",
-      price: 2000,
-      quantity: 1,
-      image: backprint_t,
-    },
-    
-    // Add more items if needed
-  ]);
+  // const [cartItems, setcartItems] = useState([]);
 
-  const totalAmount = orderItems.reduce(
-    (total, item) => total + item.price * item.quantity,
+  const {user} = useAuthContext()
+  // const [cartItems, setCartItems]
+  const [adtItems, setAdtItems] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
+
+  const fetchData = async () => {
+    if (user) {
+      const response = await fetch(`http://localhost:5000/users/getuserbyid/${user.user?._id}`, {
+        headers: {
+          'Authorization': `Bearer ${user.token}`,
+        },
+      });
+      const json = await response.json();
+      if (response.ok) {
+        setAdtItems(json.cart);
+      }
+    }
+  };
+
+useEffect(() => {
+  
+
+  fetchData();
+}, [user]);
+
+// Use another useEffect to monitor cartItems changes
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const productPromises = adtItems.map(item => 
+        fetch(`http://localhost:5000/products/getproductbyid/${item.product}`, {
+          headers: {
+            'Authorization': `Bearer ${user.token}`,
+          }
+        }).then(response => response.json())
+      );
+
+      const products = await Promise.all(productPromises);
+     
+      // setCartItems(products)
+      
+
+      // Assuming you want to set the fetched products in the cart items
+      const updatedCartItems = products.map((product, index) => ({
+        ...adtItems[index],
+        productDetails: product // Adding product details to each cart item
+      }));
+
+      setCartItems(updatedCartItems);
+      
+    } catch (error) {
+      console.error('Error fetching product data:', error);
+    }
+  };
+
+  // console.log('products', cartItems)
+
+  if (adtItems && adtItems.length > 0) {
+    fetchData();
+    console.log('adtItems', cartItems)
+  }
+}, [adtItems, user]);
+
+  const totalAmount = cartItems.reduce(
+    (total, item) => total + item.productDetails?.product?.price * item.quantity,
     0
   );
 
+  const productIds = cartItems?.reduce((accumulator, item) => {
+    if (item?.productDetails?.product?._id) {
+      accumulator.push(item.productDetails.product._id);
+    }
+    return accumulator;
+  }, []);
+  
+  console.log('productIds', productIds);
+  
+
   const handleDeleteItem = (id) => {
-    const updatedItems = orderItems.filter(item => item.id !== id);
-    setOrderItems(updatedItems);
+    const updatedItems = cartItems.filter(item => item.id !== id);
+    setCartItems(updatedItems);
   };
+
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [city, setCity] = useState('')
+  const [address, setAddress] = useState('')
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    try {
+      // Create an array of product IDs
+      const productIdsArray = cartItems.map(item => item.productDetails.product._id);
+  
+      if (productIdsArray.length === 0) {
+        console.log('No product IDs to submit.');
+        return;
+      }
+  
+      // Prepare the data object instead of using FormData
+      const data = {
+        productIds: productIdsArray,
+        firstName: firstName,
+        lastName: lastName,
+        country: 'INDIA',
+        address: address,
+        city: city,
+        state: selectedState,
+        pincode: pincode,
+        phoneNumber: phoneNumber,
+        email: email,
+        totalPrice: totalAmount
+      };
+      console.log(data)
+  
+      const response = await fetch(`http://localhost:5000/bills/billforcart/${user.user?._id}`, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          'Authorization': `Bearer ${user.token}`,
+          'Content-Type': 'application/json' // Set content type to JSON
+        }
+      });
+  
+      const json = await response.json();
+      if (response.ok) {
+        console.log(json);
+      } else {
+        console.log('Failed to submit form:', json);
+      }
+    } catch (error) {
+      console.log('Error:', error);
+    }
+  }
+  
+  
 
   return (
     <>
     <Navbar></Navbar>
-      <div className="billingMain">
+      <form className="billingMain" onSubmit={handleSubmit}>
         <div className="billingLeftMain">
           <div className="billingLeft">
             <Link to={"/cart"}>
@@ -182,14 +292,14 @@ function Billing() {
                   <label htmlFor="">
                     First Name <span className="star">*</span>
                   </label>
-                  <input type="text" placeholder="" />
+                  <input type="text" placeholder="" onChange={(e)=>setFirstName(e.target.value)}/>
                 </div>
 
                 <div className="firstname">
                   <label htmlFor="">
                     Last Name <span className="star">*</span>
                   </label>
-                  <input type="text" placeholder="" />
+                  <input type="text" placeholder="" onChange={(e)=>setLastName(e.target.value)}/>
                 </div>
               </div>
 
@@ -210,7 +320,7 @@ function Billing() {
                 <label htmlFor="">
                   Street Address <span className="star">*</span>
                 </label>
-                <input type="text" placeholder="" />
+                <input type="text" placeholder="" onChange={(e)=>setAddress(e.target.value)}/>
               </div>
 
               <div className="customerName">
@@ -218,7 +328,7 @@ function Billing() {
                   <label htmlFor="">
                     Town/City <span className="star">*</span>
                   </label>
-                  <input type="text" placeholder="" />
+                  <input type="text" placeholder="" onChange={(e)=>setCity(e.target.value)}/>
                 </div>
 
                 <div className="firstname">
@@ -294,25 +404,28 @@ function Billing() {
           <div className="cartRgt cartRgtt">
             <div className="cartTotalHeading cartTotalHeadingg">
               <h1>Your Order</h1>
-              <p onClick={() => setShowDeleteIcons(!showDeleteIcons)}>Edit Order</p>
+              <Link to={`/cart/${user?.user?._id}`}>
+              <p>Edit Order</p>
+              </Link>
+              {/* <p onClick={() => setShowDeleteIcons(!showDeleteIcons)}>Edit Order</p> */}
             </div>
             <div className="clContent clContentt">
-              {orderItems.map((item) => (
-                <div key={item.id} className="cItem1 cItem11">
+              {cartItems?.map((item) => (
+                <div key={item._id} className="cItem1 cItem11">
                   <div className="cItem cItemm">
                     <div className="cItemImg cItemImgg">
-                      <img src={item.image} alt={item.name} />
+                      <img src={`http://localhost:5000/uploads/${item.productDetails?.product?.productImages[0]}`} alt={item.productDetails?.product?.title} />
                     </div>
                     <div className="cItemDetails cItemDetailss">
-                      <h2>{item.name}</h2>
-                      <p>{item.category}</p>
+                      <h2>{item.productDetails?.product?.title}</h2>
+                      <p>{item.productDetails?.product?.category}</p>
                       <p className="quantity">Quantity: x{item.quantity}</p>
                     </div>
                     <div className="cItemPrice cItemPricee">
-                      <h3>₹{item.price}</h3>
+                      <h3>₹{item.productDetails?.product?.price}</h3>
                     </div>
                     {showDeleteIcons && (
-                      <div className="cItemDelete" onClick={() => handleDeleteItem(item.id)}>
+                      <div className="cItemDelete" onClick={() => handleDeleteItem(item._id)}>
                         <img src={del} alt="Delete" className="del" />
                       </div>
                     )}
@@ -323,15 +436,15 @@ function Billing() {
                 <h2>Total:</h2>
                 <h2>₹{totalAmount}</h2>
               </div>
-              <Link to={'/order'} style={{ textDecoration: "none", cursor: "pointer" }}>
+              {/* <Link to={'/order'} style={{ textDecoration: "none", cursor: "pointer" }}> */}
                 <div className="cartCheckoutBtn">
                   <button>Place Order</button>
                 </div>
-              </Link>
+              {/* </Link> */}
             </div>
           </div>
         </div>
-      </div>
+      </form>
       <Footer></Footer>
     </>
   );

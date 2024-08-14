@@ -1,59 +1,132 @@
-import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from 'react-router-dom';
 import backprint_t from "../Images/Product Photos/12.jpeg";
 import Navbar from "../Home/Navbar/Navbar";
-
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 function OrderDetails() {
+  const { user } = useAuthContext();
+  const [orderItems, setOrderItems] = useState([]);
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    country: "",
+    streetAddress: "",
+    townCity: "",
+    state: "",
+    pinCode: "",
+    phone: "",
+    email: "",
+  });
+  const { id } = useParams();
 
-    const orderItems = [
-        {
-          id: 1,
-          name: "Corporate Gift Set",
-          category: "Corporate Gifts",
-          price: 2000,
-          quantity: 2,
-          image: backprint_t,
-        },
-        {
-          id: 2,
-          name: "Corporate Gift Set",
-          category: "Corporate Gifts",
-          price: 2000,
-          quantity: 1,
-          image: backprint_t,
-        },
-        // Add more items if needed
-      ];
-    
-      const totalAmount = orderItems.reduce(
-        (total, item) => total + item.price * item.quantity,
-        0
-      );
-    
-      const [formData, setFormData] = useState({
-        firstName: "John",
-        lastName: "Doe",
-        country: "INDIA",
-        streetAddress: "123 Street Name",
-        townCity: "City Name",
-        state: "Maharashtra",
-        pinCode: "123456",
-        phone: "9876543210",
-        email: "john.doe@example.com",
-      });
-    
-      const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({
-          ...formData,
-          [name]: value,
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`http://localhost:5000/bills/getbillbyid/${id}`, {
+          headers: {
+            'Authorization': `Bearer ${user.token}`
+          }
         });
-      };
+        const json = await response.json();
 
-   return (
+        if (response.ok) {
+          setOrderItems(json.orderItems || []); // Ensure the data is structured correctly
+          setFormData({
+            firstName: json.firstName || "",
+            lastName: json.lastName || "",
+            country: json.country || "",
+            streetAddress: json.address || "",
+            townCity: json.city || "",
+            state: json.state || "",
+            pinCode: json.pincode || "",
+            phone: json.phoneNumber || "",
+            email: json.email || "",
+          });
+          console.log("User Order Data:", json);
+        } else {
+          console.log("Failed to fetch orders", json);
+        }
+      } catch (error) {
+        console.log('Error fetching orders:', error);
+      }
+    };
+
+    if (user) {
+      fetchData();
+    }
+  }, [user, id]);
+
+
+  const [adtItems, setAdtItems] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
+
+  const fetchData = async () => {
+    if (user) {
+      const response = await fetch(`http://localhost:5000/users/getuserbyid/${user.user?._id}`, {
+        headers: {
+          'Authorization': `Bearer ${user.token}`,
+        },
+      });
+      const json = await response.json();
+      if (response.ok) {
+        setAdtItems(json.cart);
+      }
+    }
+  };
+
+useEffect(() => {
+  
+
+  fetchData();
+}, [user]);
+
+// Use another useEffect to monitor cartItems changes
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const productPromises = adtItems.map(item => 
+        fetch(`http://localhost:5000/products/getproductbyid/${item.product}`, {
+          headers: {
+            'Authorization': `Bearer ${user.token}`,
+          }
+        }).then(response => response.json())
+      );
+
+      const products = await Promise.all(productPromises);
+     
+      // setCartItems(products)
+      
+
+      // Assuming you want to set the fetched products in the cart items
+      const updatedCartItems = products.map((product, index) => ({
+        ...adtItems[index],
+        productDetails: product // Adding product details to each cart item
+      }));
+
+      setCartItems(updatedCartItems);
+      
+    } catch (error) {
+      console.error('Error fetching product data:', error);
+    }
+  };
+
+  // console.log('products', cartItems)
+
+  if (adtItems && adtItems.length > 0) {
+    fetchData();
+    console.log('adtItems', cartItems)
+  }
+}, [adtItems, user]);
+
+const totalAmount = cartItems.reduce(
+  (total, item) => total + item.productDetails?.product?.price * item.quantity,
+  0
+);
+
+  return (
     <>
-     <Navbar></Navbar>
+      <Navbar />
       <div className="billingMain">
         <div className="billingLeftMain">
           <div className="billingLeft">
@@ -69,7 +142,6 @@ function OrderDetails() {
                     type="text"
                     name="firstName"
                     value={formData.firstName}
-                    onChange={handleChange}
                     readOnly
                   />
                 </div>
@@ -80,7 +152,6 @@ function OrderDetails() {
                     type="text"
                     name="lastName"
                     value={formData.lastName}
-                    onChange={handleChange}
                     readOnly
                   />
                 </div>
@@ -92,7 +163,6 @@ function OrderDetails() {
                   type="text"
                   name="country"
                   value={formData.country}
-                  onChange={handleChange}
                   readOnly
                 />
                 <p>Currently available for India.</p>
@@ -104,7 +174,6 @@ function OrderDetails() {
                   type="text"
                   name="streetAddress"
                   value={formData.streetAddress}
-                  onChange={handleChange}
                   readOnly
                 />
               </div>
@@ -116,7 +185,6 @@ function OrderDetails() {
                     type="text"
                     name="townCity"
                     value={formData.townCity}
-                    onChange={handleChange}
                     readOnly
                   />
                 </div>
@@ -127,10 +195,9 @@ function OrderDetails() {
                     id="states"
                     name="state"
                     value={formData.state}
-                    onChange={handleChange}
                     readOnly
                   >
-                    <option value="State Name">{formData.state}</option>
+                    <option value={formData.state}>{formData.state}</option>
                   </select>
                 </div>
               </div>
@@ -142,7 +209,6 @@ function OrderDetails() {
                     type="text"
                     name="pinCode"
                     value={formData.pinCode}
-                    onChange={handleChange}
                     readOnly
                   />
                 </div>
@@ -153,7 +219,6 @@ function OrderDetails() {
                     type="tel"
                     name="phone"
                     value={formData.phone}
-                    onChange={handleChange}
                     readOnly
                   />
                 </div>
@@ -165,7 +230,6 @@ function OrderDetails() {
                   type="email"
                   name="email"
                   value={formData.email}
-                  onChange={handleChange}
                   readOnly
                 />
               </div>
@@ -178,18 +242,18 @@ function OrderDetails() {
               <h1>Order Summary</h1>
             </div>
             <div className="clContentt">
-              {orderItems.map((item) => (
-                <div key={item.id} className="cItem1">
+              {cartItems.map((item) => (
+                <div key={item._id} className="cItem1">
                   <div className="cItemImg">
-                    <img src={item.image} alt={item.name} />
+                    <img src={`http://localhost:5000/uploads/${item.productDetails?.product?.productImages[0]}` || backprint_t} alt={item.name} />
                   </div>
                   <div className="cItemDetails">
-                    <h2>{item.name}</h2>
-                    <p>{item.category}</p>
+                    <h2>{item.productDetails?.product?.name}</h2>
+                    <p>{item.productDetails?.product?.category}</p>
                     <p className="quantity">Quantity: x{item.quantity}</p>
                   </div>
                   <div className="cItemPrice">
-                    <h3>₹{item.price}</h3>
+                    <h3>₹{item.productDetails?.product?.price}</h3>
                   </div>
                 </div>
               ))}
@@ -204,9 +268,8 @@ function OrderDetails() {
           </div>
         </div>
       </div>
-
     </>
   );
 }
 
-export default OrderDetails
+export default OrderDetails;
