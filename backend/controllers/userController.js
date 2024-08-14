@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 require('dotenv').config()
 
 const createToken = (id) =>{
-  return jwt.sign({id}, process.env.SECRET, {expiresIn: '3d'})
+  return jwt.sign({id}, process.env.SECRET, {expiresIn: '30d'})
 } 
 
 
@@ -95,6 +95,7 @@ const addToCart = async (req, res) => {
 
   try {
     const product = await Product.findById(productId);
+    console.log(productId, quantity)
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
     }

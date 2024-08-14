@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Cart.css";
 import { Link } from "react-router-dom";
 import prod1 from "../../components/Images/Product Photos/12.jpeg";
@@ -6,44 +6,108 @@ import cross from "../../components/Images/cross.png";
 import arrow_back from "../../components/Images/Arrow_back.png";
 import Navbar from "../Home/Navbar/Navbar";
 import Footer from "../Home/Footer/Footer";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
-const initialCartItems = [
-  {
-    id: 1,
-    name: "Corporate Gift Set",
-    image: prod1,
-    category: "Corporate Gifts",
-    price: 2000,
-  },
-  {
-    id: 2,
-    name: "Corporate Gift Set",
-    image: prod1,
-    category: "Corporate Gifts",
-    price: 2000,
-  },
-  {
-    id: 3,
-    name: "Corporate Gift Set",
-    image: prod1,
-    category: "Corporate Gifts",
-    price: 2000,
-  },
-  {
-    id: 3,
-    name: "Corporate Gift Set",
-    image: prod1,
-    category: "Corporate Gifts",
-    price: 2000,
-  },
-];
 
 function Cart() {
-  const [cartItems, setCartItems] = useState(initialCartItems);
+  
+  const {user} = useAuthContext()
+  // const [cartItems, setCartItems]
+  const [adtItems, setAdtItems] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
 
-  const handleRemove = (id) => {
-    const updatedCartItems = cartItems.filter((item) => item.id !== id);
-    setCartItems(updatedCartItems);
+  const fetchData = async () => {
+    if (user) {
+      const response = await fetch(`http://localhost:5000/users/getuserbyid/${user.user?._id}`, {
+        headers: {
+          'Authorization': `Bearer ${user.token}`,
+        },
+      });
+      const json = await response.json();
+      if (response.ok) {
+        setAdtItems(json.cart);
+      }
+    }
+  };
+
+useEffect(() => {
+  
+
+  fetchData();
+}, [user]);
+
+// Use another useEffect to monitor cartItems changes
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const productPromises = adtItems.map(item => 
+        fetch(`http://localhost:5000/products/getproductbyid/${item.product}`, {
+          headers: {
+            'Authorization': `Bearer ${user.token}`,
+          }
+        }).then(response => response.json())
+      );
+
+      const products = await Promise.all(productPromises);
+     
+      // setCartItems(products)
+      
+
+      // Assuming you want to set the fetched products in the cart items
+      const updatedCartItems = products.map((product, index) => ({
+        ...adtItems[index],
+        productDetails: product // Adding product details to each cart item
+      }));
+
+      setCartItems(updatedCartItems);
+      
+    } catch (error) {
+      console.error('Error fetching product data:', error);
+    }
+  };
+
+  // console.log('products', cartItems)
+
+  if (adtItems && adtItems.length > 0) {
+    fetchData();
+    console.log('adtItems', cartItems)
+  }
+}, [adtItems, user]);
+
+
+
+  const handleRemove = async(id) => {
+    // const updatedCartItems = cartItems.filter((item) => item.id !== id);
+    // setCartItems(updatedCartItems);
+    console.log(id)
+
+    try {
+      const formData = {
+        'productId': id
+      }
+      console.log(formData)
+      
+      const response = await fetch(`http://localhost:5000/users/removefromcart/${user.user?._id}`, {
+        method: "DELETE",
+        body: JSON.stringify(formData),
+        headers: {
+          'Authorization': `Bearer ${user.token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+  
+      const json = await response.json();
+      if (response.ok) {
+        console.log('successfully removed from the cart', json);
+        // updateUserCart()
+        fetchData()
+        console.log('adt user', user);
+      } else {
+        console.log('Failed to remove from cart', json);
+      }
+    } catch (error) {
+      console.log('Error:', error);
+    }
   };
 
   return (
@@ -56,26 +120,27 @@ function Cart() {
           <div className="cartLeft">
             <h1>Cart</h1>
             <div className="clContent">
-              {cartItems.map((item) => (
-                <div className="cItem1" key={item.id}>
-                  <Link to={"/product"} style={{ textDecoration: "none", cursor: "pointer" }}>
+              {cartItems?.map((item) => (
+                
+                <div className="cItem1" key={item._id}>
+                  <Link to={`/product/${item.productDetails?.product?._id}`} style={{ textDecoration: "none", cursor: "pointer" }}>
                     <div className="cItem">
                       <div className="cItemImg">
                         {" "}
-                        <img src={item.image} alt={item.name} />{" "}
+                        <img src={`http://localhost:5000/uploads/${item.productDetails?.product?.productImages[0]}`} alt={item.title} />{" "}
                       </div>
                       <div className="cItemDetails">
-                        <h2>{item.name}</h2>
+                        <h2>{item.productDetails?.product?.title}</h2>
                         <div className="p">
-                          <p>CATEGORY - {item.category}</p>
+                          <p>CATEGORY - {item.productDetails?.product?.category}</p>
                         </div>
-                        <div className="price">₹{item.price}</div>
+                        <div className="price">₹{item.productDetails?.product?.price} x {item.quantity}</div>
                       </div>
                     </div>{" "}
                   </Link>
 
                   <div className="cItemRemove">
-                    <p onClick={() => handleRemove(item.id)}>
+                    <p onClick={() => handleRemove(item.productDetails?.product?._id)}>
                       REMOVE <img src={cross} alt="Remove" />
                     </p>
                   </div>
@@ -91,7 +156,7 @@ function Cart() {
           <div className="cartTotal">
             <p>Total</p>
             <span>
-              ₹{cartItems.reduce((total, item) => total + item.price, 0)}
+              ₹{cartItems?.reduce((total, item) => total + item.productDetails?.product?.price * item.quantity, 0)}
             </span>
           </div>
           <Link to={"/billing"} style={{ textDecoration: "none", cursor: "pointer" }}>

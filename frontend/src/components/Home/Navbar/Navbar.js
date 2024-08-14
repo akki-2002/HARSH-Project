@@ -43,7 +43,7 @@ function Navbar() {
 
                 {user ? 
                     <div className='cno'>
-                        <Link to={'/cart'}>
+                        <Link to={`/cart/${user?.user?._id}`}>
                             <img src={cart} alt="cart" />
                         </Link>
                         <Link to={'/order'}>
@@ -64,7 +64,7 @@ function Navbar() {
                 
                 {user ? 
                     <div className='cno'> 
-                        <Link to={'/cart'}>
+                        <Link to={`/cart/${user?.user?._id}`}>
                             <img src={cart} className='icon' alt="cart" />
                         </Link>
                         <Link to={'/order'}>
