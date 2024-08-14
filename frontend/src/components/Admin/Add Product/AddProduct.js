@@ -48,9 +48,9 @@ function AddProduct() {
   
     if (response.ok) {
       const result = await response.json();
-      console.log('Product edited successfully:', result);
+      console.log('Product added successfully:', result);
     } else {
-      console.error('Failed to edit product:', response.statusText);
+      console.error('Failed to add the product:', response.statusText);
     }
   };
 

@@ -11,7 +11,7 @@ router.post('/login', loginUser);
 // router.get('/getusers',requireAuth('Admin'), getUsers);
 router.get('/getusers', getUsers);
 
-router.get('/getuserbyid/:id',requireAuth('Admin'), getUserById);
+router.get('/getuserbyid/:id', getUserById);
 
 router.put('/updateuser/:id', updateUser)
 

@@ -58,7 +58,7 @@ function App() {
           <Route path="/religiousAll" element={<ReligiousAll />} />
           <Route path="/dailyAll" element={<DailyAll />} />
           <Route path="/product/:id" element={<ProductPage />} />
-          <Route path="/cart" element={<Cart />} />
+          <Route path="/cart/:id" element={<Cart />} />
           <Route path="/billing" element={<Billing />} />
           <Route path="/order" element={<Order />}>
             <Route path="/order" element={<OrderHistory />} />

@@ -53,6 +53,57 @@ function ProductPage() {
     setImgIndex(index)
   };
 
+  const updateUserCart = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/users/getuserbyid/66b64ee64fb94cedf28702b0`, {
+        method: "GET",
+        headers: {
+          'Authorization': `Bearer ${user.token}`
+        }
+      });
+
+      const updatedUser = await response.json();
+      console.log('updated user', updatedUser)
+      if (response.ok) {
+        // setUser(updatedUser);
+        localStorage.setItem('user', JSON.stringify({token: user.token, user: updatedUser}));
+        console.log("updt", user)
+      }
+    } catch (error) {
+      console.error('Failed to update user cart:', error);
+    }
+  };
+
+  const handleAddToCart = async (product) => {
+    try {
+      const formData = {
+        'productId': product._id,
+        'quantity': quantity
+      }
+      console.log(formData)
+      
+      const response = await fetch(`http://localhost:5000/users/addtocart/${user.user?._id}`, {
+        method: "POST",
+        body: JSON.stringify(formData),
+        headers: {
+          'Authorization': `Bearer ${user.token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+  
+      const json = await response.json();
+      if (response.ok) {
+        console.log('successfully added to the cart', json);
+        updateUserCart()
+        console.log('adt user', user);
+      } else {
+        console.log('Failed to add to cart', json);
+      }
+    } catch (error) {
+      console.log('Error:', error);
+    }
+  };
+
   return (
     <>
       <Navbar />
@@ -116,16 +167,16 @@ function ProductPage() {
           </p>
 
           <div className="abBtns">
-            <Link
+            {/* <Link
               to="/cart"
               style={{
                 textDecoration: "none",
                 cursor: "pointer",
                 color: "black",
               }}
-            >
-              <button>ADD TO CART</button>
-            </Link>
+            > */}
+              <button onClick={()=>handleAddToCart(product)}>ADD TO CART</button>
+            {/* </Link> */}
             <Link
               to="/billing"
               style={{
