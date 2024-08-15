@@ -25,10 +25,12 @@ import CustOrders from "./components/Admin/Cust Orders/CustOrders";
 import ViewCustOrders from "./components/Admin/View Order/ViewCustOrder"
 import OrderDetails from "./components/Order/OrderDetails";
 import Profile from "./components/Admin/Profile/Profile";
+import CartProduct from "./components/Cart Page/CartProduct"
 // import { useAuthContext } from "./hooks/useAuthContext";
 import Home from "./components/Home/Home";
 import { useAuthContext } from "./hooks/useAuthContext";
 import BillingForOne from "./components/Billing/BillingForOne";
+import BuyProduct from "./components/Product Page/BuyProduct";
 
 function App() {
   const {user} = useAuthContext()
@@ -59,7 +61,9 @@ function App() {
           <Route path="/religiousAll" element={<ReligiousAll />} />
           <Route path="/dailyAll" element={<DailyAll />} />
           <Route path="/product/:id" element={<ProductPage />} />
+          <Route path="/product/:id/:count" element={<BuyProduct />} />
           <Route path="/cart/:id" element={<Cart />} />
+          <Route path="/cartproduct/:id/:count" element={<CartProduct />} />
           <Route path="/billing" element={<Billing />} />
           <Route path="/billing/:id/:count" element={<BillingForOne />} />
           <Route path="/order" element={<Order />}>
