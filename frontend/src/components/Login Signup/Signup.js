@@ -30,6 +30,7 @@ const handleSubmit = async (e) => {
   if(!error)
   {
     console.log("Successfully registered")
+    navigate('/')
   }
       
 };

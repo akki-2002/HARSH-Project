@@ -6,6 +6,7 @@ import del from "../../components/Images/cross.png";
 import Navbar from "../Home/Navbar/Navbar";
 import Footer from "../Home/Footer/Footer";
 import { useAuthContext } from "../../hooks/useAuthContext";
+import { useNavigate } from "react-router-dom";
 
 function Billing() {
   const [country, setCountry] = useState({
@@ -222,6 +223,7 @@ useEffect(() => {
   const [lastName, setLastName] = useState('')
   const [city, setCity] = useState('')
   const [address, setAddress] = useState('')
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -267,6 +269,7 @@ useEffect(() => {
       const json = await response.json();
       if (response.ok) {
         console.log(json);
+        navigate('/order')
       } else {
         console.log('Failed to submit form:', json);
       }

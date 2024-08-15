@@ -33,7 +33,7 @@ function Signin() {
     if (!error && !isLoading) {
       console.log("Successfully logged in");
       setEr('Successfully logged in!!');
-      setTimeout(() => navigate('/'), 500); // Adding a slight delay before navigating
+      setTimeout(() => navigate('/'), 1000); // Adding a slight delay before navigating
     } else {
       setEr(error || 'Login failed. Please try again.');
     }
