@@ -16,19 +16,30 @@ function Signin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const {login, error, isLoading} = useLogin()
+  const [er, setEr] = useState('')
 
   const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    if (!email || !password) {
+      return alert('Please fill in all the details.');
+    }
   
     await login(email, password);
-    if(!error)
-    {
+  
+    // Immediately set the error or success message after login attempt
+    if (!error && !isLoading) {
       console.log("Successfully logged in");
-      navigate('/')
+      setEr('Successfully logged in!!');
+      setTimeout(() => navigate('/'), 500); // Adding a slight delay before navigating
+    } else {
+      setEr(error || 'Login failed. Please try again.');
     }
   };
+  
+  
 
   const handleEmailClick = () => {
     setMove({
@@ -108,6 +119,7 @@ function Signin() {
             </div>
 
             <div className="signupBtns">
+              <p>{er}</p>
               <div className="signupBtn">
                 {/* <Link
                   to={"/"}

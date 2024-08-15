@@ -50,9 +50,27 @@
   .navIcons1 .smallSearchBar1 {
     border: 2px solid #98168b;
     display: flex;
+    /* flex-direction: column; */
     align-items: center;
     border-radius: 15px;
     padding: 0px 10px;
+    position: relative;
+  }
+
+  .smallSearchBar1 .searchedEle{
+    position: absolute;
+    width: 100%;
+    top: 40px;
+    /* border: 1px solid black; */
+    background-color: rgba(0, 0, 0, 0.467);
+    padding: 0px;
+    list-style: none;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    /* z-index: -1; */
   }
   
   .navIcons1 .smallSearchBar1 input {
