@@ -57,7 +57,6 @@ function DailyAccessories() {
                   <Link to={"/cart"}>
                     <FaCartPlus className="fa-cart-plus" />
                   </Link>
-
                 </div>
               </div>
             </div>
