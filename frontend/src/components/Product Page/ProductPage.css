@@ -120,7 +120,7 @@
 }
 
 .quantity-controls input {
-  width: 42px;
+  width: 100px;
   padding: 8px;
   border: 2px solid #ddd;
   border-radius: 5px;

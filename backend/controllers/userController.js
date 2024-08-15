@@ -153,6 +153,41 @@ const removeFromCart = async (req, res) => {
   }
 };
 
+const updateCart = async (req, res) => {
+  const { userId } = req.params;
+  const { productId, quantity } = req.body;
+
+  try {
+    const product = await Product.findById(productId);
+    console.log(productId, quantity)
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const cartItemIndex = user.cart.findIndex(
+      (item) => item.product.toString() === productId
+    );
+
+    if (cartItemIndex > -1) {
+      user.cart[cartItemIndex].quantity = quantity;
+    } else{
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    // Save the updated user
+    await user.save();
+
+    res.status(200).json({ message: "Product updated in the cart", cart: user.cart });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
 module.exports = {
   signupUser,
   loginUser,
@@ -160,6 +195,7 @@ module.exports = {
   updateUser,
   deleteUser,
   addToCart,
+  updateCart,
   removeFromCart,
   getUserById
 };

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Sign.css";
 import emailImg from "../../components/Images/email.png";
@@ -26,14 +26,16 @@ function Signup() {
 const handleSubmit = async (e) => {
   e.preventDefault();
   await signup(username, email, password, 'User');
-
-  if(!error)
-  {
-    console.log("Successfully registered")
-    navigate('/')
-  }
       
 };
+
+useEffect(()=>{
+  if(error === false)
+    {
+      console.log("Successfully logged in")
+      setTimeout(() => navigate('/'), 1000); 
+    }
+},[error])
 
 
   const handleNameClick = () => {
@@ -146,6 +148,7 @@ const handleSubmit = async (e) => {
             </div>
 
             <div className="signupBtns">
+            {error === false ? <p className="success">Successfully signed in!!</p>:<p className="error">{error}</p>}
               <div className="signupBtn">
                 {/* <Link
                   to={"/"}

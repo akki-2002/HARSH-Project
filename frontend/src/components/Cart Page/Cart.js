@@ -7,6 +7,7 @@ import arrow_back from "../../components/Images/Arrow_back.png";
 import Navbar from "../Home/Navbar/Navbar";
 import Footer from "../Home/Footer/Footer";
 import { useAuthContext } from "../../hooks/useAuthContext";
+import { useNavigate } from "react-router-dom";
 
 
 function Cart() {
@@ -15,6 +16,7 @@ function Cart() {
   // const [cartItems, setCartItems]
   const [adtItems, setAdtItems] = useState([]);
   const [cartItems, setCartItems] = useState([]);
+  const navigate = useNavigate();
 
   const fetchData = async () => {
     if (user) {
@@ -68,7 +70,7 @@ useEffect(() => {
 
   // console.log('products', cartItems)
 
-  if (adtItems && adtItems.length > 0) {
+  if (adtItems && adtItems.length > -1) {
     fetchData();
     console.log('adtItems', cartItems)
   }
@@ -100,7 +102,7 @@ useEffect(() => {
       if (response.ok) {
         console.log('successfully removed from the cart', json);
         // updateUserCart()
-        fetchData()
+        fetchData();
         console.log('adt user', user);
       } else {
         console.log('Failed to remove from cart', json);
@@ -109,6 +111,18 @@ useEffect(() => {
       console.log('Error:', error);
     }
   };
+
+
+  const handleCheckout = () =>{
+
+    if(cartItems?.length > 0)
+    {
+      // console.log('chajer', cartItems.length)
+      navigate('/billing')
+    }else{
+      alert('Cart is empty, please add items to proceed')
+    }
+  }
 
   return (
     <>
@@ -123,7 +137,7 @@ useEffect(() => {
               {cartItems?.map((item) => (
                 
                 <div className="cItem1" key={item._id}>
-                  <Link to={`/product/${item.productDetails?.product?._id}`} style={{ textDecoration: "none", cursor: "pointer" }}>
+                  <Link to={`/cartproduct/${item.productDetails?.product?._id}/${item.quantity}`} style={{ textDecoration: "none", cursor: "pointer" }}>
                     <div className="cItem">
                       <div className="cItemImg">
                         {" "}
@@ -159,11 +173,11 @@ useEffect(() => {
               ₹{cartItems?.reduce((total, item) => total + item.productDetails?.product?.price * item.quantity, 0)}
             </span>
           </div>
-          <Link to={"/billing"} style={{ textDecoration: "none", cursor: "pointer" }}>
-            <div className="cartCheckoutBtn">
+          {/* <Link to={"/billing"} style={{ textDecoration: "none", cursor: "pointer" }}> */}
+            <div className="cartCheckoutBtn" onClick={handleCheckout}>
               <button>Proceed to Checkout</button>
             </div>
-          </Link>
+          {/* </Link> */}
         </div>
       </div>
       <div className="cartBottom">

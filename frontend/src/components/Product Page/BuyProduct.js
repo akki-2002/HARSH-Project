@@ -6,11 +6,12 @@ import Navbar from "../Home/Navbar/Navbar";
 import Footer from "../Home/Footer/Footer";
 import { useAuthContext } from "../../hooks/useAuthContext";
 
-function ProductPage() {
+function BuyProduct() {
   const { user } = useAuthContext();
   const { id } = useParams();
+  const {count} = useParams();
   const [product, setProduct] = useState({}); // Initialize as an empty object
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(parseInt(count));
   const [totalPrice, setTotalPrice] = useState(0);
   const [selectedImage, setSelectedImage] = useState(null);
   const [imgIndex, setImgIndex] = useState(0)
@@ -158,7 +159,7 @@ function ProductPage() {
           <p className="tax">Inclusive of all taxes</p>
           <p className="desc">Description</p>
           <p className="desc-p">{product?.description}</p>
-          {user && user?.user?.userType === 'User' && 
+
           <div className="qua">
             <p>Quantity</p>
             <div className="quantity-controls">
@@ -167,7 +168,6 @@ function ProductPage() {
               <button onClick={incrementQuantity}>+</button>
             </div>
           </div>
-          }
 
           <p className="ins">
             {product?.itemInStock ? "Item in Stock" : "Out of Stock"}
@@ -182,10 +182,9 @@ function ProductPage() {
                 color: "black",
               }}
             > */}
-            {user && user?.user?.userType === 'User' && <button onClick={()=>handleAddToCart(product)}>ADD TO CART</button>}
-              
+              {/* <button onClick={()=>handleAddToCart(product)}>ADD TO CART</button> */}
             {/* </Link> */}
-            {user && user?.user?.userType === 'User' && 
+            {user && 
             <Link
               to={`/billing/${product._id}/${quantity}`}
               style={{
@@ -234,4 +233,4 @@ function ProductPage() {
   );
 }
 
-export default ProductPage;
+export default BuyProduct;

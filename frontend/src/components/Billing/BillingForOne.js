@@ -383,7 +383,7 @@ if(user)
           <div className="cartRgt cartRgtt">
             <div className="cartTotalHeading cartTotalHeadingg">
               <h1>Your Order</h1>
-              <Link to={`/product/${id}`}>
+              <Link to={`/product/${id}/${count}`}>
               <p>Edit Order</p>
               </Link>
               {/* <p onClick={() => setShowDeleteIcons(!showDeleteIcons)}>Edit Order</p> */}

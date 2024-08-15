@@ -1,5 +1,5 @@
 const express = require('express');
-const {signupUser, loginUser, getUsers,getUserById, updateUser, deleteUser, addToCart, removeFromCart} = require('../controllers/userController')
+const {signupUser, loginUser, getUsers,getUserById, updateUser, deleteUser, addToCart, updateCart, removeFromCart} = require('../controllers/userController')
 const requireAuth = require('../middlewares/requireAuth')
 
 const router = express.Router();
@@ -19,6 +19,8 @@ router.put('/updateuser/:id', updateUser)
 router.delete('/deleteuser/:id', deleteUser)
 
 router.post('/addtocart/:userId', requireAuth('User'), addToCart)
+
+router.put('/updatecart/:userId', requireAuth('User'), updateCart)
 
 router.delete('/removefromcart/:userId', requireAuth('User'), removeFromCart)
 

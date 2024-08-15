@@ -224,6 +224,7 @@ useEffect(() => {
   const [city, setCity] = useState('')
   const [address, setAddress] = useState('')
   const navigate = useNavigate()
+  const [error, setError] = useState('')
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -269,8 +270,13 @@ useEffect(() => {
       const json = await response.json();
       if (response.ok) {
         console.log(json);
-        navigate('/order')
+        setError(false)
+        setTimeout(() => {
+          
+          navigate('/order')
+        }, 1000);
       } else {
+        setError(true);
         console.log('Failed to submit form:', json);
       }
     } catch (error) {
@@ -287,7 +293,7 @@ useEffect(() => {
       <form className="billingMain" onSubmit={handleSubmit}>
         <div className="billingLeftMain">
           <div className="billingLeft">
-            <Link to={"/cart"}>
+            <Link to={`/cart/${user?.user?._id}`}>
               <div className="backToCart">
                 <p>Back to Cart</p>
               </div>
@@ -446,6 +452,8 @@ useEffect(() => {
                 <h2>₹{totalAmount}</h2>
               </div>
               {/* <Link to={'/order'} style={{ textDecoration: "none", cursor: "pointer" }}> */}
+              {error ? <p className="error">Failed to submit the form. Please check the details.</p> : error === false ? <p className="success">
+                Order placed successfully</p> : ""}
                 <div className="cartCheckoutBtn">
                   <button>Place Order</button>
                 </div>

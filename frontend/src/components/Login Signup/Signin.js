@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Sign.css";
 import emailImg from "../../components/Images/email.png";
 import lock from "../../components/Images/lock.png";
@@ -15,8 +15,7 @@ function Signin() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const {login, error, isLoading} = useLogin()
-  const [er, setEr] = useState('')
+  const {login, error, isLoading} = useLogin()  
 
   const navigate = useNavigate()
 
@@ -28,16 +27,17 @@ function Signin() {
     }
   
     await login(email, password);
-  
-    // Immediately set the error or success message after login attempt
-    if (!error && !isLoading) {
-      console.log("Successfully logged in");
-      setEr('Successfully logged in!!');
-      setTimeout(() => navigate('/'), 1000); // Adding a slight delay before navigating
-    } else {
-      setEr(error || 'Login failed. Please try again.');
-    }
+    
+      
   };
+
+  useEffect(()=>{
+    if(error === false)
+      {
+        console.log("Successfully logged in")
+        setTimeout(() => navigate('/'), 1000); 
+      }
+  },[error])
   
   
 
@@ -119,7 +119,8 @@ function Signin() {
             </div>
 
             <div className="signupBtns">
-              <p>{er}</p>
+              {error === false ? <p className="success">Successfully logged in!!</p>:<p className="error">{error}</p>}
+            
               <div className="signupBtn">
                 {/* <Link
                   to={"/"}
