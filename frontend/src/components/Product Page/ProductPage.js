@@ -27,9 +27,9 @@ function ProductPage() {
       }
     };
 
-    if (user) {
+    // if (user) {
       fetchData();
-    }
+    // }
   }, [user, id]);
 
   useEffect(() => {
@@ -76,13 +76,19 @@ function ProductPage() {
 
   const handleAddToCart = async (product) => {
     try {
+
+      if(!user)
+        {
+         return alert('Login in to add to cart')
+        }
+  
       const formData = {
         'productId': product._id,
         'quantity': quantity
       }
       console.log(formData)
       
-      const response = await fetch(`http://localhost:5000/users/addtocart/${user.user?._id}`, {
+      const response = await fetch(`http://localhost:5000/users/addtocart/${user?.user?._id}`, {
         method: "POST",
         body: JSON.stringify(formData),
         headers: {
@@ -177,6 +183,7 @@ function ProductPage() {
             > */}
               <button onClick={()=>handleAddToCart(product)}>ADD TO CART</button>
             {/* </Link> */}
+            {user && 
             <Link
               to={`/billing/${product._id}/${quantity}`}
               style={{
@@ -187,6 +194,7 @@ function ProductPage() {
             >
               <button>BUY NOW</button>
             </Link>
+            }
           </div>
 
           <div className="productDetails">

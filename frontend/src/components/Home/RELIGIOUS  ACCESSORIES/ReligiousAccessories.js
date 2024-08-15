@@ -12,6 +12,7 @@ import img12 from "../../Images/Product Photos/12.jpeg";
 import { FaCartPlus } from "react-icons/fa";
 import './ReligiousAccessories.css'
 import { useAuthContext } from "../../../hooks/useAuthContext";
+import tick from '../../Images/tick.png'
 
 function ReligiousAccessories() {
 
@@ -45,9 +46,9 @@ function ReligiousAccessories() {
   useEffect(() => {
     
 
-    if (user) {
+    // if (user) {
       fetchData();
-    }
+    // }
 
   }, [user]);
 
@@ -71,9 +72,16 @@ function ReligiousAccessories() {
       console.error('Failed to update user cart:', error);
     }
   };
+  
 
   const handleAddToCart = async (product) => {
     try {
+
+      if(!user)
+      {
+       return alert('Login in to add to cart')
+      }
+
       const formData = {
         'productId': product._id,
         'quantity': 1
@@ -138,7 +146,9 @@ function ReligiousAccessories() {
                 <div className="price-container">
                   <p className="price">&#8377;{product.price}</p>
                   {/* <Link to={"/cart"}> */}
+                  <div>
                     <FaCartPlus className="fa-cart-plus" onClick={()=>handleAddToCart(product)}/>
+                  </div>
                   {/* </Link> */}
                 </div>
               </div>

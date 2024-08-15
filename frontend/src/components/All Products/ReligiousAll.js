@@ -67,9 +67,9 @@ function ReligiousAll() {
   useEffect(() => {
     
 
-    if (user) {
+    // if (user) {
       fetchData();
-    }
+    // }
 
   }, [user]);
 
@@ -96,6 +96,11 @@ function ReligiousAll() {
 
   const handleAddToCart = async (product) => {
     try {
+      if(!user)
+        {
+         return alert('Login in to add to cart')
+        }
+  
       const formData = {
         'productId': product._id,
         'quantity': 1

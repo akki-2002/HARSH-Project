@@ -14,8 +14,8 @@ function Home() {
   return (
     <>
               <Navbar />
-              <Slider />
-              <BestSelling />
+              {/* <Slider />
+              <BestSelling /> */}
               <ReligiousAccessories />
               <DailyAccessories />
               <Testimonials />
