@@ -1,59 +1,120 @@
-import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useParams } from 'react-router-dom';
 import backprint_t from "../Images/Product Photos/12.jpeg";
 import Navbar from "../Home/Navbar/Navbar";
-
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 function OrderDetails() {
+  const { user } = useAuthContext();
+  const [orderItems, setOrderItems] = useState([]);
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    country: "",
+    streetAddress: "",
+    townCity: "",
+    state: "",
+    pinCode: "",
+    phone: "",
+    email: "",
+  });
+  const [cartItems, setCartItems] = useState([]);
+  const { id } = useParams();
 
-    const orderItems = [
-        {
-          id: 1,
-          name: "Corporate Gift Set",
-          category: "Corporate Gifts",
-          price: 2000,
-          quantity: 2,
-          image: backprint_t,
-        },
-        {
-          id: 2,
-          name: "Corporate Gift Set",
-          category: "Corporate Gifts",
-          price: 2000,
-          quantity: 1,
-          image: backprint_t,
-        },
-        // Add more items if needed
-      ];
-    
-      const totalAmount = orderItems.reduce(
-        (total, item) => total + item.price * item.quantity,
-        0
-      );
-    
-      const [formData, setFormData] = useState({
-        firstName: "John",
-        lastName: "Doe",
-        country: "INDIA",
-        streetAddress: "123 Street Name",
-        townCity: "City Name",
-        state: "Maharashtra",
-        pinCode: "123456",
-        phone: "9876543210",
-        email: "john.doe@example.com",
-      });
-    
-      const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({
-          ...formData,
-          [name]: value,
+  // Fetch order details
+  useEffect(() => {
+    const fetchOrderData = async () => {
+      try {
+        const response = await fetch(`http://localhost:5000/bills/getbillbyid/${id}`, {
+          headers: {
+            'Authorization': `Bearer ${user.token}`
+          }
         });
-      };
+        const json = await response.json();
 
-   return (
+        if (response.ok) {
+          // Assuming orderItems include product IDs and quantities
+          setOrderItems(json.productIds || []); 
+          // Example structure: [{ productId: 'id1', quantity: 2 }, ...]
+          console.log(json.productIds)
+          setFormData({
+            firstName: json.firstName || "",
+            lastName: json.lastName || "",
+            country: json.country || "",
+            streetAddress: json.address || "",
+            townCity: json.city || "",
+            state: json.state || "",
+            pinCode: json.pincode || "",
+            phone: json.phoneNumber || "",
+            email: json.email || "",
+          });
+        } else {
+          console.log("Failed to fetch order details", json);
+        }
+      } catch (error) {
+        console.log('Error fetching order details:', error);
+      }
+    };
+
+    if (user) {
+      fetchOrderData();
+    }
+  }, [user, id]);
+
+  // Fetch product data based on order items
+  console.log('ordasd', orderItems)
+  useEffect(() => {
+    const fetchProductData = async () => {
+      try {
+        // Fetch product details based on the product IDs in orderItems
+        const productPromises = orderItems.map(orderItem =>
+          fetch(`http://localhost:5000/products/getproductbyid/${orderItem.product}`, {
+            headers: {
+              'Authorization': `Bearer ${user.token}`,
+            }
+          }).then(response => response.json())
+        );
+  
+        const products = await Promise.all(productPromises);
+  
+        console.log('Fetched Products:', products); // Debugging
+  
+        // Combine product details with quantities
+        const updatedCartItems = orderItems.map(orderItem => {
+          // Find the product matching the current orderItem
+          const product = products.find(p => p.product?._id === orderItem.product);
+          
+          console.log('Order Item:', orderItem); // Debugging
+          console.log('Product Found:', product); // Debugging
+          
+          return {
+            ...orderItem,
+            productDetails: product // Add product details to each order item
+          };
+        });
+  
+        console.log('Updated Cart Items:', updatedCartItems); // Debugging
+  
+        setCartItems(updatedCartItems);
+      } catch (error) {
+        console.error('Error fetching product data:', error);
+      }
+    };
+  
+    if (orderItems.length > 0) {
+      fetchProductData();
+    }
+  }, [orderItems, user]);
+  
+  console.log('cartItems', cartItems)
+  const totalAmount = cartItems.reduce(
+    (total, item) => total + (item.productDetails?.product?.price || 0) * (item.quantity || 0),
+    0
+  );
+
+  return (
     <>
-     <Navbar></Navbar>
+      <Navbar />
       <div className="billingMain">
         <div className="billingLeftMain">
           <div className="billingLeft">
@@ -69,7 +130,6 @@ function OrderDetails() {
                     type="text"
                     name="firstName"
                     value={formData.firstName}
-                    onChange={handleChange}
                     readOnly
                   />
                 </div>
@@ -80,7 +140,6 @@ function OrderDetails() {
                     type="text"
                     name="lastName"
                     value={formData.lastName}
-                    onChange={handleChange}
                     readOnly
                   />
                 </div>
@@ -92,7 +151,6 @@ function OrderDetails() {
                   type="text"
                   name="country"
                   value={formData.country}
-                  onChange={handleChange}
                   readOnly
                 />
                 <p>Currently available for India.</p>
@@ -104,7 +162,6 @@ function OrderDetails() {
                   type="text"
                   name="streetAddress"
                   value={formData.streetAddress}
-                  onChange={handleChange}
                   readOnly
                 />
               </div>
@@ -116,7 +173,6 @@ function OrderDetails() {
                     type="text"
                     name="townCity"
                     value={formData.townCity}
-                    onChange={handleChange}
                     readOnly
                   />
                 </div>
@@ -127,10 +183,9 @@ function OrderDetails() {
                     id="states"
                     name="state"
                     value={formData.state}
-                    onChange={handleChange}
                     readOnly
                   >
-                    <option value="State Name">{formData.state}</option>
+                    <option value={formData.state}>{formData.state}</option>
                   </select>
                 </div>
               </div>
@@ -142,7 +197,6 @@ function OrderDetails() {
                     type="text"
                     name="pinCode"
                     value={formData.pinCode}
-                    onChange={handleChange}
                     readOnly
                   />
                 </div>
@@ -153,7 +207,6 @@ function OrderDetails() {
                     type="tel"
                     name="phone"
                     value={formData.phone}
-                    onChange={handleChange}
                     readOnly
                   />
                 </div>
@@ -165,7 +218,6 @@ function OrderDetails() {
                   type="email"
                   name="email"
                   value={formData.email}
-                  onChange={handleChange}
                   readOnly
                 />
               </div>
@@ -178,18 +230,19 @@ function OrderDetails() {
               <h1>Order Summary</h1>
             </div>
             <div className="clContentt">
-              {orderItems.map((item) => (
-                <div key={item.id} className="cItem1">
+              {cartItems.map((item, index) => (
+                console.log(item),
+                <div key={index} className="cItem1">
                   <div className="cItemImg">
-                    <img src={item.image} alt={item.name} />
+                    <img src={`http://localhost:5000/uploads/${item?.productDetails?.product?.productImages[0]}` || backprint_t} alt={item.productDetails?.product?.name} />
                   </div>
                   <div className="cItemDetails">
-                    <h2>{item.name}</h2>
-                    <p>{item.category}</p>
+                    <h2>{item.productDetails?.product?.name}</h2>
+                    <p>{item.productDetails?.product?.category}</p>
                     <p className="quantity">Quantity: x{item.quantity}</p>
                   </div>
                   <div className="cItemPrice">
-                    <h3>₹{item.price}</h3>
+                    <h3>₹{item.productDetails?.product?.price}</h3>
                   </div>
                 </div>
               ))}
@@ -204,9 +257,8 @@ function OrderDetails() {
           </div>
         </div>
       </div>
-
     </>
   );
 }
 
-export default OrderDetails
+export default OrderDetails;

@@ -213,7 +213,7 @@
     flex-direction: row;
   }
   .prdImgs {
-    flex-direction: column;
+    /* flex-direction: column; */
     width: 40%;
     gap: 20px;
   }

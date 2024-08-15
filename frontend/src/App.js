@@ -1,14 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 
-import Navbar from "./components/Home/Navbar/Navbar";
-import Slider from "./components/Home/Slider/Slider";
-import BestSelling from "./components/Home/Best Selling/BestSelling";
-import ReligiousAccessories from "./components/Home/RELIGIOUS  ACCESSORIES/ReligiousAccessories";
-import DailyAccessories from "./components/Home/DAILY ACCESSORIES/DailyAccessories";
-import Testimonials from "./components/Home/Testimonials/Testimonials";
-import Footer from "./components/Home/Footer/Footer";
+
 
 import ReligiousAll from "./components/All Products/ReligiousAll";
 import DailyAll from "./components/All Products/DailyAll";
@@ -31,11 +25,15 @@ import CustOrders from "./components/Admin/Cust Orders/CustOrders";
 import ViewCustOrders from "./components/Admin/View Order/ViewCustOrder"
 import OrderDetails from "./components/Order/OrderDetails";
 import Profile from "./components/Admin/Profile/Profile";
+// import { useAuthContext } from "./hooks/useAuthContext";
+import Home from "./components/Home/Home";
 import { useAuthContext } from "./hooks/useAuthContext";
+import BillingForOne from "./components/Billing/BillingForOne";
 
 function App() {
   const {user} = useAuthContext()
-  console.log(user)
+  
+  console.log("user", user)
   return (
     <>
       <Router>
@@ -44,45 +42,40 @@ function App() {
             
          
         {/* } */}
-        {user?.user?.userType === 'Admin' ? <Route path="/" element={<AllAdminProducts />}/> :
+        {/* { <Route path="/" element={}/>  */}
           <Route
           path="/"
           element={
+            user?.user?.userType === 'Admin' ?
+            <AllAdminProducts />:
+            <Home/>
             
-            <>
-              <Navbar />
-              <Slider />
-              <BestSelling />
-              <ReligiousAccessories />
-              <DailyAccessories />
-              <Testimonials />
-              <Footer />
-            </> 
               
           }
           />
-        }
+        {/* } */}
         
             
           <Route path="/religiousAll" element={<ReligiousAll />} />
           <Route path="/dailyAll" element={<DailyAll />} />
-          <Route path="/product" element={<ProductPage />} />
-          <Route path="/cart" element={<Cart />} />
+          <Route path="/product/:id" element={<ProductPage />} />
+          <Route path="/cart/:id" element={<Cart />} />
           <Route path="/billing" element={<Billing />} />
+          <Route path="/billing/:id/:count" element={<BillingForOne />} />
           <Route path="/order" element={<Order />}>
             <Route path="/order" element={<OrderHistory />} />
             <Route path="/order/acdetails" element={<AcDetails />} />
           </Route>
-          <Route path="/orderDetails" element={<OrderDetails />} />
+          <Route path="/orderDetails/:id" element={<OrderDetails />} />
 
 
           <Route path="/signin" element={<Signin />} />
           <Route path="/signup" element={<Signup />} />
           
           <Route path="/addProduct" element={<AddProduct />} />
-          <Route path="/editProduct" element={<EditProduct />} />
+          <Route path="/editProduct/:id" element={<EditProduct />} />
           <Route path="/adminOrders" element={<CustOrders />} />
-          <Route path="/viewCustOrder" element={<ViewCustOrders />} />
+          <Route path="/viewCustOrder/:id" element={<ViewCustOrders />} />
           <Route path="/profile" element={<Profile />} />
 
         </Routes>

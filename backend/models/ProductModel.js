@@ -13,21 +13,17 @@ const productSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    totalQuantity:{
-        type: Number,
-        required: true
-    },
-    deliveryInfo: [{
+    category: {
         type: String,
         required: true
-    }],
+    },
     itemInStock:{
         type: Boolean,
         default: true
     },
     productImages: [{
         type: String,
-        required: true
+        // required: true
     }]
 }, {timestamps: true})
 

@@ -8,9 +8,9 @@ router.post('/billforcart/:userId', requireAuth('User'), addBillForCart)
 
 router.post('/billforone/:userId/:productId', requireAuth('User'), addBillForOne)
 
-router.put('/editbill/:billId', requireAuth('User'), editBill)
+router.put('/editbill/:billId', editBill)
 
-router.get('/getbills', requireAuth('Admin'),getBills)
+router.get('/getbills',getBills)
 
 router.get('/getbillbyid/:id',getBillById)
 

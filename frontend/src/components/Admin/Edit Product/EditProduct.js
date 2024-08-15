@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import { IoMdArrowRoundBack } from "react-icons/io";
 import '../Add Product/AddProduct.css'; // Updated styles
 import NavbarAdmin from '../Navbar/NavbarAdmin';
 import Footer from '../../Home/Footer/Footer';
+import { useAuthContext } from '../../../hooks/useAuthContext';
 
 function EditProduct() {
   const [productName, setProductName] = useState('');
@@ -11,44 +12,92 @@ function EditProduct() {
   const [description, setDescription] = useState('');
   const [image1, setImage1] = useState(null);
   const [image2, setImage2] = useState(null);
+  const [image1Preview, setImage1Preview] = useState('');
+  const [image2Preview, setImage2Preview] = useState('');
   const [stock, setStock] = useState(true);
   const [category, setCategory] = useState('Religious Accessories');
+  const { id } = useParams();
+  const { user } = useAuthContext();
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(`http://localhost:5000/products/getproductbyid/${id}`);
+      const json = await response.json();
+      if (response.ok) {
+        console.log(json.product);
+        setProductName(json.product.title);
+        setPrice(json.product.price);
+        setDescription(json.product.description);
+        setImage1Preview(`http://localhost:5000/uploads/${json.product?.productImages[0]}`);
+        setImage2Preview(`http://localhost:5000/uploads/${json.product?.productImages[1]}`);
+        setStock(json.product.itemInStock);
+        setCategory(json.product.category);
+      }
+    };
+    if (user) {
+      fetchData();
+    }
+  }, [user, id]);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!image1) {
-      alert('Please upload at least one image.');
-      return;
+  
+    // if (!image1) {ease upload at least one image.');
+    //   return;
+    // }
+    //   alert('Pl
+  
+    const formData = new FormData();
+    formData.append('title', productName);
+    formData.append('price', parseFloat(price));
+    formData.append('description', description);
+    formData.append('itemInStock', stock);
+    formData.append('category', category);
+  
+    if (image1) {
+      formData.append('productImages', image1);
+    }
+    if (image2) {
+      formData.append('productImages', image2);
     }
 
-    const newProduct = {
-      name: productName,
-      price: parseFloat(price),
-      description,
-      images: [image1, image2].filter((img) => img), // Filter out null values
-      stock,
-      category,
-    };
-    console.log('New Product:', newProduct);
-    // Here, you can send `newProduct` to a backend API to save it in a database
-    alert('Product Uploaded Successfully!');
-    // Reset form after submission
-    setProductName('');
-    setPrice('');
-    setDescription('');
-    setImage1(null);
-    setImage2(null);
-    setStock(true);
-    setCategory('Religious Accessories');
+    console.log(formData)
+  
+    const response = await fetch(`http://localhost:5000/products/updateproduct/${id}`, {
+      method: 'PUT',
+      body: formData,
+    });
+  
+    if (response.ok) {
+      const result = await response.json();
+      console.log('Product edited successfully:', result);
+    } else {
+      console.error('Failed to edit product:', response.statusText);
+    }
   };
 
+  const handleImageChange = (e, setImage, setPreview) => {
+    const file = e.target.files[0];
+    setImage(file);
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+  
   return (
     <>
       <NavbarAdmin />
       <div className="admin-upload-form">
-      <Link to="/admin" style={{ textDecoration: 'none', cursor: 'pointer', fontSize: "1.5rem" }}><IoMdArrowRoundBack /></Link>
-        <h1> Edit Product</h1>
-        <form onSubmit={handleSubmit}>
+        <Link to="/" style={{ textDecoration: 'none', cursor: 'pointer', fontSize: "1.5rem" }}>
+          <IoMdArrowRoundBack />
+        </Link>
+        <h1>Edit Product</h1>
+        <form onSubmit={handleSubmit} encType='multipart/form-data'>
           <div className="form-group">
             <label htmlFor="productName">Product Name</label>
             <input
@@ -77,7 +126,6 @@ function EditProduct() {
               id="description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              
             />
           </div>
 
@@ -91,26 +139,27 @@ function EditProduct() {
             >
               <option value="Religious Accessories">Religious Accessories</option>
               <option value="Daily Accessories">Daily Accessories</option>
-    
             </select>
           </div>
 
           <div className="form-group">
             <label htmlFor="image1">Product Image 1</label>
+            {image1Preview && <img src={image1Preview} alt="Preview" style={{ width: '100px', height: '100px' }} />}
             <input
               type="file"
               id="image1"
-              onChange={(e) => setImage1(e.target.files[0])}
-              required
+              onChange={(e) => handleImageChange(e, setImage1, setImage1Preview)}
+              // required
             />
           </div>
 
           <div className="form-group">
             <label htmlFor="image2">Product Image 2 (Optional)</label>
+            {image2Preview && <img src={image2Preview} alt="Preview" style={{ width: '100px', height: '100px' }} />}
             <input
               type="file"
               id="image2"
-              onChange={(e) => setImage2(e.target.files[0])}
+              onChange={(e) => handleImageChange(e, setImage2, setImage2Preview)}
             />
           </div>
 

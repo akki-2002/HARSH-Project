@@ -5,12 +5,12 @@ const Product = require('../models/ProductModel');
 
 const addBillForCart = async (req, res) => {
     const { userId } = req.params;
-    const { productIds, firstName, lastName, country, address, city, state, pincode, phoneNumber, email } = req.body;
+    const { productIds, firstName, lastName, country, address, city, state, pincode, phoneNumber, email, totalPrice, status } = req.body;
 
     if (!Array.isArray(productIds) || !productIds.length) {
         return res.status(400).json({ error: 'Product IDs must be a non-empty array' });
     }
-    if (!firstName || !lastName || !country || !address || !city || !state || !pincode || !phoneNumber || !email) {
+    if (!firstName || !lastName || !country || !address || !city || !state || !pincode || !phoneNumber || !email || !status) {
         return res.status(400).json({ error: 'All billing details must be provided' });
     }
 
@@ -31,7 +31,9 @@ const addBillForCart = async (req, res) => {
             state,
             pincode,
             phoneNumber,
-            email
+            email,
+            totalPrice,
+            status
         });
 
         res.status(201).json(bill);
@@ -43,9 +45,9 @@ const addBillForCart = async (req, res) => {
 
 const addBillForOne = async (req, res) => {
     const { userId, productId } = req.params;
-    const { firstName, lastName, country, address, city, state, pincode, phoneNumber, email } = req.body;
+    const { firstName, lastName, country, address, city, state, pincode, phoneNumber, email, totalPrice, status, productIds } = req.body;
 
-    if (!firstName || !lastName || !country || !address || !city || !state || !pincode || !phoneNumber || !email) {
+    if (!firstName || !lastName || !country || !address || !city || !state || !pincode || !phoneNumber || !email || !totalPrice || !status|| !productIds) {
         return res.status(400).json({ error: 'All billing details must be provided' });
     }
 
@@ -62,7 +64,7 @@ const addBillForOne = async (req, res) => {
 
         const bill = await Billing.create({
             userId,
-            productIds: [productId],
+            productIds: [productIds],
             firstName,
             lastName,
             country,
@@ -71,7 +73,9 @@ const addBillForOne = async (req, res) => {
             state,
             pincode,
             phoneNumber,
-            email
+            email,
+            totalPrice,
+            status
         });
 
         res.status(201).json(bill);

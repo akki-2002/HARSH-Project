@@ -1,40 +1,107 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import pd1 from "../../components/Images/Product Photos/1.jpeg";
-import pd2 from "../../components/Images/Product Photos/10.jpeg";
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import "./ProductPage.css";
 import Testimonials from "../Home/Testimonials/Testimonials";
 import Navbar from "../Home/Navbar/Navbar";
 import Footer from "../Home/Footer/Footer";
-
-const product = {
-  name: "ABCDEFG",
-  price: 2000,
-  description:
-    "At Love Port, we believe in the power of personalization. Our wide range of customizable gifts ensures that each item is crafted with attention to detail and sentiment, making every moment special.",
-  images: [pd1, pd2],
-  stock: true,
-};
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 function ProductPage() {
+  const { user } = useAuthContext();
+  const { id } = useParams();
+  const [product, setProduct] = useState({}); // Initialize as an empty object
   const [quantity, setQuantity] = useState(1);
-  const [totalPrice, setTotalPrice] = useState(product.price);
-  const [selectedImage, setSelectedImage] = useState(product.images[0]);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [imgIndex, setImgIndex] = useState(0)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(`http://localhost:5000/products/getproductbyid/${id}`);
+      const json = await response.json();
+      if (response.ok) {
+        console.log(json);
+        setProduct(json.product);
+        setTotalPrice(json.product.price); // Set the initial total price
+        setSelectedImage(json.product.productImages[0]); // Set the initial selected image
+      }
+    };
+
+    if (user) {
+      fetchData();
+    }
+  }, [user, id]);
+
+  useEffect(() => {
+    if (product.price) {
+      setTotalPrice(product.price * quantity);
+    }
+  }, [quantity, product.price]);
 
   const incrementQuantity = () => {
-    setQuantity(quantity + 1);
-    setTotalPrice((quantity + 1) * product.price);
+    setQuantity(prevQuantity => prevQuantity + 1);
   };
 
   const decrementQuantity = () => {
     if (quantity > 1) {
-      setQuantity(quantity - 1);
-      setTotalPrice((quantity - 1) * product.price);
+      setQuantity(prevQuantity => prevQuantity - 1);
     }
   };
 
-  const handleImageClick = (image) => {
-    setSelectedImage(image);
+  const handleImageClick = (index) => {
+    // setSelectedImage(image);
+    setImgIndex(index)
+  };
+
+  const updateUserCart = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/users/getuserbyid/66b64ee64fb94cedf28702b0`, {
+        method: "GET",
+        headers: {
+          'Authorization': `Bearer ${user.token}`
+        }
+      });
+
+      const updatedUser = await response.json();
+      console.log('updated user', updatedUser)
+      if (response.ok) {
+        // setUser(updatedUser);
+        localStorage.setItem('user', JSON.stringify({token: user.token, user: updatedUser}));
+        console.log("updt", user)
+      }
+    } catch (error) {
+      console.error('Failed to update user cart:', error);
+    }
+  };
+
+  const handleAddToCart = async (product) => {
+    try {
+      const formData = {
+        'productId': product._id,
+        'quantity': quantity
+      }
+      console.log(formData)
+      
+      const response = await fetch(`http://localhost:5000/users/addtocart/${user.user?._id}`, {
+        method: "POST",
+        body: JSON.stringify(formData),
+        headers: {
+          'Authorization': `Bearer ${user.token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+  
+      const json = await response.json();
+      if (response.ok) {
+        console.log('successfully added to the cart', json);
+        updateUserCart()
+        console.log('adt user', user);
+      } else {
+        console.log('Failed to add to cart', json);
+      }
+    } catch (error) {
+      console.log('Error:', error);
+    }
   };
 
   return (
@@ -60,31 +127,31 @@ function ProductPage() {
             fontSize: "19px",
           }}
         >
-          {product.name}
+          {product?.title}
         </span>
       </span>
       <div className="productMain">
         <div className="prdImgs">
           <div className="prdiMin">
-            {product.images.map((img, index) => (
+            {product?.productImages?.map((img, index) => (
               <img
                 key={index}
-                src={img}
+                src={`http://localhost:5000/uploads/${product.productImages[index]}`}
                 alt={`pd${index + 1}`}
-                onClick={() => handleImageClick(img)}
+                onClick={() => handleImageClick(index)}
               />
             ))}
           </div>
           <div className="prdiMax">
-            <img src={selectedImage} alt="Selected Product" />
+            {selectedImage && <img src={`http://localhost:5000/uploads/${product.productImages[imgIndex]}`} alt="Selected Product" />}
           </div>
         </div>
         <div className="prdDets">
-          <h1>{product.name}</h1>
-          <h1 className="price"> ₹{totalPrice}</h1>
+          <h1>{product?.title}</h1>
+          <h1 className="price">₹{totalPrice}</h1>
           <p className="tax">Inclusive of all taxes</p>
           <p className="desc">Description</p>
-          <p className="desc-p">{product.description}</p>
+          <p className="desc-p">{product?.description}</p>
 
           <div className="qua">
             <p>Quantity</p>
@@ -96,30 +163,29 @@ function ProductPage() {
           </div>
 
           <p className="ins">
-            {product.stock ? "Item in Stock" : "Out of Stock"}
+            {product?.itemInStock ? "Item in Stock" : "Out of Stock"}
           </p>
 
           <div className="abBtns">
+            {/* <Link
+              to="/cart"
+              style={{
+                textDecoration: "none",
+                cursor: "pointer",
+                color: "black",
+              }}
+            > */}
+              <button onClick={()=>handleAddToCart(product)}>ADD TO CART</button>
+            {/* </Link> */}
             <Link
-              to={"/cart"}
+              to={`/billing/${product._id}/${quantity}`}
               style={{
                 textDecoration: "none",
                 cursor: "pointer",
                 color: "black",
               }}
             >
-              {" "}
-              <button>ADD TO CART</button>{" "}
-            </Link>
-            <Link
-              to={"/billing"}
-              style={{
-                textDecoration: "none",
-                cursor: "pointer",
-                color: "black",
-              }}
-            >
-              <button>BUY NOW</button>{" "}
+              <button>BUY NOW</button>
             </Link>
           </div>
 
