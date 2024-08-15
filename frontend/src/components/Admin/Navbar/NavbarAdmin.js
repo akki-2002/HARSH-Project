@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import search from "../../Images/iconamoon_search-light.png";
 import userProfImg from "../../Images/Group 46.png";
 import logoImg from "../../Images/logo.png";
 import "./NavbarAdmin.css";
+import { useLogout } from '../../../hooks/useLogout';
+import { useAuthContext } from "../../../hooks/useAuthContext";
 
 function NavbarAdmin() {
   const [scrollY, setScrollY] = useState(0);
+  const {logout} = useLogout()
+  const navigate = useNavigate()
+  const {user} = useAuthContext()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,6 +25,52 @@ function NavbarAdmin() {
     };
   }, [scrollY]);
 
+  const handlelogout = () => {
+    logout()
+    setTimeout(() => {
+      navigate('/');
+    }, 1000);
+  };
+
+  const [products, setProducts] = useState('')
+
+  useEffect(() => {
+    const fetchProducts = async ()=>{
+    const response = await fetch("http://localhost:5000/products/getallproducts")
+        const json = await response.json()
+
+        if(response.ok){
+            setProducts(json.products)
+            console.log(json)
+        }
+    }
+    // if(user)
+    // {
+
+      fetchProducts()  
+    // }
+}, [])
+// // console.log(searchQuery)
+const [searchQuery, setSearchQuery] = useState('');
+const [seStyle, setSeStyle] = useState({
+  height:'0',
+  padding: "0px"
+})
+
+const filteredItems = Array.isArray(products) ? products.filter((item) =>
+searchQuery === '' || !item.title ? false : item.title?.toLowerCase().includes(searchQuery.toLowerCase())
+) : [];
+
+console.log("filteredItems", filteredItems )
+
+
+const handleSearch = (e) => {
+  setSearchQuery(e.target.value);
+  setSeStyle({
+    height: "max-content",
+    padding: "10px"
+  })
+};
   return (
     <div className="navMain1">
       <Link to={"/"}>
@@ -32,12 +83,25 @@ function NavbarAdmin() {
         </div>
         <div className="navIcons1">
           <div className="smallSearchBar1">
-            <input type="text" placeholder="Search" />
+            <input type="text" placeholder="Search" value={searchQuery || ''}
+          onChange={(e)=>handleSearch(e)}/>
             <img src={search} alt="search" />
+            <ul className='searchedEle' style={seStyle}>
+              {filteredItems.map((item) => (
+                <Link key={`/product/${item._id}`} to={`/product/${item._id}`}>
+                  <li>
+                    {item?.title}
+                  </li>
+                </Link>
+              ))}
+            </ul>
           </div>
-          <Link to={"/profile"}>
-            <img src={userProfImg} className="icon1" alt="userProfImg" />
-          </Link>
+          
+          <div className="olLogout">
+                    {/* <Link to={'/signin'} style={{ textDecoration: 'none', cursor: 'pointer' }}> */}
+                        <h3 onClick={handlelogout}>Log out</h3>
+                    {/* </Link>  */}
+                </div>  
         </div>
       </div>
     </div>

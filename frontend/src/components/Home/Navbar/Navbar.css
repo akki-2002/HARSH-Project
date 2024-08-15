@@ -50,6 +50,26 @@
   border-radius: 15px;
 }
 
+.navSearchBar .searchedEle{
+  position: absolute;
+  width: 100%;
+  top: 40px;
+  /* border: 1px solid black; */
+  background-color: rgba(0, 0, 0, 0.467);
+  padding: 0px;
+  list-style: none;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  /* z-index: -1; */
+}
+
+.searchedEle li{
+  color: white;
+}
+
 .navSearchBar input {
   padding: 10px;
   width: 100%;
