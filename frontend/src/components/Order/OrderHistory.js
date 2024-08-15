@@ -15,18 +15,18 @@ function OrderHistory() {
             'Authorization': `Bearer ${user.token}`
           }
         });
-        console.log('Response Status:', response.status);
-        console.log('Response OK:', response.ok);
+        // console.log('Response Status:', response.status);
+        // console.log('Response OK:', response.ok);
         const json = await response.json();
-        console.log('Fetched JSON:', json);
-        console.log('User Object ID:', user.user._id);
+        // console.log('Fetched JSON:', json);
+        // console.log('User Object ID:', user.user._id);
   
         if (response.ok) {
           let userHistory;
           if (user?.user?.userType === "User") {
             userHistory = await json.filter((order) => {
-              console.log("Order User ID:", order?.userId);
-              console.log("Current User ID:", user?.user?._id);
+              // console.log("Order User ID:", order?.userId);
+              // console.log("Current User ID:", user?.user?._id);
               return String(order?.userId) === String(user?.user?._id);
             });
             console.log("Filtered User History:", userHistory);
