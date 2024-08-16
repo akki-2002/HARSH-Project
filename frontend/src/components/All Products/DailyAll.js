@@ -88,6 +88,7 @@ function CustomizedGiftAllProduct() {
       if (response.ok) {
         // setUser(updatedUser);
         localStorage.setItem('user', JSON.stringify({token: user.token, user: updatedUser}));
+        alert('Product added to cart')
         console.log("updt", user)
       }
     } catch (error) {
