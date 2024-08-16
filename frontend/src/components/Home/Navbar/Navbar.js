@@ -70,6 +70,8 @@ function Navbar() {
           })
     //   }
     };
+
+    console.log('cart length', user?.user?.cart?.length)
     return (
         <div className='navMain'>
             <Link to={'/'}>
@@ -97,6 +99,7 @@ function Navbar() {
                     <div className='cno'>
                         <Link to={`/cart/${user?.user?._id}`}>
                             <img src={cart} alt="cart" />
+                            <p>{user?.user?.cart?.length}</p>
                         </Link>
                         <Link to={'/order'}>
                             <img src={userProfImg} alt="user profile" />

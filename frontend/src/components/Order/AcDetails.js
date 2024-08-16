@@ -25,6 +25,33 @@ function AcDetails() {
     }
   },[user])
 
+  const updateUserDetails = (newUserData) => {
+    // Step 1: Retrieve the existing user data from localStorage
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+
+    if (storedUser) {
+        // Step 2: Update only the user details, keeping other properties intact
+        storedUser.user = { ...storedUser.user, ...newUserData };
+
+        // Step 3: Save the updated user object back to localStorage
+        localStorage.setItem('user', JSON.stringify(storedUser));
+
+        console.log("User details updated:", storedUser.user);
+    } else {
+        console.error('No user found in localStorage.');
+    }
+};
+
+// Example usage
+const newUserData = {
+    username: name,
+    email: email
+    // Other user details you want to update...
+};
+
+
+
+
   const handleSubmit = async(e) =>{
     e.preventDefault();
     try{
@@ -42,6 +69,7 @@ function AcDetails() {
       })
       const json = await response.json();
       console.log('User Details Updated Successfully', json)
+      updateUserDetails(newUserData);
       if(response.ok)
       {
         alert('User Details Updated Successfully')

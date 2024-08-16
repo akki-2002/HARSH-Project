@@ -82,7 +82,8 @@ const updateUser = async (req, res) => {
     if (!user) {
       return res.status(404).json("User not found");
     }
-    res.status(200).json({ message: "User updated successfully", user });
+    // const token = createToken(user._id);
+    res.status(200).json({user: user});
   } catch (error) {
     res.status(400).json({ error: error });
   }
