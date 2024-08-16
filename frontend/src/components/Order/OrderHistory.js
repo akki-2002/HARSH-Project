@@ -9,25 +9,31 @@ function OrderHistory() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        console.log('Fetching orders...');
         const response = await fetch('http://localhost:5000/bills/getbills', {
           headers: {
             'Authorization': `Bearer ${user.token}`
           }
         });
+        // console.log('Response Status:', response.status);
+        // console.log('Response OK:', response.ok);
         const json = await response.json();
-        console.log('json', json)
+        // console.log('Fetched JSON:', json);
+        // console.log('User Object ID:', user.user._id);
+  
         if (response.ok) {
-          // Filter orders for the current user
-          let userHistory = '';
-          if(user.user?.userType === 'User')
-          {
-             userHistory = json.filter(order => order.userId === user.user?._id);
-          setOrdersData(userHistory);
-
-          }else{
+          let userHistory;
+          if (user?.user?.userType === "User") {
+            userHistory = await json.filter((order) => {
+              // console.log("Order User ID:", order?.userId);
+              // console.log("Current User ID:", user?.user?._id);
+              return String(order?.userId) === String(user?.user?._id);
+            });
+            console.log("Filtered User History:", userHistory);
+            setOrdersData(userHistory);
+          } else {
             setOrdersData(json);
           }
-          
           console.log("User Order Data:", userHistory);
         } else {
           console.log("Failed to fetch orders", json);
@@ -36,12 +42,14 @@ function OrderHistory() {
         console.log('Error fetching orders:', error);
       }
     };
-
-
-    if (user) {
+    if(user)
+    {
+      
       fetchData();
     }
+  
   }, [user]);
+  
 
   // Convert ISO date to a readable format
   const formatDate = (isoDate) => {

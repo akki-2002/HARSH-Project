@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Billing.css";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import backprint_t from "../../components/Images/Product Photos/12.jpeg";
 import del from "../../components/Images/cross.png";
 import Navbar from "../Home/Navbar/Navbar";
@@ -205,9 +205,10 @@ if(user)
   const [lastName, setLastName] = useState('')
   const [city, setCity] = useState('')
   const [address, setAddress] = useState('')
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
   
     try {
   
@@ -248,8 +249,74 @@ if(user)
     }
   }
   
+
+  //PAYMENT GATEWAY
   
-  
+  const paymentHandler = async(e) =>{
+    e.preventDefault();
+    const amount= totalAmount * 100;
+    const currency= "INR";
+    const receipt = "abcdef"
+    const response = await fetch('http://localhost:5000/order',{
+      method: "POST",
+      body: JSON.stringify({
+        amount,
+        currency,
+        receipt
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+
+    const order = await response.json();
+    console.log('payment', order)
+
+    var options = {
+      "key": "rzp_test_q34DaePkfJ8UeT", // Enter the Key ID generated from the Dashboard
+      amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      currency,
+      "name": "Acme Corp", //your business name
+      "description": "Test Transaction",
+      "image": "https://example.com/your_logo",
+      "order_id": order.order?.id, 
+      "handler": async function(response){
+        const body = {
+          ...response, 
+        }
+
+        const validateRes = await fetch('http://localhost:5000/order/validate',{
+          method: "POST",
+          body: JSON.stringify(body),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+
+        const json = await validateRes.json()
+        if(validateRes.ok)
+        {
+          handleSubmit()
+          navigate('/order')
+        }
+        console.log(json)
+      },
+      "prefill": { //We recommend using the prefill parameter to auto-fill customer's contact information especially their phone number
+          "name": "Gaurav Kumar", //your customer's name
+          "email": "gaurav.kumar@example.com",
+          "contact": "9000090000" //Provide the customer's phone number for better conversion rates 
+      },
+      "notes": {
+          "address": "Razorpay Corporate Office"
+      },
+      "theme": {
+          "color": "#3399cc"
+      }
+  };
+  var rzp1 = new window.Razorpay(options);
+      rzp1.open();
+      e.preventDefault();
+  }
 
   return (
     <>
@@ -383,7 +450,7 @@ if(user)
           <div className="cartRgt cartRgtt">
             <div className="cartTotalHeading cartTotalHeadingg">
               <h1>Your Order</h1>
-              <Link to={`/product/${id}`}>
+              <Link to={`/product/${id}/${count}`}>
               <p>Edit Order</p>
               </Link>
               {/* <p onClick={() => setShowDeleteIcons(!showDeleteIcons)}>Edit Order</p> */}
@@ -417,7 +484,7 @@ if(user)
               </div>
               {/* <Link to={'/order'} style={{ textDecoration: "none", cursor: "pointer" }}> */}
                 <div className="cartCheckoutBtn">
-                  <button>Place Order</button>
+                  <button onClick={paymentHandler}>Place Order</button>
                 </div>
               {/* </Link> */}
             </div>

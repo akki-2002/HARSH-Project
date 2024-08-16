@@ -1,20 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import "./ProductPage.css";
+import { useNavigate } from "react-router-dom";
+import "./cartProduct.css";
 import Testimonials from "../Home/Testimonials/Testimonials";
 import Navbar from "../Home/Navbar/Navbar";
 import Footer from "../Home/Footer/Footer";
 import { useAuthContext } from "../../hooks/useAuthContext";
 
-function ProductPage() {
+function CartProduct() {
   const { user } = useAuthContext();
   const { id } = useParams();
+  const {count} = useParams();
   const [product, setProduct] = useState({}); // Initialize as an empty object
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(parseInt(count));
   const [totalPrice, setTotalPrice] = useState(0);
   const [selectedImage, setSelectedImage] = useState(null);
   const [imgIndex, setImgIndex] = useState(0)
-
+  const navigate = useNavigate()
+// console.log('quantity: ' , quantity)
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(`http://localhost:5000/products/getproductbyid/${id}`);
@@ -24,6 +27,7 @@ function ProductPage() {
         setProduct(json.product);
         setTotalPrice(json.product.price); // Set the initial total price
         setSelectedImage(json.product.productImages[0]); // Set the initial selected image
+       
       }
     };
 
@@ -88,8 +92,8 @@ function ProductPage() {
       }
       console.log(formData)
       
-      const response = await fetch(`http://localhost:5000/users/addtocart/${user?.user?._id}`, {
-        method: "POST",
+      const response = await fetch(`http://localhost:5000/users/updatecart/${user?.user?._id}`, {
+        method: "PUT",
         body: JSON.stringify(formData),
         headers: {
           'Authorization': `Bearer ${user.token}`,
@@ -99,11 +103,12 @@ function ProductPage() {
   
       const json = await response.json();
       if (response.ok) {
-        console.log('successfully added to the cart', json);
+        console.log('successfully updated the product', json);
         updateUserCart()
+        navigate(`/cart/${user?.user?._id}`)
         console.log('adt user', user);
       } else {
-        console.log('Failed to add to cart', json);
+        console.log('Failed to update the product', json);
       }
     } catch (error) {
       console.log('Error:', error);
@@ -158,16 +163,15 @@ function ProductPage() {
           <p className="tax">Inclusive of all taxes</p>
           <p className="desc">Description</p>
           <p className="desc-p">{product?.description}</p>
-          {user && user?.user?.userType === 'User' && 
+
           <div className="qua">
             <p>Quantity</p>
             <div className="quantity-controls">
               <button onClick={decrementQuantity}>-</button>
-              <input type="number" value={quantity} readOnly />
+              <input type="number" value={quantity} onChange={(e)=>setQuantity(e.target.value)} />
               <button onClick={incrementQuantity}>+</button>
             </div>
           </div>
-          }
 
           <p className="ins">
             {product?.itemInStock ? "Item in Stock" : "Out of Stock"}
@@ -182,21 +186,9 @@ function ProductPage() {
                 color: "black",
               }}
             > */}
-            {user && user?.user?.userType === 'User' && <button onClick={()=>handleAddToCart(product)}>ADD TO CART</button>}
-              
+              <button onClick={()=>handleAddToCart(product)}>SAVE</button>
             {/* </Link> */}
-            {user && user?.user?.userType === 'User' && 
-            <Link
-              to={`/billing/${product._id}/${quantity}`}
-              style={{
-                textDecoration: "none",
-                cursor: "pointer",
-                color: "black",
-              }}
-            >
-              <button>BUY NOW</button>
-            </Link>
-            }
+            
           </div>
 
           <div className="productDetails">
@@ -234,4 +226,4 @@ function ProductPage() {
   );
 }
 
-export default ProductPage;
+export default CartProduct;

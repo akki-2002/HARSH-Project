@@ -6,6 +6,8 @@ import del from "../../components/Images/cross.png";
 import Navbar from "../Home/Navbar/Navbar";
 import Footer from "../Home/Footer/Footer";
 import { useAuthContext } from "../../hooks/useAuthContext";
+import { useNavigate } from "react-router-dom";
+import Razorpay from 'razorpay'
 
 function Billing() {
   const [country, setCountry] = useState({
@@ -222,9 +224,11 @@ useEffect(() => {
   const [lastName, setLastName] = useState('')
   const [city, setCity] = useState('')
   const [address, setAddress] = useState('')
+  const navigate = useNavigate()
+  const [error, setError] = useState('')
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
   
     try {
       // Prepare the data object with product IDs and quantities
@@ -267,14 +271,89 @@ useEffect(() => {
       const json = await response.json();
       if (response.ok) {
         console.log(json);
+        setError(false)
+        // setTimeout(() => {
+          
+        //   navigate('/order')
+        // }, 1000);
       } else {
+        setError(true);
         console.log('Failed to submit form:', json);
       }
     } catch (error) {
       console.log('Error:', error);
     }
   }
+
+
+   //PAYMENT GATEWAY
+
+  const paymentHandler = async(e) =>{
+    e.preventDefault();
+    const amount= totalAmount * 100;
+    const currency= "INR";
+    const receipt = "abcdef"
+    const response = await fetch('http://localhost:5000/order',{
+      method: "POST",
+      body: JSON.stringify({
+        amount,
+        currency,
+        receipt
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+
+    const order = await response.json();
+    console.log('payment', order)
+
+    var options = {
+      "key": "rzp_test_q34DaePkfJ8UeT", // Enter the Key ID generated from the Dashboard
+      amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      currency,
+      "name": "Acme Corp", //your business name
+      "description": "Test Transaction",
+      "image": "https://example.com/your_logo",
+      "order_id": order.order?.id, 
+      "handler": async function(response){
+        const body = {
+          ...response, 
+        }
+
+        const validateRes = await fetch('http://localhost:5000/order/validate',{
+          method: "POST",
+          body: JSON.stringify(body),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+
+        const json = await validateRes.json()
+        if(validateRes.ok)
+        {
+          handleSubmit()
+          navigate('/order')
+        }
+        console.log(json)
+      },
+      "prefill": { //We recommend using the prefill parameter to auto-fill customer's contact information especially their phone number
+          "name": "Gaurav Kumar", //your customer's name
+          "email": "gaurav.kumar@example.com",
+          "contact": "9000090000" //Provide the customer's phone number for better conversion rates 
+      },
+      "notes": {
+          "address": "Razorpay Corporate Office"
+      },
+      "theme": {
+          "color": "#3399cc"
+      }
+  };
+  var rzp1 = new window.Razorpay(options);
+      rzp1.open();
+      e.preventDefault();
   
+  }
   
   
 
@@ -284,7 +363,7 @@ useEffect(() => {
       <form className="billingMain" onSubmit={handleSubmit}>
         <div className="billingLeftMain">
           <div className="billingLeft">
-            <Link to={"/cart"}>
+            <Link to={`/cart/${user?.user?._id}`}>
               <div className="backToCart">
                 <p>Back to Cart</p>
               </div>
@@ -443,8 +522,10 @@ useEffect(() => {
                 <h2>₹{totalAmount}</h2>
               </div>
               {/* <Link to={'/order'} style={{ textDecoration: "none", cursor: "pointer" }}> */}
+              {error ? <p className="error">Failed to submit the form. Please check the details.</p> : error === false ? <p className="success">
+                Order placed successfully</p> : ""}
                 <div className="cartCheckoutBtn">
-                  <button>Place Order</button>
+                  <button onClick={paymentHandler}>Place Order</button>
                 </div>
               {/* </Link> */}
             </div>
