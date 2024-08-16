@@ -14,7 +14,7 @@ const app = express();
 
 app.use(cors(
   {
-    origin: ["https://harsh-project-api.vercel.app"],
+    origin: ["https://harsh-project-api.vercel.app/"],
     methods: ["POST", "GET"],
     credentials: true
   }
