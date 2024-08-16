@@ -27,6 +27,7 @@ function DailyAccessories() {
     if (response.ok) {
       const daProducts = json.products.filter((prd)=> prd.category === "Daily Accessories")
       setProducts(daProducts);
+
       console.log("products", json.products);
     }
   };
@@ -53,6 +54,7 @@ function DailyAccessories() {
       if (response.ok) {
         // setUser(updatedUser);
         localStorage.setItem('user', JSON.stringify({token: user.token, user: updatedUser}));
+        alert('Product added to cart')  
         console.log("updt", user)
       }
     } catch (error) {
