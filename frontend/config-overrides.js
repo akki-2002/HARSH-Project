@@ -1,5 +1,6 @@
 const { merge } = require('webpack-merge');
 const path = require('path');
+const webpack = require('webpack'); // Ensure you import webpack
 
 module.exports = function override(config, env) {
   return merge(config, {
@@ -7,7 +8,7 @@ module.exports = function override(config, env) {
       fallback: {
         crypto: require.resolve('crypto-browserify'),
         stream: require.resolve('stream-browserify'),
-        buffer: require.resolve('buffer/') // Adding the buffer polyfill
+        buffer: require.resolve('buffer/') || false, // Adding the buffer polyfill
         // Add other polyfills if needed
       },
       alias: {
