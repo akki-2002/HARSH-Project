@@ -9,13 +9,13 @@ module.exports = function override(config, env) {
         crypto: require.resolve('crypto-browserify'),
         stream: require.resolve('stream-browserify'),
         buffer: require.resolve('buffer/'),
-        // Add other polyfills as needed
+        // Add other fallbacks if needed
       },
     },
     plugins: [
       new webpack.ProvidePlugin({
         Buffer: ['buffer', 'Buffer'],
-        process: 'process/browser', // Add this if you need process polyfill
+        process: 'process/browser', // Include if you need process polyfill
       }),
     ],
   });
