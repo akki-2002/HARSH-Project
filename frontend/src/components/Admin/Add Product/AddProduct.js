@@ -41,7 +41,7 @@ function AddProduct() {
     console.log(formData)
   
     // Send the FormData directly
-    const response = await fetch(`http://localhost:5000/products/addproduct`, {
+    const response = await fetch(`https://harsh-project-4-kmzz.onrender.com/products/addproduct`, {
       method: 'POST',
       body: formData,
     });

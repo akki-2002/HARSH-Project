@@ -14,7 +14,7 @@ function OrderLeft() {
     
     useEffect(()=>{
         const fetchData = async()=>{
-          const response = await fetch(`http://localhost:5000/users/getuserbyid/${user.user?._id}`)
+          const response = await fetch(`https://harsh-project-4-kmzz.onrender.com/users/getuserbyid/${user.user?._id}`)
           const json = await response.json()
           if(response.ok)
           {

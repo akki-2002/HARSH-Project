@@ -10,7 +10,7 @@ function OrderHistory() {
     const fetchData = async () => {
       try {
         console.log('Fetching orders...');
-        const response = await fetch('http://localhost:5000/bills/getbills', {
+        const response = await fetch('https://harsh-project-4-kmzz.onrender.com/bills/getbills', {
           headers: {
             'Authorization': `Bearer ${user.token}`
           }
