@@ -11,6 +11,13 @@ const crypto = require('crypto')
 
 
 const app = express();
+
+// app.use(cors({
+//   origin: ["https://harsh-project-api.vercel.app/"],
+//   methods: ["POST", "GET"],
+//   credentials: true
+// }));
+
 const PORT = process.env.PORT || 5000;
 
 // Middleware
@@ -75,6 +82,7 @@ mongoose.connect(process.env.MONGODB_URI)
 // app.get('/', (req, res) => {
 //   res.send('Hello from the backend!');
 // });
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
