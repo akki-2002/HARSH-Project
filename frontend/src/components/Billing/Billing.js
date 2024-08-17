@@ -143,7 +143,7 @@ function Billing() {
 
   const fetchData = async () => {
     if (user) {
-      const response = await fetch(`http://localhost:5000/users/getuserbyid/${user.user?._id}`, {
+      const response = await fetch(`https://harsh-project-4-kmzz.onrender.com/users/getuserbyid/${user.user?._id}`, {
         headers: {
           'Authorization': `Bearer ${user.token}`,
         },
@@ -167,7 +167,7 @@ useEffect(() => {
     try {
       
       const productPromises = adtItems.map(item => 
-        fetch(`http://localhost:5000/products/getproductbyid/${item.product}`, {
+        fetch(`https://harsh-project-4-kmzz.onrender.com/products/getproductbyid/${item.product}`, {
           headers: {
             'Authorization': `Bearer ${user.token}`,
           }
@@ -259,7 +259,7 @@ useEffect(() => {
       };
       console.log("data", data);
   
-      const response = await fetch(`http://localhost:5000/bills/billforcart/${user.user?._id}`, {
+      const response = await fetch(`https://harsh-project-4-kmzz.onrender.com/bills/billforcart/${user.user?._id}`, {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
@@ -293,7 +293,7 @@ useEffect(() => {
     const amount= totalAmount * 100;
     const currency= "INR";
     const receipt = "abcdef"
-    const response = await fetch('http://localhost:5000/order',{
+    const response = await fetch('https://harsh-project-4-kmzz.onrender.com/order',{
       method: "POST",
       body: JSON.stringify({
         amount,
@@ -321,7 +321,7 @@ useEffect(() => {
           ...response, 
         }
 
-        const validateRes = await fetch('http://localhost:5000/order/validate',{
+        const validateRes = await fetch('https://harsh-project-4-kmzz.onrender.com/order/validate',{
           method: "POST",
           body: JSON.stringify(body),
           headers: {
@@ -499,7 +499,7 @@ useEffect(() => {
                 <div key={item._id} className="cItem1 cItem11">
                   <div className="cItem cItemm">
                     <div className="cItemImg cItemImgg">
-                      <img src={`http://localhost:5000/uploads/${item.productDetails?.product?.productImages[0]}`} alt={item.productDetails?.product?.title} />
+                      <img src={`https://harsh-project-4-kmzz.onrender.com/uploads/${item.productDetails?.product?.productImages[0]}`} alt={item.productDetails?.product?.title} />
                     </div>
                     <div className="cItemDetails cItemDetailss">
                       <h2>{item.productDetails?.product?.title}</h2>

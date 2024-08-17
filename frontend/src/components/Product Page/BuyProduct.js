@@ -18,7 +18,7 @@ function BuyProduct() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(`http://localhost:5000/products/getproductbyid/${id}`);
+      const response = await fetch(`https://harsh-project-4-kmzz.onrender.com/products/getproductbyid/${id}`);
       const json = await response.json();
       if (response.ok) {
         console.log(json);
@@ -56,7 +56,7 @@ function BuyProduct() {
 
   const updateUserCart = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/users/getuserbyid/66b64ee64fb94cedf28702b0`, {
+      const response = await fetch(`https://harsh-project-4-kmzz.onrender.com/users/getuserbyid/66b64ee64fb94cedf28702b0`, {
         method: "GET",
         headers: {
           'Authorization': `Bearer ${user.token}`
@@ -89,7 +89,7 @@ function BuyProduct() {
       }
       console.log(formData)
       
-      const response = await fetch(`http://localhost:5000/users/addtocart/${user?.user?._id}`, {
+      const response = await fetch(`https://harsh-project-4-kmzz.onrender.com/users/addtocart/${user?.user?._id}`, {
         method: "POST",
         body: JSON.stringify(formData),
         headers: {
@@ -143,14 +143,14 @@ function BuyProduct() {
             {product?.productImages?.map((img, index) => (
               <img
                 key={index}
-                src={`http://localhost:5000/uploads/${product.productImages[index]}`}
+                src={`https://harsh-project-4-kmzz.onrender.com/uploads/${product.productImages[index]}`}
                 alt={`pd${index + 1}`}
                 onClick={() => handleImageClick(index)}
               />
             ))}
           </div>
           <div className="prdiMax">
-            {selectedImage && <img src={`http://localhost:5000/uploads/${product.productImages[imgIndex]}`} alt="Selected Product" />}
+            {selectedImage && <img src={`https://harsh-project-4-kmzz.onrender.com/uploads/${product.productImages[imgIndex]}`} alt="Selected Product" />}
           </div>
         </div>
         <div className="prdDets">
