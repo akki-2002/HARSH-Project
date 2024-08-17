@@ -1,0 +1,39 @@
+{
+  "files": {
+    "main.css": "/static/css/main.0d8caee9.css",
+    "main.js": "/static/js/main.a3ef5c3b.js",
+    "static/media/9.jpeg": "/static/media/9.0ae3b34d541e9da0782f.jpeg",
+    "static/media/18.jpeg": "/static/media/18.29364a9bbef555759ce5.jpeg",
+    "static/media/slider1.png": "/static/media/slider1.386c760db3b56806a69f.png",
+    "static/media/19.jpeg": "/static/media/19.8098d5560f72ae54d117.jpeg",
+    "static/media/4.jpeg": "/static/media/4.73983862cefc349fd70d.jpeg",
+    "static/media/daily.png": "/static/media/daily.8146cbb388b412374b66.png",
+    "static/media/religious.png": "/static/media/religious.4191f28a5d9e3fe7cd80.png",
+    "static/media/2.jpeg": "/static/media/2.58314026c26ba06553ec.jpeg",
+    "static/media/13.jpeg": "/static/media/13.4f8766b9014a17f2363d.jpeg",
+    "static/media/12.jpeg": "/static/media/12.a6694c32bd6be71c25eb.jpeg",
+    "static/media/10.jpeg": "/static/media/10.d9e6d5b3eded5ccc28e3.jpeg",
+    "static/media/11.jpeg": "/static/media/11.1f6b3174d7fe4c278103.jpeg",
+    "static/media/14.jpeg": "/static/media/14.1bfb8ab3ec0574ef6617.jpeg",
+    "static/media/5.jpeg": "/static/media/5.bad6c422e727da6d12ca.jpeg",
+    "static/media/16.jpeg": "/static/media/16.72772b876dbf98657cdd.jpeg",
+    "static/media/6.jpeg": "/static/media/6.afb835e7dea37a1a0199.jpeg",
+    "static/media/7.jpeg": "/static/media/7.afb835e7dea37a1a0199.jpeg",
+    "static/media/8.jpeg": "/static/media/8.12cd2869f6e7fb2680d8.jpeg",
+    "static/media/15.jpeg": "/static/media/15.54091933aa112f98d7ac.jpeg",
+    "static/media/3.jpeg": "/static/media/3.28fde0000d525aa9d0a4.jpeg",
+    "static/media/1.jpeg": "/static/media/1.47f175d954a52cda4e25.jpeg",
+    "static/media/axios.cjs": "/static/media/axios.fb15ab73b791c728b728.cjs",
+    "static/media/17.jpeg": "/static/media/17.42741fef961883968c5c.jpeg",
+    "static/media/logo.png": "/static/media/logo.8331f6afebb5cb5831c2.png",
+    "static/media/tick.png": "/static/media/tick.fecaf390310dc1d2da5f.png",
+    "static/media/avtar.jpg": "/static/media/avtar.8c8a0b29b25dd871b2ba.jpg",
+    "index.html": "/index.html",
+    "main.0d8caee9.css.map": "/static/css/main.0d8caee9.css.map",
+    "main.a3ef5c3b.js.map": "/static/js/main.a3ef5c3b.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0d8caee9.css",
+    "static/js/main.a3ef5c3b.js"
+  ]
+}
