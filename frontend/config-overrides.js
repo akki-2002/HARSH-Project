@@ -7,7 +7,7 @@ module.exports = function override(config, env) {
       fallback: {
         crypto: require.resolve('crypto-browserify'),
         stream: require.resolve('stream-browserify'),
-        buffer: require.resolve('buffer/'),
+        buffer: require.resolve('buffer'),
         process: require.resolve('process/browser'),
       },
     },
