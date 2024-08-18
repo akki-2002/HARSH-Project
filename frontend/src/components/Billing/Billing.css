@@ -210,6 +210,24 @@ body {
     background-color: #7b136f;
 }
 
+
+.placeorderbtn{
+    width: 70%;
+    padding: 15px;
+    border-radius: 7px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    background-color: #98168b;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.placeorderbtn:hover{
+    background-color: #7b136f;
+}
+
+
 .cItem1 {
     display: flex;
     align-items: center;

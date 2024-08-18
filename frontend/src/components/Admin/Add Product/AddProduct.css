@@ -47,7 +47,7 @@ body {
     outline: none;
   }
   
-  .nvLoginBtn{
+  .nvLoginBtn, button{
     display: block;
     width: 100%;
     padding: 8px;
@@ -60,7 +60,7 @@ body {
     border: 2px solid #7c126f;
   }
   
-  .nvLoginBtn:hover {
+  .nvLoginBtn, button:hover {
     background-color: #7c126f;
     color:  white;
   }
