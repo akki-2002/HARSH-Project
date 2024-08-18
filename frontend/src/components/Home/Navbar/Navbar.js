@@ -8,10 +8,16 @@ import './Navbar.css';
 import { useAuthContext } from '../../../hooks/useAuthContext';
 
 function Navbar() {
+    // const { user } = useAuthContext();
+    const user = JSON.parse(localStorage.getItem('user'));
+    console.log('usernav', user?.user?.cart?.length)
     const [scrollY, setScrollY] = useState(0);
-
-    const {user} = useAuthContext()
-    // console.log("navbar", user)
+    const [products, setProducts] = useState([]);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [seStyle, setSeStyle] = useState({
+        height: '0',
+        padding: '0px'
+    });
 
     useEffect(() => {
         const handleScroll = () => {
@@ -25,53 +31,35 @@ function Navbar() {
         };
     }, []);
 
-    // Debugging output to check the value of 'user'
-    // console.log("User state in Navbar: ", user);
-    const [products, setProducts] = useState('')
+    useEffect(() => {
+        const fetchProducts = async () => {
+            const response = await fetch("https://harsh-project-4-kmzz.onrender.com/products/getallproducts");
+            const json = await response.json();
 
-  useEffect(() => {
-    const fetchProducts = async ()=>{
-    const response = await fetch("https://harsh-project-4-kmzz.onrender.com/products/getallproducts")
-        const json = await response.json()
+            if (response.ok) {
+                setProducts(json.products);
+            }
+        };
 
-        if(response.ok){
-            setProducts(json.products)
-            console.log(json)
-        }
-    }
-    // if(user)
-    // {
+        fetchProducts();
+    }, []);
 
-      fetchProducts()  
-    // }
-}, [])
-    const [searchQuery, setSearchQuery] = useState('');
-    const [seStyle, setSeStyle] = useState({
-      height:'0',
-      padding: '0px'
-    })
-    
-    const filteredItems = Array.isArray(products) ? products.filter((item) =>
-    searchQuery === '' || !item.title ? false : item.title.toLowerCase().includes(searchQuery.toLowerCase())
-    ) : [];
-    
-    console.log("filteredItems", filteredItems )
-    
-    
     const handleSearch = (e) => {
-      setSearchQuery(e.target.value);
-    //   console.log(searchQuery)
-
-    //   if(searchQuery != '')
-    //   {
+        setSearchQuery(e.target.value);
         setSeStyle({
             height: "max-content",
             padding: "10px"
-          })
-    //   }
+        });
     };
 
-    console.log('cart length', user?.user?.cart?.length)
+    const filteredItems = Array.isArray(products)
+        ? products.filter((item) =>
+            searchQuery === '' || !item.title
+                ? false
+                : item.title.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+        : [];
+
     return (
         <div className='navMain'>
             <Link to={'/'}>
@@ -81,35 +69,38 @@ function Navbar() {
                 <Link to={'/dailyAll'}>DAILY ACCESSORIES</Link>
                 <Link to={'/religiousAll'}>RELIGIOUS ACCESSORIES</Link>
                 <div className='navSearchBar'>
-                        <input type="text" placeholder="Search" value={searchQuery || ''}
-                onChange={(e)=>handleSearch(e)}/>
+                    <input
+                        type="text"
+                        placeholder="Search"
+                        value={searchQuery || ''}
+                        onChange={handleSearch}
+                    />
                     <img src={search} alt="search" />
                     <ul className='searchedEle' style={seStyle}>
-                    {filteredItems.map((item) => (
-                        <Link key={`/product/${item._id}`} to={`/product/${item._id}`}>
-                        <li>
-                            {item?.title}
-                        </li>
-                        </Link>
-                    ))}
+                        {filteredItems.map((item) => (
+                            <Link key={item._id} to={`/product/${item._id}`}>
+                                <li>{item.title}</li>
+                            </Link>
+                        ))}
                     </ul>
                 </div>
 
-                {user ? 
+                {user ? (
                     <div className='cno'>
                         <Link to={`/cart/${user?.user?._id}`}>
                             <img src={cart} alt="cart" />
-                            {/* <p>{user?.user?.cart?.length}</p> */}
+                            {/* Cart count should update automatically when `user` changes */}
+                            <p className='orDot'>{user?.user?.cart?.length}</p>
                         </Link>
                         <Link to={'/order'}>
                             <img src={userProfImg} alt="user profile" />
                         </Link>
                     </div>
-                 : 
+                ) : (
                     <Link to={'/signin'}>
                         <button className='nvLoginBtn'>Login</button>
                     </Link>
-                }
+                )}
             </div>
             <div className='navIcons'>
                 <div className='smallSearchBar'>
@@ -117,20 +108,21 @@ function Navbar() {
                     <img src={search} alt="search" />
                 </div>
                 
-                {user ? 
-                    <div className='cno'> 
+                {user ? (
+                    <div className='cno'>
                         <Link to={`/cart/${user?.user?._id}`}>
                             <img src={cart} className='icon' alt="cart" />
+                            <p className='orDot'>{user?.user?.cart?.length}</p>
                         </Link>
                         <Link to={'/order'}>
                             <img src={userProfImg} className='icon' alt="user profile" />
                         </Link>
                     </div>
-                : 
+                ) : (
                     <Link to={'/signin'}>
                         <button className='nvLoginBtn'>Login</button>
                     </Link>
-                }
+                )}
             </div>
         </div>
     );

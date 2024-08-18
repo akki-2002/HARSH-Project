@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { IoMdArrowRoundBack } from "react-icons/io";
 import '../Add Product/AddProduct.css'; // Updated styles
 import NavbarAdmin from '../Navbar/NavbarAdmin';
@@ -18,6 +18,7 @@ function EditProduct() {
   const [category, setCategory] = useState('Religious Accessories');
   const { id } = useParams();
   const { user } = useAuthContext();
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -71,8 +72,11 @@ function EditProduct() {
     if (response.ok) {
       const result = await response.json();
       console.log('Product edited successfully:', result);
+      alert('Product edited successfully')
+      navigate('/')
     } else {
       console.error('Failed to edit product:', response.statusText);
+      alert('Failed to add the product')
     }
   };
 
