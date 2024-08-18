@@ -7,6 +7,9 @@ import Footer from '../../Home/Footer/Footer';
 import { useAuthContext } from '../../../hooks/useAuthContext';
 
 function EditProduct() {
+  useEffect(() => {
+    window.scrollTo(0, 0); // This scrolls the window to the top
+}, []);
   const [productName, setProductName] = useState('');
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');

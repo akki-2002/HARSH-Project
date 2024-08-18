@@ -3,6 +3,9 @@ import { useAuthContext } from "../../hooks/useAuthContext";
 import { useNavigate, useParams } from "react-router-dom";
 
 function AcDetails() {
+  useEffect(() => {
+    window.scrollTo(0, 0); // This scrolls the window to the top
+}, []);
   const {user} = useAuthContext();
   const [name, setName] = useState()
   const [email, setEmail] = useState()

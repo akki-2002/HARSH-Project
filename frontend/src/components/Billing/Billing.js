@@ -10,6 +10,9 @@ import { useNavigate } from "react-router-dom";
 import Razorpay from 'razorpay'
 
 function Billing() {
+  useEffect(() => {
+    window.scrollTo(0, 0); // This scrolls the window to the top
+}, []);
   const [country, setCountry] = useState({
     display: "none",
   });

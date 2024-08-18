@@ -22,6 +22,9 @@ import './CustOrders.css';
 // };
 
 function CustOrders() {
+  useEffect(() => {
+    window.scrollTo(0, 0); // This scrolls the window to the top
+}, []);
   const { user } = useAuthContext();
   const [ordersData, setOrdersData] = useState([]);
 

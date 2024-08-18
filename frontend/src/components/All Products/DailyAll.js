@@ -30,6 +30,9 @@ import Footer from "../Home/Footer/Footer";
 import { useAuthContext } from "../../hooks/useAuthContext";
 
 function CustomizedGiftAllProduct() {
+  useEffect(() => {
+    window.scrollTo(0, 0); // This scrolls the window to the top
+}, []);
   // Array of product objects
   // const products = [
   //   { id: 1, name: "Corporate Gift Set", price: 599, image: img1 },
