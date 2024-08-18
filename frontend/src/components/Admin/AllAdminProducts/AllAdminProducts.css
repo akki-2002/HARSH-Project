@@ -31,6 +31,7 @@
   .product-item {
     position: relative;
     overflow: hidden;
+    text-decoration: none;
   }
   
   .edit-button {
