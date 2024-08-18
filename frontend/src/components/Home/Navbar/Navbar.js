@@ -8,9 +8,10 @@ import './Navbar.css';
 import { useAuthContext } from '../../../hooks/useAuthContext';
 
 function Navbar() {
-    // const { user } = useAuthContext();
-    const user = JSON.parse(localStorage.getItem('user'));
-    console.log('usernav', user?.user?.cart?.length)
+    const { user } = useAuthContext();
+    // const user = JSON.parse(localStorage.getItem('user'));
+    const [userCart, setUserCart] = useState(JSON.parse(localStorage.getItem('user')))
+    // console.log('usernav', user?.user?.cart?.length)
     const [scrollY, setScrollY] = useState(0);
     const [products, setProducts] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
@@ -18,6 +19,10 @@ function Navbar() {
         height: '0',
         padding: '0px'
     });
+
+    useEffect(()=>{
+        setUserCart(JSON.parse(localStorage.getItem('user')))
+    },[])
 
     useEffect(() => {
         const handleScroll = () => {
@@ -90,7 +95,7 @@ function Navbar() {
                         <Link to={`/cart/${user?.user?._id}`}>
                             <img src={cart} alt="cart" />
                             {/* Cart count should update automatically when `user` changes */}
-                            <p className='orDot'>{user?.user?.cart?.length}</p>
+                            <p className='orDot'></p>
                         </Link>
                         <Link to={'/order'}>
                             <img src={userProfImg} alt="user profile" />
@@ -112,7 +117,7 @@ function Navbar() {
                     <div className='cno'>
                         <Link to={`/cart/${user?.user?._id}`}>
                             <img src={cart} className='icon' alt="cart" />
-                            <p className='orDot'>{user?.user?.cart?.length}</p>
+                            <p className='orDot'></p>
                         </Link>
                         <Link to={'/order'}>
                             <img src={userProfImg} className='icon' alt="user profile" />
