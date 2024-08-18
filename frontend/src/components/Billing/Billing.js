@@ -602,7 +602,7 @@ useEffect(() => {
               {error ? <p className="error">Failed to submit the form. Please check the details.</p> : error === false ? <p className="success">
                 Order placed successfully</p> : ""}
                 {/* <div className="cartCheckoutBtn"> */}
-                  <button onClick={paymentHandler}>Place Order</button>
+                  <button className="placeorderbtn" onClick={paymentHandler}>Place Order</button>
                 {/* </div> */}
               {/* </Link> */}
             </div>
