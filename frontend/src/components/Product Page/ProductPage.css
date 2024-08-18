@@ -166,6 +166,11 @@
   margin-top: 20px;
 }
 
+.abBtns .error{
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
 .abBtns button {
   padding: 15px 10px;
   /* width: 50%; */

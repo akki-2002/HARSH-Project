@@ -64,6 +64,7 @@ function Billing() {
 
   const [phoneNumber, setPhoneNumber] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [error, setError] = useState('')
 
   const handlePhoneNumberChange = (e) => {
     const value = e.target.value;
@@ -73,8 +74,10 @@ function Billing() {
       setErrorMessage(
         "Invalid phone number. Please enter a valid 10-digit phone number starting with 7, 8, or 9."
       );
+      setError(true)
     } else {
       setErrorMessage("");
+      setError(false)
     }
 
     setPhoneNumber(value);
@@ -97,8 +100,10 @@ function Billing() {
       setErrorMessagee(
         "Invalid email address. Please enter a valid email address."
       );
+      setError(true)
     } else {
       setErrorMessagee("");
+      setError(false)
     }
 
     setEmail(value);
@@ -121,8 +126,10 @@ function Billing() {
       setErrorMessageee(
         "Invalid PIN code. Please enter a valid 6-digit PIN code."
       );
+      setError(true)
     } else {
       setErrorMessageee("");
+      setError(false) 
     }
 
     setPincode(value);
@@ -225,8 +232,8 @@ useEffect(() => {
   const [city, setCity] = useState('')
   const [address, setAddress] = useState('')
   const navigate = useNavigate()
-  const [error, setError] = useState('')
-  const [pay, setPay] = useState(false);
+ 
+  const [pay, setPay] = useState();
   
 
 
@@ -234,7 +241,7 @@ useEffect(() => {
 
   const paymentHandler = async(e) =>{
     e.preventDefault();
-    
+
     const productDataArray = cartItems.map(item => ({
       product: item.productDetails.product._id,
       quantity: item.quantity // Include the quantity for each product
@@ -256,12 +263,12 @@ useEffect(() => {
       phoneNumber: phoneNumber,
       email: email,
       totalPrice: totalAmount,
-      status: 'Pending'
+      status: 'Order Placed'
     };
 
-    if(!data?.firstName || !data?.lastName || !data?.country || !data?.address || !data?.city || !data?.state || !data?.pincode || !data?.phoneNumber || !data?.email || !data?.status)
+    if(!data?.firstName || !data?.lastName || !data?.country || !data?.address || !data?.city || !data?.state || !data?.pincode || !data?.phoneNumber || !data?.email || !data?.status || error)
       {
-        return setError(true)
+        return setPay(false)
       }
     const amount= totalAmount * 100;
     const currency= "INR";
@@ -323,14 +330,14 @@ useEffect(() => {
             const json = await response.json();
             if (response.ok) {
               console.log(json);
-              setError(false)
+              setPay(true)
               
               setTimeout(() => {
                 
                 navigate('/order')
               }, 1000);
             } else {
-              setError(true);
+              setPay(false);
               console.log('Failed to submit form:', json);
             }
           }catch(error)
@@ -599,11 +606,12 @@ useEffect(() => {
                 <h2>₹{totalAmount}</h2>
               </div>
               {/* <Link to={'/order'} style={{ textDecoration: "none", cursor: "pointer" }}> */}
-              {error ? <p className="error">Failed to submit the form. Please check the details.</p> : error === false ? <p className="success">
-                Order placed successfully</p> : ""}
-                {/* <div className="cartCheckoutBtn"> */}
-                  <button className="placeorderbtn" onClick={paymentHandler}>Place Order</button>
-                {/* </div> */}
+              {pay===false && <p className="error">Failed to submit the form. Please check the details.</p> }
+              { pay && <p className="success">
+                Order placed successfully</p>}
+                <div className="cartCheckoutBtn"  >
+                  <button onClick={paymentHandler}>Place Order</button>
+                </div>
               {/* </Link> */}
             </div>
           </div>

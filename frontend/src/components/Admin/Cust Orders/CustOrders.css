@@ -72,9 +72,9 @@
     font-weight: bold;
   }
   
-  .cust-orders-status-pending {
+  /* .cust-orders-status-pending {
     color: #FE2F2F;
-  }
+  } */
   
   .cust-orders-status-dispatched {
     color: #FE9D2F;
