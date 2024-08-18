@@ -87,7 +87,7 @@
     font-family: montserrat, sans-serif;
   }
   
-  .desc-p{
+  .desc-p, .prdDets h1:nth-child(1){
     width: 100%;
     word-wrap: break-word; /* Ensures long words break to the next line */
     overflow-wrap: break-word; /* Ensures the text wraps inside the container */
