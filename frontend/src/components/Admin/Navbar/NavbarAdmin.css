@@ -107,7 +107,10 @@
   }
 
   .navMain1 {
+    height: 120px;
     padding: 0rem;
+    align-items: self-start;
+    padding-top: 15px;
   }
 
   .navLinks1 {
@@ -128,14 +131,21 @@
 
   .olLogout {
     margin-top: 10px;
-    width: 100%;
+    width: 23%;
     text-align: center;
-    font-size: 1rem;
-    padding: 10px;
+    font-size: 0.7rem;
+    padding: 4px;
     border: 1px solid #98168b;
     border-radius: 5px;
     background-color: #f2ebeb;
     cursor: pointer;
     color: #4a4747;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+  }
+
+  .olLogout h3{
+    font-size: 0.7rem;
   }
 }
