@@ -46,16 +46,15 @@
 }
 
 .cno .orDot{
-      /* width: 10px; */
-    /* height: 10px; */
-    background-color: #98168bfc;
-    border-radius: 50%;
-    position: absolute;
-    right: -2px;
-    top: -1px;
-    font-size: 0.6rem;
-    color: white;
-    padding: 1px 5px;
+  width: 10px;
+  height: 10px;
+  background-color: #98168bfc;
+  border-radius: 50%;
+  position: absolute;
+  right: -2px;
+  top: -1px;
+  font-size: 0.6rem;
+  color: white;
 }
 
 .navSearchBar {
