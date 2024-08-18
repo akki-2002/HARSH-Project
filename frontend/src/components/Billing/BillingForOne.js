@@ -225,7 +225,7 @@ if(user)
         phoneNumber: phoneNumber,
         email: email,
         totalPrice: totalAmount,
-        status: 'Pending'
+        status: 'Order Placed'
       };
       console.log("data", data);
   
@@ -324,11 +324,11 @@ if(user)
       <form className="billingMain" onSubmit={handleSubmit}>
         <div className="billingLeftMain">
           <div className="billingLeft">
-            <Link to={"/cart"}>
+            {/* <Link to={"/cart"}>
               <div className="backToCart">
                 <p>Back to Cart</p>
               </div>
-            </Link>
+            </Link> */}
             <div className="blHeading">
               <h1>Billing and Shipping</h1>
             </div>

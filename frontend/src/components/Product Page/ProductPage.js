@@ -80,7 +80,7 @@ function ProductPage() {
 
       if(!user)
         {
-         return alert('Login in to add to cart')
+         return alert('Login in to continue!!')
         }
   
       const formData = {
@@ -114,7 +114,7 @@ function ProductPage() {
 
   return (
     <>
-    {user?.user?.userType === 'User' ? <Navbar /> : <NavbarAdmin/> }
+    {user?.user?.userType === 'Admin' ? <NavbarAdmin/> : <Navbar/> }
       
       <span style={{ margin: "16px" }}>
         <Link
@@ -177,6 +177,18 @@ function ProductPage() {
           </p>
 
           <div className="abBtns">
+            <p className="error"> {!product?.itemInStock && "Currently out of stock!!" }</p>
+          {!user &&  (
+    <button className="addtocartbtn" onClick={() => handleAddToCart(product)}>
+      ADD TO CART
+    </button>
+  )}
+  {!user && (
+    // <Link to={`/billing/${product._id}/${quantity}`} style={{ textDecoration: "none" }}>
+      <button className="buynowbtn" onClick={() => handleAddToCart(product)}>BUY NOW</button>
+    // </Link> 
+  )}
+
   {user && user?.user?.userType === 'User' && product?.itemInStock && (
     <button className="addtocartbtn" onClick={() => handleAddToCart(product)}>
       ADD TO CART

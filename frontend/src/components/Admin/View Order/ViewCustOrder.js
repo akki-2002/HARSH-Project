@@ -299,7 +299,7 @@ console.log(status)
             <div className="button-Container">
               <button className="actionButton1" onClick={()=>setStatus('Dispatched')} style={{backgroundColor: status === 'Dispatched'? 'orange': 'white', color: status === 'Dispatched'? 'white': 'orange' }}>Dispatched</button>
               <button className="actionButton2" onClick={()=>setStatus('Shipped')} style={{backgroundColor: status === 'Shipped'? 'green': 'white', color: status === 'Shipped'? 'white': 'green' }}>Shipped</button>
-              <button className="actionButton3" onClick={()=>setStatus('Pending')} style={{backgroundColor: status === 'Pending'? 'purple': 'white', color: status === 'Pending'? 'white': 'purple' }}>Pending</button>
+              <button className="actionButton3" onClick={()=>setStatus('Order Placed')} style={{backgroundColor: status === 'Order Placed'? 'purple': 'white', color: status === 'Order Placed'? 'white': 'purple' }}>Order Placed</button>
             </div>
           </div>
         </div>

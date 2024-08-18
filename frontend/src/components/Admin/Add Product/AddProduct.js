@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './AddProduct.css'; // Updated styles
 import NavbarAdmin from '../Navbar/NavbarAdmin';
 import Footer from '../../Home/Footer/Footer';
@@ -13,6 +13,7 @@ function AddProduct() {
   const [image2, setImage2] = useState('');
   const [stock, setStock] = useState(true);
   const [category, setCategory] = useState('Religious Accessories');
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -49,8 +50,12 @@ function AddProduct() {
     if (response.ok) {
       const result = await response.json();
       console.log('Product added successfully:', result);
+      alert('Product added successfully')
+      navigate('/')
+
     } else {
       console.error('Failed to add the product:', response.statusText);
+      alert('Failed to add the product')
     }
   };
 

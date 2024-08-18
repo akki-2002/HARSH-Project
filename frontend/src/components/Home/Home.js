@@ -11,6 +11,14 @@ import { useAuthContext } from '../../hooks/useAuthContext'
 function Home() {
     // const user = JSON.parse(localStorage.getItem('user'));
     // console.log('authcontext', user)
+    const {user} = useAuthContext()
+    const [userData, setUserData] = useState(user)
+    // console.log("navbar", user)
+
+    useEffect(()=>{
+        setUserData(user)
+        console.log('user Data', userData)
+    },[user])
   return (
     <>
               <Navbar/>
