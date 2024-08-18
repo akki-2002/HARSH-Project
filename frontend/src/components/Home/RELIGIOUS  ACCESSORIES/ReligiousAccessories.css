@@ -115,6 +115,7 @@
     .overlay{
         flex-direction: column;
     }
+   
     .text-content h1 {
       font-size: 36px;
     }

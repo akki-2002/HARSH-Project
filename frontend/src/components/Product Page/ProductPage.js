@@ -174,30 +174,18 @@ function ProductPage() {
           </p>
 
           <div className="abBtns">
-            {/* <Link
-              to="/cart"
-              style={{
-                textDecoration: "none",
-                cursor: "pointer",
-                color: "black",
-              }}
-            > */}
-            {user && user?.user?.userType === 'User' && <button onClick={()=>handleAddToCart(product)}>ADD TO CART</button>}
-              
-            {/* </Link> */}
-            {user && user?.user?.userType === 'User' && 
-            <Link
-              to={`/billing/${product._id}/${quantity}`}
-              style={{
-                textDecoration: "none",
-                cursor: "pointer",
-                color: "black",
-              }}
-            >
-              <button>BUY NOW</button>
-            </Link>
-            }
-          </div>
+  {user && user?.user?.userType === 'User' && (
+    <button className="addtocartbtn" onClick={() => handleAddToCart(product)}>
+      ADD TO CART
+    </button>
+  )}
+  {user && user?.user?.userType === 'User' && (
+    <Link to={`/billing/${product._id}/${quantity}`} style={{ textDecoration: "none" }}>
+      <button className="buynowbtn">BUY NOW</button>
+    </Link>
+  )}
+</div>
+
 
           <div className="productDetails">
             <h2>Delivery Information</h2>

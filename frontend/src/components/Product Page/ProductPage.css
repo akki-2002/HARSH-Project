@@ -1,10 +1,12 @@
+/* General Styles */
 * {
-  font-family: montserrat, sans-serif;
+  font-family: Montserrat, sans-serif;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
+/* Main Styles */
 .productMain {
   display: flex;
   flex-direction: column;
@@ -78,19 +80,16 @@
   margin-bottom: 10px;
   font-size: 0.8rem;
   color: #666;
-  font-family: montserrat, sans-serif;
 }
 
 .desc {
   font-weight: 600;
   margin-bottom: 10px;
-  font-family: montserrat, sans-serif;
 }
 
-.desc-p{
+.desc-p {
   font-weight: 400;
   margin-bottom: 10px;
-  font-family: montserrat, sans-serif;
 }
 
 .qua {
@@ -151,43 +150,45 @@
   margin-right: 3px;
 }
 
+/* Button Styles */
 .abBtns {
   width: 100%;
   display: flex;
   gap: 20px;
-  color: #98168B;
   margin-top: 20px;
 }
 
-.abBtns Link button {
-  padding: 15px 0;
-  width: 50%;
+.abBtns button {
+  padding: 15px 10px;
+  /* width: 50%; */
   border: 2px solid #98168B;
   font-size: 1rem;
   font-weight: 600;
   border-radius: 5px;
   cursor: pointer;
-  color: black;
   transition: background-color 0.3s;
 }
 
-/* .abBtns button:nth-child(1) {
+.abBtns button.addtocartbtn {
   background-color: white;
-} */
-
-.abBtns button:nth-child(1):hover {
-  background-color: #7c126f;
+  color: #98168B;
 }
 
-.abBtns button:nth-child(2) {
+.abBtns button.addtocartbtn:hover {
+  background-color: #7c126f;
+  color: white;
+}
+
+.abBtns button.buynowbtn {
   background-color: #98168B;
   color: white;
 }
 
-.abBtns button:nth-child(2):hover {
+.abBtns button.buynowbtn:hover {
   background-color: #7c126f;
 }
 
+/* Product Details */
 .productDetails {
   margin-top: 30px;
 }
@@ -201,19 +202,15 @@
 .productDetails ul li {
   padding: 10px;
   font-weight: 400;
-  /* margin: 2px; */
   text-align: justify;
-  font-family: montserrat, sans-serif;
 }
 
-/* Media Queries for Responsive Design */
-
-@media (min-width: 576px) { /* Small screens and up */
+/* Responsive Design */
+@media (min-width: 576px) {
   .productMain {
     flex-direction: row;
   }
   .prdImgs {
-    /* flex-direction: column; */
     width: 40%;
     gap: 20px;
   }
@@ -223,7 +220,7 @@
   }
 }
 
-@media (min-width: 768px) { /* Medium screens and up */
+@media (min-width: 768px) {
   .prdiMin img {
     width: 70px;
   }
@@ -232,7 +229,7 @@
   }
 }
 
-@media (min-width: 992px) { /* Large screens and up */
+@media (min-width: 992px) {
   .productMain {
     padding: 40px;
     gap: 40px;
