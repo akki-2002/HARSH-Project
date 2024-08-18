@@ -5,6 +5,7 @@ import Testimonials from "../Home/Testimonials/Testimonials";
 import Navbar from "../Home/Navbar/Navbar";
 import Footer from "../Home/Footer/Footer";
 import { useAuthContext } from "../../hooks/useAuthContext";
+import NavbarAdmin from "../Admin/Navbar/NavbarAdmin";
 
 function BuyProduct() {
   const { user } = useAuthContext();
@@ -56,7 +57,7 @@ function BuyProduct() {
 
   const updateUserCart = async () => {
     try {
-      const response = await fetch(`https://harsh-project-4-kmzz.onrender.com/users/getuserbyid/66b64ee64fb94cedf28702b0`, {
+      const response = await fetch(`https://harsh-project-4-kmzz.onrender.com/users/getuserbyid/${user.user?._id}`, {
         method: "GET",
         headers: {
           'Authorization': `Bearer ${user.token}`
@@ -113,7 +114,7 @@ function BuyProduct() {
 
   return (
     <>
-      <Navbar />
+      {user?.user?.userType === 'User' ? <Navbar /> : <NavbarAdmin/> }
       <span style={{ margin: "16px" }}>
         <Link
           to="/"

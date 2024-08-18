@@ -75,7 +75,7 @@ function ReligiousAll() {
 
   const updateUserCart = async () => {
     try {
-      const response = await fetch(`https://harsh-project-4-kmzz.onrender.com/users/getuserbyid/66b64ee64fb94cedf28702b0`, {
+      const response = await fetch(`https://harsh-project-4-kmzz.onrender.com/users/getuserbyid/${user.user?._id}`, {
         method: "GET",
         headers: {
           'Authorization': `Bearer ${user.token}`

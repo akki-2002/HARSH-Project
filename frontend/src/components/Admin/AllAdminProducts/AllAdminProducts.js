@@ -92,7 +92,7 @@ function AllAdminProducts() {
                 <div className="price-container">
                   <p className="price">&#8377;{product.price}</p>
                   {/* <Link to={`/deleteProduct`}> */}
-                    <MdDeleteForever className="fa-cart-plus" onClick={()=>handleDeleteProduct(product._id)}/>
+                    {/* <MdDeleteForever className="fa-cart-plus" onClick={()=>handleDeleteProduct(product._id)}/> */}
                   {/* </Link> */}
                 </div>
               </div>

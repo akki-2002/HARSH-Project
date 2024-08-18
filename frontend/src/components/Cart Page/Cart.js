@@ -97,7 +97,7 @@ useEffect(() => {
           'Content-Type': 'application/json'
         }
       });
-  
+      
       const json = await response.json();
       if (response.ok) {
         console.log('successfully removed from the cart', json);
@@ -112,7 +112,7 @@ useEffect(() => {
     }
   };
 
-
+  
   const handleCheckout = () =>{
 
     if(cartItems?.length > 0)
