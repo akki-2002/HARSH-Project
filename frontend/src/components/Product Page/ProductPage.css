@@ -133,7 +133,7 @@
 .ins {
   width: 100%;
   text-align: right;
-  color: #40A97D;
+  /* color: #40A97D; */
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -141,12 +141,20 @@
   margin: 10px 0;
 }
 
-.ins::before {
+.prdDets .success::before {
   content: "";
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background-color: #40A97D;
+  background-color: green;
+  margin-right: 3px;
+}
+.prdDets .error::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: red;
   margin-right: 3px;
 }
 

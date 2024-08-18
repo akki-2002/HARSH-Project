@@ -172,17 +172,17 @@ function ProductPage() {
           </div>
           }
 
-          <p className="ins">
+          <p className= {product?.itemInStock ? "ins success" : "ins error"}>
             {product?.itemInStock ? "Item in Stock" : "Out of Stock"}
           </p>
 
           <div className="abBtns">
-  {user && user?.user?.userType === 'User' && (
+  {user && user?.user?.userType === 'User' && product?.itemInStock && (
     <button className="addtocartbtn" onClick={() => handleAddToCart(product)}>
       ADD TO CART
     </button>
   )}
-  {user && user?.user?.userType === 'User' && (
+  {user && user?.user?.userType === 'User' && product?.itemInStock &&(
     <Link to={`/billing/${product._id}/${quantity}`} style={{ textDecoration: "none" }}>
       <button className="buynowbtn">BUY NOW</button>
     </Link>
