@@ -141,7 +141,7 @@
 }
 
 .signupBtn button:hover {
-  background-color: #d73a05;
+  background-color: #98168b;
 }
 
 .loginBtn button {
@@ -149,12 +149,13 @@
   border: 1px solid #98168b;
   box-shadow: 2px 2px 0px 0px #98168b;
   color: #363636;
+  margin-top: 10px;
 }
 
 .loginBtn button:hover {
-  background-color: #f7e3dd;
+  /* background-color: #f7e3dd; */
   box-shadow: none;
-  color: #ffffff;
+  color: black;
 }
 
 form p {

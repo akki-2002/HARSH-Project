@@ -73,38 +73,39 @@ const handleSearch = (e) => {
 };
   return (
     <div className="navMain1">
-      <Link to={"/"}>
-        <img src={logoImg} className="logo1" alt="" />
-      </Link>
-      <div className="navComps1">
-        <div className="navLinks1">
-          <Link to={"/"}>PRODUCTS</Link>
-          <Link to={"/adminOrders"}>ORDERS</Link>
+    <Link to={"/"}>
+      <img src={logoImg} className="logo1" alt="Logo" />
+    </Link>
+    <div className="navComps1">
+      <div className="navLinks1">
+        <Link to={"/"}>PRODUCTS</Link>
+        <Link to={"/adminOrders"}>ORDERS</Link>
+      </div>
+      <div className="navIcons1">
+        <div className="smallSearchBar1">
+          <input
+            type="text"
+            placeholder="Search"
+            value={searchQuery || ""}
+            onChange={(e) => handleSearch(e)}
+          />
+          <img src={search} alt="Search Icon" />
+          <ul className="searchedEle" style={seStyle}>
+            {filteredItems.map((item) => (
+              <Link key={`/product/${item._id}`} to={`/product/${item._id}`}>
+                <li>{item?.title}</li>
+              </Link>
+            ))}
+          </ul>
         </div>
-        <div className="navIcons1">
-          <div className="smallSearchBar1">
-            <input type="text" placeholder="Search" value={searchQuery || ''}
-          onChange={(e)=>handleSearch(e)}/>
-            <img src={search} alt="search" />
-            <ul className='searchedEle' style={seStyle}>
-              {filteredItems.map((item) => (
-                <Link key={`/product/${item._id}`} to={`/product/${item._id}`}>
-                  <li>
-                    {item?.title}
-                  </li>
-                </Link>
-              ))}
-            </ul>
-          </div>
-          
-          <div className="olLogout">
-                    {/* <Link to={'/signin'} style={{ textDecoration: 'none', cursor: 'pointer' }}> */}
-                        <h3 onClick={handlelogout}>Log out</h3>
-                    {/* </Link>  */}
-                </div>  
+        <div className="olLogout">
+          <h3 onClick={handlelogout}>Log out</h3>
         </div>
       </div>
     </div>
+  </div>
+  
+  
   );
 }
 

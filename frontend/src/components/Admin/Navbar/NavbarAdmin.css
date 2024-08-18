@@ -85,36 +85,57 @@
     margin-left: 5px;
   }
   
-  /* Responsive CSS */
-  @media (max-width: 480px) {
-
-    .logo1{
-        width: 65px;
-    }
-    .navComps1 {
-      flex-direction: column;
-      align-items: flex-start;
-      width: 100%;
-      margin-right: 10px;
-      gap: 8px;
-    }
-
-    .navMain1{
-        padding: 0rem;
-    }
-  
-    .navLinks1 {
-    
-      flex-direction: row;
-      justify-content: space-between;
-      width: 100%;
-    }
-  
-    .navIcons1 {
-      flex-direction: row;
-      justify-content: space-between;
-      width: 100%;
-      /* margin-top: 10px; */
-    }
+  .olLogout{
+    border: 1px solid #98168b;
+    padding: 5px;
+    border-radius: 5px;
   }
-  
+  /* Responsive CSS */
+  /* Responsive CSS */
+@media (max-width: 480px) {
+
+  .logo1 {
+    width: 65px;
+  }
+
+  .navComps1 {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    gap: 8px;
+    margin-right: 10px;
+  }
+
+  .navMain1 {
+    padding: 0rem;
+  }
+
+  .navLinks1 {
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .navIcons1 {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    gap: 10px;
+  }
+
+
+
+  .olLogout {
+    margin-top: 10px;
+    width: 100%;
+    text-align: center;
+    font-size: 1rem;
+    padding: 10px;
+    border: 1px solid #98168b;
+    border-radius: 5px;
+    background-color: #f2ebeb;
+    cursor: pointer;
+    color: #4a4747;
+  }
+}

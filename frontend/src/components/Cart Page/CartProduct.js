@@ -118,7 +118,7 @@ function CartProduct() {
   return (
     <>
       <Navbar />
-      <span style={{ margin: "16px" }}>
+      <span style={{ margin: "20px" }}>
         <Link
           to="/"
           style={{

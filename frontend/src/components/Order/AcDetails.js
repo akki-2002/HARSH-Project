@@ -119,7 +119,7 @@ const newUserData = {
             <input type="password" placeholder="" />
           </div> */}
           <div className="saveChanges">
-            <button>Save Changes</button>
+            <button className="savechange">Save Changes</button>
           </div>
         </form>
       </div>
