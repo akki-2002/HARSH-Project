@@ -179,27 +179,27 @@ function ProductPage() {
           <div className="abBtns">
             <p className="error"> {!product?.itemInStock && "Currently out of stock!!" }</p>
           {!user &&  (
-    <button className="addtocartbtn" onClick={() => handleAddToCart(product)}>
-      ADD TO CART
-    </button>
-  )}
-  {!user && (
-    // <Link to={`/billing/${product._id}/${quantity}`} style={{ textDecoration: "none" }}>
-      <button className="buynowbtn" onClick={() => handleAddToCart(product)}>BUY NOW</button>
-    // </Link> 
-  )}
+            <button className="addtocartbtn" onClick={() => handleAddToCart(product)}>
+              ADD TO CART
+            </button>
+          )}
+          {!user && (
+            // <Link to={`/billing/${product._id}/${quantity}`} style={{ textDecoration: "none" }}>
+              <button className="buynowbtn" onClick={() => handleAddToCart(product)}>BUY NOW</button>
+            // </Link> 
+          )}
 
-  {user && user?.user?.userType === 'User' && product?.itemInStock && (
-    <button className="addtocartbtn" onClick={() => handleAddToCart(product)}>
-      ADD TO CART
-    </button>
-  )}
-  {user && user?.user?.userType === 'User' && product?.itemInStock &&(
-    <Link to={`/billing/${product._id}/${quantity}`} style={{ textDecoration: "none" }}>
-      <button className="buynowbtn">BUY NOW</button>
-    </Link>
-  )}
-</div>
+          {user && user?.user?.userType === 'User' && product?.itemInStock && (
+            <button className="addtocartbtn" onClick={() => handleAddToCart(product)}>
+              ADD TO CART
+            </button>
+          )}
+          {user && user?.user?.userType === 'User' && product?.itemInStock &&(
+            <Link to={`/billing/${product._id}/${quantity}`} style={{ textDecoration: "none" }}>
+              <button className="buynowbtn">BUY NOW</button>
+            </Link>
+          )}
+        </div>
 
 
           <div className="productDetails">
