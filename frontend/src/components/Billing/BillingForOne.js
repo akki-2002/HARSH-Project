@@ -8,6 +8,9 @@ import Footer from "../Home/Footer/Footer";
 import { useAuthContext } from "../../hooks/useAuthContext";
 
 function BillingForOne() {
+  useEffect(() => {
+    window.scrollTo(0, 0); // This scrolls the window to the top
+}, []);
     const {id} = useParams();
     const {count} = useParams();
   const [country, setCountry] = useState({

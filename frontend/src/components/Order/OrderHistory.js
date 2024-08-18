@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import { useAuthContext } from '../../hooks/useAuthContext';
 
 function OrderHistory() {
+  useEffect(() => {
+    window.scrollTo(0, 0); // This scrolls the window to the top
+}, []);
   const { user } = useAuthContext();
   const [ordersData, setOrdersData] = useState([]);
 

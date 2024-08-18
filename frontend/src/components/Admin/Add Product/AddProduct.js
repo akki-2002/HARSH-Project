@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './AddProduct.css'; // Updated styles
 import NavbarAdmin from '../Navbar/NavbarAdmin';
@@ -6,6 +6,9 @@ import Footer from '../../Home/Footer/Footer';
 import { IoMdArrowRoundBack } from "react-icons/io";
 
 function AddProduct() {
+  useEffect(() => {
+    window.scrollTo(0, 0); // This scrolls the window to the top
+}, []);
   const [productName, setProductName] = useState('');
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');

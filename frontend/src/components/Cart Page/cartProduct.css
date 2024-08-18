@@ -88,6 +88,9 @@
   }
   
   .desc-p{
+    width: 100%;
+    word-wrap: break-word; /* Ensures long words break to the next line */
+    overflow-wrap: break-word; /* Ensures the text wraps inside the container */
     font-weight: 400;
     margin-bottom: 10px;
     font-family: montserrat, sans-serif;
