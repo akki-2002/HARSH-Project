@@ -8,6 +8,9 @@ import { useAuthContext } from "../../hooks/useAuthContext";
 import NavbarAdmin from "../Admin/Navbar/NavbarAdmin";
 
 function ProductPage() {
+  useEffect(() => {
+    window.scrollTo(0, 0); // This scrolls the window to the top
+}, []);
   const { user } = useAuthContext();
   const { id } = useParams();
   const [product, setProduct] = useState({}); // Initialize as an empty object

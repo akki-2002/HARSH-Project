@@ -10,6 +10,9 @@ import { useNavigate } from "react-router-dom";
 import useLogin from "../../hooks/useLogin";
 
 function Signin() {
+  useEffect(() => {
+    window.scrollTo(0, 0); // This scrolls the window to the top
+}, []);
   const [move, setMove] = useState();
   const [move2, setMove2] = useState();
 

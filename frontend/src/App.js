@@ -36,6 +36,9 @@ function App() {
   const {user} = useAuthContext()
   
   console.log("user", user)
+  useEffect(() => {
+    window.scrollTo(0, 0); // This scrolls the window to the top
+}, []);
   return (
     <>
       <Router>

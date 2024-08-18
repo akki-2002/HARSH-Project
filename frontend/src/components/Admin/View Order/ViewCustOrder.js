@@ -8,6 +8,9 @@ import Footer from "../../Home/Footer/Footer";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 
 function ViewCustOrder() {
+  useEffect(() => {
+    window.scrollTo(0, 0); // This scrolls the window to the top
+}, []);
   const { user } = useAuthContext();
   const [orderItems, setOrderItems] = useState([]);
   const [formData, setFormData] = useState({

@@ -5,6 +5,9 @@ import Navbar from "../Home/Navbar/Navbar";
 import { useAuthContext } from "../../hooks/useAuthContext";
 
 function OrderDetails() {
+  useEffect(() => {
+    window.scrollTo(0, 0); // This scrolls the window to the top
+}, []);
   const { user } = useAuthContext();
   const [orderItems, setOrderItems] = useState([]);
   const [formData, setFormData] = useState({

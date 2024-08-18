@@ -11,7 +11,9 @@ import { useNavigate } from "react-router-dom";
 
 
 function Cart() {
-  
+  useEffect(() => {
+    window.scrollTo(0, 0); // This scrolls the window to the top
+}, []);
   const {user} = useAuthContext()
   // const [cartItems, setCartItems]
   const [adtItems, setAdtItems] = useState([]);

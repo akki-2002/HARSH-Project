@@ -19,6 +19,10 @@ function Home() {
         setUserData(user)
         console.log('user Data', userData)
     },[user])
+
+    useEffect(() => {
+      window.scrollTo(0, 0); // This scrolls the window to the top
+  }, []);
   return (
     <>
               <Navbar/>
