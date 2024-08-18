@@ -101,6 +101,7 @@ function ProductPage() {
       const json = await response.json();
       if (response.ok) {
         console.log('successfully added to the cart', json);
+        alert('Product added to cart')
         updateUserCart()
         console.log('adt user', user);
       } else {
