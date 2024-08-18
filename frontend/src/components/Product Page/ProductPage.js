@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import "./ProductPage.css";
 import Testimonials from "../Home/Testimonials/Testimonials";
 import Navbar from "../Home/Navbar/Navbar";
@@ -15,6 +15,7 @@ function ProductPage() {
   const [totalPrice, setTotalPrice] = useState(0);
   const [selectedImage, setSelectedImage] = useState(null);
   const [imgIndex, setImgIndex] = useState(0)
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -112,6 +113,10 @@ function ProductPage() {
     }
   };
 
+  const handleBuyNow = (e) =>{
+    navigate(e)
+  }
+
   return (
     <>
     {user?.user?.userType === 'Admin' ? <NavbarAdmin/> : <Navbar/> }
@@ -195,9 +200,9 @@ function ProductPage() {
             </button>
           )}
           {user && user?.user?.userType === 'User' && product?.itemInStock &&(
-            <Link to={`/billing/${product._id}/${quantity}`} style={{ textDecoration: "none" }}>
-              <button className="buynowbtn">BUY NOW</button>
-            </Link>
+            // <Link to={} style={{ textDecoration: "none" }}>
+              <button className="buynowbtn" onClick={(e)=>handleBuyNow(`/billing/${product._id}/${quantity}`)}>BUY NOW</button>
+            // </Link>
           )}
         </div>
 
