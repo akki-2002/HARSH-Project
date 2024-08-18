@@ -54,8 +54,6 @@ app.post('/order', async(req, res)=>{
      console.log(error);
     res.status(500).json({error: 'Failed to process order'});
   }
-  
-
 })
 
 

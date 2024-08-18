@@ -226,70 +226,43 @@ useEffect(() => {
   const [address, setAddress] = useState('')
   const navigate = useNavigate()
   const [error, setError] = useState('')
-
-  const handleSubmit = async (e) => {
-    // e.preventDefault();
+  const [pay, setPay] = useState(false);
   
-    try {
-      // Prepare the data object with product IDs and quantities
-      const productDataArray = cartItems.map(item => ({
-        product: item.productDetails.product._id,
-        quantity: item.quantity // Include the quantity for each product
-      }));
-  
-      if (productDataArray.length === 0) {
-        console.log('No product data to submit.');
-        return;
-      }
-  
-      // Prepare the data object for the request
-      const data = {
-        productIds: productDataArray, // Changed from productIds to productData
-        firstName: firstName,
-        lastName: lastName,
-        country: 'INDIA',
-        address: address,
-        city: city,
-        state: selectedState,
-        pincode: pincode,
-        phoneNumber: phoneNumber,
-        email: email,
-        totalPrice: totalAmount,
-        status: 'Pending'
-      };
-      console.log("data", data);
-  
-      const response = await fetch(`https://harsh-project-4-kmzz.onrender.com/bills/billforcart/${user.user?._id}`, {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          'Authorization': `Bearer ${user.token}`,
-          'Content-Type': 'application/json'
-        }
-      });
-  
-      const json = await response.json();
-      if (response.ok) {
-        console.log(json);
-        setError(false)
-        // setTimeout(() => {
-          
-        //   navigate('/order')
-        // }, 1000);
-      } else {
-        setError(true);
-        console.log('Failed to submit form:', json);
-      }
-    } catch (error) {
-      console.log('Error:', error);
-    }
-  }
 
 
    //PAYMENT GATEWAY
 
   const paymentHandler = async(e) =>{
     e.preventDefault();
+    
+    const productDataArray = cartItems.map(item => ({
+      product: item.productDetails.product._id,
+      quantity: item.quantity // Include the quantity for each product
+    }));
+
+    if (productDataArray.length === 0) {
+      console.log('No product data to submit.');
+      return;
+    }
+    const data = {
+      productIds: productDataArray, // Changed from productIds to productData
+      firstName: firstName,
+      lastName: lastName,
+      country: 'INDIA',
+      address: address,
+      city: city,
+      state: selectedState,
+      pincode: pincode,
+      phoneNumber: phoneNumber,
+      email: email,
+      totalPrice: totalAmount,
+      status: 'Pending'
+    };
+
+    if(!data?.firstName || !data?.lastName || !data?.country || !data?.address || !data?.city || !data?.state || !data?.pincode || !data?.phoneNumber || !data?.email || !data?.status)
+      {
+        return setError(true)
+      }
     const amount= totalAmount * 100;
     const currency= "INR";
     const receipt = "abcdef"
@@ -329,11 +302,41 @@ useEffect(() => {
           }
         })
 
+        
+    
+        // Prepare the data object for the request
+        
+
         const json = await validateRes.json()
         if(validateRes.ok)
         {
-          handleSubmit()
-          navigate('/order')
+          try{
+            const response = await fetch(`https://harsh-project-4-kmzz.onrender.com/bills/billforcart/${user.user?._id}`, {
+              method: "POST",
+              body: JSON.stringify(data),
+              headers: {
+                'Authorization': `Bearer ${user.token}`,
+                'Content-Type': 'application/json'
+              }
+            });
+        
+            const json = await response.json();
+            if (response.ok) {
+              console.log(json);
+              setError(false)
+              
+              setTimeout(() => {
+                
+                navigate('/order')
+              }, 1000);
+            } else {
+              setError(true);
+              console.log('Failed to submit form:', json);
+            }
+          }catch(error)
+          {
+            console.log('Error:', error);
+          }
         }
         console.log(json)
       },
@@ -351,16 +354,90 @@ useEffect(() => {
   };
   var rzp1 = new window.Razorpay(options);
       rzp1.open();
-      e.preventDefault();
+      // e.preventDefault();
   
   }
+  // console.log(pay)
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
   
+  //   try {
+  //     // Prepare the data object with product IDs and quantities
+  //     const productDataArray = cartItems.map(item => ({
+  //       product: item.productDetails.product._id,
+  //       quantity: item.quantity // Include the quantity for each product
+  //     }));
   
+  //     if (productDataArray.length === 0) {
+  //       console.log('No product data to submit.');
+  //       return;
+  //     }
+  
+  //     // Prepare the data object for the request
+  //     const data = {
+  //       productIds: productDataArray, // Changed from productIds to productData
+  //       firstName: firstName,
+  //       lastName: lastName,
+  //       country: 'INDIA',
+  //       address: address,
+  //       city: city,
+  //       state: selectedState,
+  //       pincode: pincode,
+  //       phoneNumber: phoneNumber,
+  //       email: email,
+  //       totalPrice: totalAmount,
+  //       status: 'Pending'
+  //     };
+  //     console.log("data", data);
+
+  //     if(!data?.firstName || !data?.lastName || !data?.country || !data?.address || !data?.city || !data?.state || !data?.pincode || !data?.phoneNumber || !data?.email || !data?.status)
+  //     {
+  //       return setError(true)
+  //     }else{
+  //       paymentHandler();
+  //       if(!pay)
+  //       {
+  //         console.log(pay)
+  //         return setError(false)
+  //       }
+  //     }
+      
+  //     // if(pay)
+  //     // {
+  //       const response = await fetch(`https://harsh-project-4-kmzz.onrender.com/bills/billforcart/${user.user?._id}`, {
+  //         method: "POST",
+  //         body: JSON.stringify(data),
+  //         headers: {
+  //           'Authorization': `Bearer ${user.token}`,
+  //           'Content-Type': 'application/json'
+  //         }
+  //       });
+    
+  //       const json = await response.json();
+  //       if (response.ok) {
+  //         console.log(json);
+  //         setError(false)
+          
+  //         setTimeout(() => {
+            
+  //           navigate('/order')
+  //         }, 1000);
+  //       } else {
+  //         setError(true);
+  //         console.log('Failed to submit form:', json);
+  //       }
+  //     // }
+
+     
+  //   } catch (error) {
+  //     console.log('Error:', error);
+  //   }
+  // }
 
   return (
     <>
     <Navbar></Navbar>
-      <form className="billingMain" onSubmit={handleSubmit}>
+      <form className="billingMain">
         <div className="billingLeftMain">
           <div className="billingLeft">
             <Link to={`/cart/${user?.user?._id}`}>
@@ -524,9 +601,9 @@ useEffect(() => {
               {/* <Link to={'/order'} style={{ textDecoration: "none", cursor: "pointer" }}> */}
               {error ? <p className="error">Failed to submit the form. Please check the details.</p> : error === false ? <p className="success">
                 Order placed successfully</p> : ""}
-                <div className="cartCheckoutBtn">
+                {/* <div className="cartCheckoutBtn"> */}
                   <button onClick={paymentHandler}>Place Order</button>
-                </div>
+                {/* </div> */}
               {/* </Link> */}
             </div>
           </div>
