@@ -170,7 +170,7 @@ function BuyProduct() {
             </div>
           </div>
 
-          <p className="ins">
+          <p className= {product?.itemInStock ? "ins success" : "ins error"}>
             {product?.itemInStock ? "Item in Stock" : "Out of Stock"}
           </p>
 
@@ -185,7 +185,7 @@ function BuyProduct() {
             > */}
               {/* <button onClick={()=>handleAddToCart(product)}>ADD TO CART</button> */}
             {/* </Link> */}
-            {user && 
+            {user && product?.itemInStock &&
             <Link
               to={`/billing/${product._id}/${quantity}`}
               style={{

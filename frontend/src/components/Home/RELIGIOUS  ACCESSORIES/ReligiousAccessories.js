@@ -148,7 +148,8 @@ function ReligiousAccessories() {
                   <p className="price">&#8377;{product.price}</p>
                   {/* <Link to={"/cart"}> */}
                   <div>
-                    <FaCartPlus className="fa-cart-plus" onClick={()=>handleAddToCart(product)}/>
+                    {product?.itemInStock && <FaCartPlus className="fa-cart-plus" onClick={()=>handleAddToCart(product)}/>}
+                    
                   </div>
                   {/* </Link> */}
                 </div>
