@@ -29,11 +29,17 @@
 }
 
 .olHeading,
-.olContent,
-.olLogout {
+.olContent {
   display: flex;
   flex-direction: column;
   width: 70%;
+}
+
+.order .olLogout{
+  display: flex;
+  right: 10px;
+  width: max-content;
+  padding: 0 10px;
 }
 
 .navIcons1 .olLogout{
