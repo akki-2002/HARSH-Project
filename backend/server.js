@@ -18,7 +18,6 @@ app.use(cors({
   credentials: true
 }));
 
-
 const PORT = process.env.PORT || 5000;
 
 // Middleware
@@ -78,9 +77,9 @@ mongoose.connect(process.env.MONGODB_URI)
   .catch(err => console.log(err));
 
 // Basic route
-// app.get('/', (req, res) => {
-//   res.send('Hello from the backend!');
-// });
+app.get('/', (req, res) => {
+  res.send('Hello from the backend!');
+});
 
 
 app.listen(PORT, () => {
