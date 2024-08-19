@@ -12,11 +12,12 @@ const crypto = require('crypto')
 
 const app = express();
 
-// app.use(cors({
-//   origin: ["https://harsh-project-api.vercel.app"],
-//   methods: ["POST", "GET"],
-//   credentials: true
-// }));
+app.use(cors({
+  origin: ["https://www.didwaniacreations.in"],
+  methods: ["POST", "GET"],
+  credentials: true
+}));
+
 
 const PORT = process.env.PORT || 5000;
 
