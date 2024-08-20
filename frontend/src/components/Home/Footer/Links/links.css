@@ -35,6 +35,7 @@
     background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: justify;
   }
   
   #about-us h2 {
@@ -49,6 +50,7 @@
     line-height: 1.8;
     margin-bottom: 20px;
     color: #555;
+    text-align: justify;
   }
   
   #about-us ul {
@@ -67,6 +69,7 @@
   
     #about-us .hero-text p {
       font-size: 18px;
+      text-align: justify;
     }
   
     #about-us .about-section {
@@ -79,6 +82,7 @@
   
     #about-us p, #about-us ul {
       font-size: 16px;
+      text-align: justify;
     }
   }
   
@@ -128,6 +132,7 @@
     margin-bottom: 20px;
     color: #555;
     line-height: 1.8;
+    text-align: justify;
   }
   
   #terms-conditions ul {
@@ -181,6 +186,7 @@
   
     #terms-conditions p, #terms-conditions ul li {
       font-size: 16px;
+      text-align: justify;
     }
   }
   
@@ -225,6 +231,7 @@
   
     #refund-returns-container p {
       font-size: 16px;
+      text-align: justify;
     }
   }
   
@@ -251,6 +258,7 @@
     color: #555;
     line-height: 1.6;
     margin-bottom: 16px;
+    text-align: justify;
   }
   
   #privacy-policy-container ul {
@@ -309,6 +317,7 @@
   #shipping-policy-container li {
     color: #555;
     line-height: 1.6;
+    text-align: justify;
     margin-bottom: 16px;
   }
   
@@ -379,6 +388,7 @@
   .contact-box p {
     color: #666;
     margin-bottom: 20px;
+    text-align: justify;
   }
   
   .contact-link {
