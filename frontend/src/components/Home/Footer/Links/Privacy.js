@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from '../../Navbar/Navbar';
 import './links.css';
+import Footer from '../Footer';
 
 function Privacy() {
   return (
@@ -76,6 +77,7 @@ function Privacy() {
           Address: Shop no 21, Ground floor, 2nd Bhoiwada, Bhuleshwar, Mumbai- 400002.</p>
         <p>Thank you for visiting Didwania Creations. We are committed to protecting your privacy and ensuring a safe and enjoyable experience on our Site.</p>
       </div>
+      <Footer/>
     </>
   );
 }

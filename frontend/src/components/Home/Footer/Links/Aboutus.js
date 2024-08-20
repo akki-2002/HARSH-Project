@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from '../../Navbar/Navbar';
 import './links.css';
+import Footer from '../Footer';
 
 function Aboutus() {
   return (
@@ -64,6 +65,7 @@ function Aboutus() {
           <p>Thank you for visiting Didwania Creations. We look forward to working with you and creating something extraordinary together!</p>
         </section>
       </div>
+      <Footer/>
     </>
   );
 }

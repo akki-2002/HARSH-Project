@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from '../../Navbar/Navbar';
 import './links.css';
+import Footer from '../Footer';
 
 function ContactUs() {
   return (
@@ -21,6 +22,7 @@ function ContactUs() {
           <a href="https://wa.me/+918591100176" target="_blank" rel="noopener noreferrer" className="contact-link">Chat on WhatsApp</a>
         </div>
       </div>
+      <Footer/>
     </>
   );
 }

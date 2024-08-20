@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from '../../Navbar/Navbar';
 import './links.css';
+import Footer from '../Footer';
 
 function TermsConditions() {
   return (
@@ -63,6 +64,7 @@ function TermsConditions() {
           These Terms are governed by and construed in accordance with the laws of [Your Jurisdiction]. Any disputes arising from or relating to these Terms or your use of the Site shall be resolved exclusively in the courts located in [Your Jurisdiction].
         </p>
       </div>
+      <Footer/>
     </>
   );
 }

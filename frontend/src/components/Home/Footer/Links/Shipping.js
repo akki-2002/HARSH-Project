@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from '../../Navbar/Navbar';
 import './links.css';
+import Footer from '../Footer';
 
 function Shipping() {
   return (
@@ -41,6 +42,7 @@ function Shipping() {
         </p>
 
       </div>
+      <Footer/>
     </>
   );
 }

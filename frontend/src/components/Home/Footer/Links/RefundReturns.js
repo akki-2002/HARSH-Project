@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from '../../Navbar/Navbar';
 import './links.css';
+import Footer from '../Footer';
 
 function RefundReturns() {
   return (
@@ -20,6 +21,7 @@ function RefundReturns() {
           Your satisfaction is our priority, and we stand behind the quality of our creations. Thank you for your understanding and support.
         </p>
       </div>
+      <Footer/>
     </>
   );
 }
