@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Navbar from '../../Navbar/Navbar';
 import './links.css';  // Make sure to change the CSS import to the new filename
 import Footer from '../Footer';
 
 function TermsConditions() {
+  useEffect(() => {
+    window.scrollTo(0, 0); // This scrolls the window to the top
+}, []);
   return (
     <>
       <Navbar />
