@@ -7,7 +7,7 @@ function Privacy() {
   return (
     <>
       <Navbar />
-      <div className="privacy-container">
+      <div id="privacy-policy-container">
         <h1>Privacy Policy</h1>
         <p>Welcome to Didwania Creations. We value your privacy and are committed to protecting your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website <a href="https://www.didwaniacreations.in/" target="_blank" rel="noopener noreferrer">https://www.didwaniacreations.in/</a> (the "Site"). By using our Site, you agree to the practices described in this policy.</p>
 
@@ -77,7 +77,7 @@ function Privacy() {
           Address: Shop no 21, Ground floor, 2nd Bhoiwada, Bhuleshwar, Mumbai- 400002.</p>
         <p>Thank you for visiting Didwania Creations. We are committed to protecting your privacy and ensuring a safe and enjoyable experience on our Site.</p>
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 }

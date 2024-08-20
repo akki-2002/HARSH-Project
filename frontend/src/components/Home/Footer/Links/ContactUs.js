@@ -7,7 +7,7 @@ function ContactUs() {
   return (
     <>
       <Navbar />
-      <div className="contact-container">
+      <div id="contact-container">
         <h1>Contact Us</h1>
         
         <div className="contact-box">
@@ -20,6 +20,12 @@ function ContactUs() {
           <h2>WhatsApp Us</h2>
           <p>You can also contact us on WhatsApp or call us directly for quick responses.</p>
           <a href="https://wa.me/+918591100176" target="_blank" rel="noopener noreferrer" className="contact-link">Chat on WhatsApp</a>
+        </div>
+
+        <div className="contact-box">
+          <h2>Call Us</h2>
+          <p>If you prefer to speak directly, you can call us anytime.</p>
+          <a href="tel:+918591100176" className="contact-link">Call Now</a>
         </div>
       </div>
       <Footer/>

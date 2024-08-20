@@ -1,13 +1,13 @@
 import React from 'react';
 import Navbar from '../../Navbar/Navbar';
-import './links.css';
+import './links.css';  // Make sure to change the CSS import to the new filename
 import Footer from '../Footer';
 
 function TermsConditions() {
   return (
     <>
       <Navbar />
-      <div className="terms-container">
+      <div id="terms-conditions" className="terms-container">
         <h1>Terms and Conditions</h1>
         <p>
           Welcome to Didwania Creations! These Terms and Conditions ("Terms") govern your use of our website located at <a href="https://www.didwaniacreations.in/" target="_blank" rel="noopener noreferrer">https://www.didwaniacreations.in/</a>. By accessing or using the Site, you agree to comply with and be bound by these Terms. If you do not agree with these Terms, please do not use the Site.
@@ -70,3 +70,4 @@ function TermsConditions() {
 }
 
 export default TermsConditions;
+

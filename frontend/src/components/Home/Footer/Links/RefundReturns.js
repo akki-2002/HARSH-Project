@@ -7,7 +7,7 @@ function RefundReturns() {
   return (
     <>
       <Navbar />
-      <div className="refund-container">
+      <div id="refund-returns-container">
         <h1>Refund and Returns Policy</h1>
         <p>
           Thank you for shopping at Didwania Creations. We take great care in crafting our products and ensuring they meet the highest standards of quality. 
@@ -21,7 +21,7 @@ function RefundReturns() {
           Your satisfaction is our priority, and we stand behind the quality of our creations. Thank you for your understanding and support.
         </p>
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 }

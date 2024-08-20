@@ -7,7 +7,7 @@ function Shipping() {
   return (
     <>
       <Navbar />
-      <div className="shipping-container">
+      <div id="shipping-policy-container">
         <h1>Shipping & Delivery Policy</h1>
         
         <h2>Delivery Information</h2>
@@ -48,3 +48,4 @@ function Shipping() {
 }
 
 export default Shipping;
+

@@ -1,13 +1,13 @@
 import React from 'react';
 import Navbar from '../../Navbar/Navbar';
-import './links.css';
+import './links.css';  // Make sure to change the CSS import to the new filename
 import Footer from '../Footer';
 
 function Aboutus() {
   return (
     <>
       <Navbar />
-      <div className="aboutus-container">
+      <div id="about-us" className="aboutus-container">
         {/* Hero Section */}
         <section className="hero-text">
           <h1>Didwania Creations</h1>
