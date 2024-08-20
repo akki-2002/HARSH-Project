@@ -1,14 +1,367 @@
+/* About Us */
+
 .aboutus-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 88vh; /* Full viewport height */
-    
+    padding: 20px;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    background-color: #f9f9f9;
+    max-width: 1200px;
+    margin: 0 auto;
   }
   
-  .aboutus-image {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain; /* Ensures the image scales without distortion */
+  .hero-text {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .hero-text h1 {
+    font-size: 48px;
+    font-weight: 700;
+    color: #444;
+  }
+  
+  .hero-text p {
+    font-size: 22px;
+    margin-top: 10px;
+    color: #555;
+  }
+  
+  .about-section {
+    margin: 40px 0;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #444;
+    text-align: center;
+  }
+  
+  p, ul {
+    font-size: 18px;
+    line-height: 1.8;
+    margin-bottom: 20px;
+    color: #555;
+  }
+  
+  ul {
+    list-style-type: disc;
+    padding-left: 40px;
+  }
+  
+  ul li {
+    margin-bottom: 10px;
+  }
+  
+  @media (max-width: 768px) {
+    .hero-text h1 {
+      font-size: 36px;
+    }
+  
+    .hero-text p {
+      font-size: 18px;
+    }
+  
+    .about-section {
+      padding: 15px;
+    }
+  
+    h2 {
+      font-size: 24px;
+    }
+  
+    p, ul {
+      font-size: 16px;
+    }
+  }
+
+  
+
+  /* Terms & Conditions */
+
+
+  .terms-container {
+    padding: 20px;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    background-color: #f9f9f9;
+    max-width: 1200px;
+    margin: 0 auto;
+    line-height: 1.8;
+  }
+  
+  h1, h2 {
+    color: #444;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  p {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #555;
+  }
+  
+  ul {
+    list-style-type: disc;
+    padding-left: 40px;
+    margin-bottom: 20px;
+  }
+  
+  ul li {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #555;
+  }
+  
+  a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  @media (max-width: 768px) {
+    .terms-container {
+      padding: 15px;
+    }
+  
+    h1, h2 {
+      font-size: 24px;
+    }
+  
+    p, ul li {
+      font-size: 16px;
+    }
+  }
+
+  
+
+  /* Refunds */
+
+  .refund-container {
+    padding: 20px;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    background-color: #f9f9f9;
+    max-width: 900px;
+    margin: 0 auto;
+    line-height: 1.8;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1 {
+    color: #444;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 28px;
+  }
+  
+  p {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #555;
+    text-align: justify;
+  }
+  
+  @media (max-width: 768px) {
+    .refund-container {
+      padding: 15px;
+    }
+  
+    h1 {
+      font-size: 24px;
+    }
+  
+    p {
+      font-size: 16px;
+    }
+  }
+
+  
+  /* Privacy */
+
+  .privacy-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  .privacy-container h1, .privacy-container h2, .privacy-container h3 {
+    color: #333;
+    margin-bottom: 16px;
+  }
+  
+  .privacy-container p {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  
+  .privacy-container ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin-bottom: 16px;
+  }
+  
+  .privacy-container a {
+    color: #0066cc;
+    text-decoration: none;
+  }
+  
+  .privacy-container a:hover {
+    text-decoration: underline;
+  }
+  
+  @media (max-width: 768px) {
+    .privacy-container {
+      padding: 10px;
+    }
+  
+    .privacy-container h1 {
+      font-size: 24px;
+    }
+  
+    .privacy-container h2 {
+      font-size: 20px;
+    }
+  
+    .privacy-container h3 {
+      font-size: 18px;
+    }
+  }
+  
+  
+  /* Shipping */
+
+  .shipping-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  .shipping-container h1, .shipping-container h2 {
+    color: #333;
+    margin-bottom: 16px;
+  }
+  
+  .shipping-container p, .shipping-container li {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  
+  .shipping-container ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin-bottom: 16px;
+  }
+  
+  .shipping-container a {
+    color: #0066cc;
+    text-decoration: none;
+  }
+  
+  .shipping-container a:hover {
+    text-decoration: underline;
+  }
+  
+  @media (max-width: 768px) {
+    .shipping-container {
+      padding: 10px;
+    }
+  
+    .shipping-container h1 {
+      font-size: 24px;
+    }
+  
+    .shipping-container h2 {
+      font-size: 20px;
+    }
+  }
+
+  
+  /* Contact us */
+
+  .contact-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    text-align: center;
+    background-color: #ffffff;
+  }
+  
+  .contact-container h1 {
+    color: #333;
+    margin-bottom: 24px;
+  }
+  
+  .contact-box {
+    background-color: #f9f9f9;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .contact-box:hover {
+    transform: scale(1.05);
+  }
+  
+  .contact-box h2 {
+    color: #444;
+    margin-bottom: 16px;
+  }
+  
+  .contact-box p {
+    color: #666;
+    margin-bottom: 20px;
+  }
+  
+  .contact-link {
+    display: inline-block;
+    padding: 10px 20px;
+    color: #fff;
+    background-color: #0066cc;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  
+  .contact-link:hover {
+    background-color: #004999;
+  }
+  
+  @media (max-width: 768px) {
+    .contact-box {
+      margin: 10px 0;
+      padding: 15px;
+    }
+  
+    .contact-container h1 {
+      font-size: 24px;
+    }
+  
+    .contact-box h2 {
+      font-size: 20px;
+    }
+  
+    .contact-link {
+      padding: 8px 16px;
+    }
   }
   

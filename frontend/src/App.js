@@ -36,6 +36,7 @@ import TermsConditions from "./components/Home/Footer/Links/TermsConditions";
 import RefundReturns from "./components/Home/Footer/Links/RefundReturns";
 import Privacy from "./components/Home/Footer/Links/Privacy";
 import Shipping from "./components/Home/Footer/Links/Shipping";
+import ContactUs from "./components/Home/Footer/Links/ContactUs";
 
 function App() {
   const {user} = useAuthContext()
@@ -96,7 +97,7 @@ function App() {
           <Route path="/Refund&Returns" element={<RefundReturns />} />
           <Route path="/PrivacyPolicy" element={<Privacy />} />
           <Route path="/Shipping" element={<Shipping />} />
-          <Route path="/ContactUs" element={<Shipping />} />
+          <Route path="/ContactUs" element={<ContactUs />} />
 
         </Routes>
       </Router>

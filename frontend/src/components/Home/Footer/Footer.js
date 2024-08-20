@@ -33,14 +33,14 @@ function Footer() {
       </div>
       <div className="footer-right">
         <ul>
-        <Link to="/AboutUs"style={{ textDecoration: 'none', cursor: 'pointer', color: 'white' }}><li>About Us</li></Link>  
-        <Link to="/Terms&Conditions"style={{ textDecoration: 'none', cursor: 'pointer', color: 'white' }}><li>Terms & Conditions</li></Link> 
-        <Link to="/Refund&Returns"style={{ textDecoration: 'none', cursor: 'pointer', color: 'white' }}><li>Refund & Returns</li></Link>
-        <Link to="/PrivacyPolicy"style={{ textDecoration: 'none', cursor: 'pointer', color: 'white' }}><li>Privacy Policy</li></Link>
-        <Link to="/Shipping"style={{ textDecoration: 'none', cursor: 'pointer', color: 'white' }}><li>Shipping</li></Link>
-        <Link to="/ContactUs"style={{ textDecoration: 'none', cursor: 'pointer', color: 'white' }}><li><a href="https://www.yourwebsite.com/contact" target="_blank" rel="noopener noreferrer">Contact Us</a></li></Link>
+        <Link to="/AboutUs"style={{ textDecoration: 'none', cursor: 'pointer', color: 'white' }}><li style={{ cursor: 'pointer', color: 'white' }}>About Us</li></Link>  
+        <Link to="/Terms&Conditions"style={{ textDecoration: 'none', cursor: 'pointer', color: 'white' }}><li style={{ cursor: 'pointer', color: 'white' }}>Terms & Conditions</li></Link> 
+        <Link to="/Refund&Returns"style={{ textDecoration: 'none', cursor: 'pointer', color: 'white' }}><li style={{ cursor: 'pointer', color: 'white' }}>Refund & Returns</li></Link>
+        <Link to="/PrivacyPolicy"style={{ textDecoration: 'none', cursor: 'pointer', color: 'white' }}><li style={{ cursor: 'pointer', color: 'white' }}>Privacy Policy</li></Link>
+        <Link to="/Shipping"style={{ textDecoration: 'none', cursor: 'pointer', color: 'white' }}><li style={{ cursor: 'pointer', color: 'white' }}>Shipping</li></Link>
+        <Link to="/ContactUs"style={{ textDecoration: 'none', cursor: 'pointer', color: 'white' }}><li style={{ cursor: 'pointer', color: 'white' }}>Contact Us</li></Link>
         </ul>
-        <p>
+        <p style={{ cursor: 'pointer', color: 'white' }}>
           Design and Development by <span className="oar"><a target="_blank" href="https://www.oar.com" rel="noopener noreferrer">OAR</a></span>
         </p>
       </div>
