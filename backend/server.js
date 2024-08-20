@@ -14,7 +14,7 @@ const app = express();
 
 app.use(cors({
   origin: ["https://www.didwaniacreations.in"],
-  methods: ["POST", "GET"],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   credentials: true
 }));
 
