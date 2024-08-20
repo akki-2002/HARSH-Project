@@ -31,6 +31,11 @@ import Home from "./components/Home/Home";
 import { useAuthContext } from "./hooks/useAuthContext";
 import BillingForOne from "./components/Billing/BillingForOne";
 import BuyProduct from "./components/Product Page/BuyProduct";
+import Aboutus from "./components/Home/Footer/Links/Aboutus";
+import TermsConditions from "./components/Home/Footer/Links/TermsConditions";
+import RefundReturns from "./components/Home/Footer/Links/RefundReturns";
+import Privacy from "./components/Home/Footer/Links/Privacy";
+import Shipping from "./components/Home/Footer/Links/Shipping";
 
 function App() {
   const {user} = useAuthContext()
@@ -84,6 +89,14 @@ function App() {
           <Route path="/adminOrders" element={<CustOrders />} />
           <Route path="/viewCustOrder/:id" element={<ViewCustOrders />} />
           <Route path="/profile" element={<Profile />} />
+
+
+          <Route path="/AboutUs" element={<Aboutus />} />
+          <Route path="/Terms&Conditions" element={<TermsConditions />} />
+          <Route path="/Refund&Returns" element={<RefundReturns />} />
+          <Route path="/PrivacyPolicy" element={<Privacy />} />
+          <Route path="/Shipping" element={<Shipping />} />
+          <Route path="/ContactUs" element={<Shipping />} />
 
         </Routes>
       </Router>

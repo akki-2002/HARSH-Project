@@ -1,0 +1,14 @@
+.aboutus-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 88vh; /* Full viewport height */
+    
+  }
+  
+  .aboutus-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Ensures the image scales without distortion */
+  }
+  
