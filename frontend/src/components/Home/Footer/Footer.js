@@ -1,4 +1,4 @@
-import React from "react";
+import React,  { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import { AiFillInstagram } from "react-icons/ai";
 import { FaFacebookF, FaLinkedinIn, FaTwitter, FaYoutube } from "react-icons/fa";
@@ -6,6 +6,9 @@ import logo from '../../Images/logo.png';
 import './Footer.css'
 
 function Footer() {
+  useEffect(() => {
+    window.scrollTo(0, 0); // This scrolls the window to the top
+}, []);
   return (
     <footer className="footer">
       <div className="footer-left">
