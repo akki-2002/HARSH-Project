@@ -38,7 +38,7 @@ function Navbar() {
 
     useEffect(() => {
         const fetchProducts = async () => {
-            const response = await fetch("https://harsh-project-4-kmzz.onrender.com/products/getallproducts");
+            const response = await fetch("https://harsh-project-6.onrender.com/products/getallproducts");
             const json = await response.json();
 
             if (response.ok) {

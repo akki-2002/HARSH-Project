@@ -59,7 +59,7 @@ function ReligiousAll() {
   const [products, setProducts] = useState([]);
 
   const fetchData = async () => {
-    const response = await fetch('https://harsh-project-4-kmzz.onrender.com/products/getallproducts');
+    const response = await fetch('https://harsh-project-6.onrender.com/products/getallproducts');
     const json = await response.json();
     if (response.ok) {
       const daProducts = json.products.filter((prd)=> prd.category === "Religious Accessories")
@@ -78,7 +78,7 @@ function ReligiousAll() {
 
   const updateUserCart = async () => {
     try {
-      const response = await fetch(`https://harsh-project-4-kmzz.onrender.com/users/getuserbyid/${user.user?._id}`, {
+      const response = await fetch(`https://harsh-project-6.onrender.com/users/getuserbyid/${user.user?._id}`, {
         method: "GET",
         headers: {
           'Authorization': `Bearer ${user.token}`
@@ -111,7 +111,7 @@ function ReligiousAll() {
       }
       console.log(formData)
       
-      const response = await fetch(`https://harsh-project-4-kmzz.onrender.com/users/addtocart/${user.user?._id}`, {
+      const response = await fetch(`https://harsh-project-6.onrender.com/users/addtocart/${user.user?._id}`, {
         method: "POST",
         body: JSON.stringify(formData),
         headers: {
@@ -162,7 +162,7 @@ function ReligiousAll() {
             <div className="product-item" key={product._id}>
               <Link to={`/product/${product._id}`}>
                 <img
-                  src={`https://harsh-project-4-kmzz.onrender.com/uploads/${product.productImages[0]}`}
+                  src={`https://harsh-project-6.onrender.com/uploads/${product.productImages[0]}`}
                   alt={product.title}
                   className="hoverable"
                 />

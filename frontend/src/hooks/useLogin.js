@@ -11,7 +11,7 @@ export const useLogin = () => {
         setIsLoading(true)
         setError(null)
 
-        const response = await fetch('https://harsh-project-4-kmzz.onrender.com/users/login', {
+        const response = await fetch('https://harsh-project-6.onrender.com/users/login', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({email, password})

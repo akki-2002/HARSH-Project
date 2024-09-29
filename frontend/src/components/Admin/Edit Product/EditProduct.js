@@ -25,15 +25,15 @@ function EditProduct() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(`https://harsh-project-4-kmzz.onrender.com/products/getproductbyid/${id}`);
+      const response = await fetch(`https://harsh-project-6.onrender.com/products/getproductbyid/${id}`);
       const json = await response.json();
       if (response.ok) {
         console.log(json.product);
         setProductName(json.product.title);
         setPrice(json.product.price);
         setDescription(json.product.description);
-        setImage1Preview(`https://harsh-project-4-kmzz.onrender.com/uploads/${json.product?.productImages[0]}`);
-        setImage2Preview(`https://harsh-project-4-kmzz.onrender.com/uploads/${json.product?.productImages[1]}`);
+        setImage1Preview(`https://harsh-project-6.onrender.com/uploads/${json.product?.productImages[0]}`);
+        setImage2Preview(`https://harsh-project-6.onrender.com/uploads/${json.product?.productImages[1]}`);
         setStock(json.product.itemInStock);
         setCategory(json.product.category);
       }
@@ -67,7 +67,7 @@ function EditProduct() {
 
     console.log(formData)
   
-    const response = await fetch(`https://harsh-project-4-kmzz.onrender.com/products/updateproduct/${id}`, {
+    const response = await fetch(`https://harsh-project-6.onrender.com/products/updateproduct/${id}`, {
       method: 'PUT',
       body: formData,
     });

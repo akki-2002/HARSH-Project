@@ -22,7 +22,7 @@ function ProductPage() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(`https://harsh-project-4-kmzz.onrender.com/products/getproductbyid/${id}`);
+      const response = await fetch(`https://harsh-project-6.onrender.com/products/getproductbyid/${id}`);
       const json = await response.json();
       if (response.ok) {
         console.log(json);
@@ -60,7 +60,7 @@ function ProductPage() {
 
   const updateUserCart = async () => {
     try {
-      const response = await fetch(`https://harsh-project-4-kmzz.onrender.com/users/getuserbyid/${user.user?._id}`, {
+      const response = await fetch(`https://harsh-project-6.onrender.com/users/getuserbyid/${user.user?._id}`, {
         method: "GET",
         headers: {
           'Authorization': `Bearer ${user.token}`
@@ -93,7 +93,7 @@ function ProductPage() {
       }
       console.log(formData)
       
-      const response = await fetch(`https://harsh-project-4-kmzz.onrender.com/users/addtocart/${user?.user?._id}`, {
+      const response = await fetch(`https://harsh-project-6.onrender.com/users/addtocart/${user?.user?._id}`, {
         method: "POST",
         body: JSON.stringify(formData),
         headers: {
@@ -153,14 +153,14 @@ function ProductPage() {
             {product?.productImages?.map((img, index) => (
               <img
                 key={index}
-                src={`https://harsh-project-4-kmzz.onrender.com/uploads/${product.productImages[index]}`}
+                src={`https://harsh-project-6.onrender.com/uploads/${product.productImages[index]}`}
                 alt={`pd${index + 1}`}
                 onClick={() => handleImageClick(index)}
               />
             ))}
           </div>
           <div className="prdiMax">
-            {selectedImage && <img src={`https://harsh-project-4-kmzz.onrender.com/uploads/${product.productImages[imgIndex]}`} alt="Selected Product" />}
+            {selectedImage && <img src={`https://harsh-project-6.onrender.com/uploads/${product.productImages[imgIndex]}`} alt="Selected Product" />}
           </div>
         </div>
         <div className="prdDets">
