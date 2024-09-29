@@ -12,7 +12,7 @@ export const useSignup = () => {
         setError(null)
 
         console.log(username, email, password, userType)
-        const response = await fetch('https://harsh-project-4-kmzz.onrender.com/users/signup', {
+        const response = await fetch('https://harsh-project-6.onrender.com/users/signup', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({username, email, password, userType})

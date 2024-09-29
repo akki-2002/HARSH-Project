@@ -36,7 +36,7 @@ function CustOrders() {
       }
 
       try {
-        const response = await fetch('https://harsh-project-4-kmzz.onrender.com/bills/getbills', {
+        const response = await fetch('https://harsh-project-6.onrender.com/bills/getbills', {
           headers: {
             'Authorization': `Bearer ${user.token}`,
           },

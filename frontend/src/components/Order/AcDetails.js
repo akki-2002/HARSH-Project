@@ -13,7 +13,7 @@ function AcDetails() {
   const {id} = useParams();
   useEffect(()=>{
     const fetchData = async()=>{
-      const response = await fetch(`https://harsh-project-4-kmzz.onrender.com/users/getuserbyid/${id}`)
+      const response = await fetch(`https://harsh-project-6.onrender.com/users/getuserbyid/${id}`)
       const json = await response.json()
       if(response.ok)
       {
@@ -62,7 +62,7 @@ const newUserData = {
         username: name,
         email
       }
-      const response = await fetch(`https://harsh-project-4-kmzz.onrender.com/users/updateuser/${id}`, {
+      const response = await fetch(`https://harsh-project-6.onrender.com/users/updateuser/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

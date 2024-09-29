@@ -14,7 +14,7 @@ function AllAdminProducts() {
   const [products, setProducts] = useState([]);
 
   const fetchData = async () => {
-    const response = await fetch('https://harsh-project-4-kmzz.onrender.com/products/getallproducts');
+    const response = await fetch('https://harsh-project-6.onrender.com/products/getallproducts');
     const json = await response.json();
     if (response.ok) {
       setProducts(json.products);
@@ -50,7 +50,7 @@ function AllAdminProducts() {
 
   const handleDeleteProduct = async(productId)=>{
 
-    const response = await fetch(`https://harsh-project-4-kmzz.onrender.com/products/deleteproduct/${productId}`,{
+    const response = await fetch(`https://harsh-project-6.onrender.com/products/deleteproduct/${productId}`,{
       method: "DELETE"
     })
     const json = await response.json()
@@ -79,8 +79,8 @@ function AllAdminProducts() {
             <Link to={`/product/${product._id}`} className="product-item" key={product._id}>
               {product.productImages && product.productImages.length > 0 ? (
                 <img
-                  src={`https://harsh-project-4-kmzz.onrender.com/uploads/${product.productImages[0]}`}
-                  alt={`https://harsh-project-4-kmzz.onrender.com/uploads/${product.productImages[0]}`}
+                  src={`https://harsh-project-6.onrender.com/uploads/${product.productImages[0]}`}
+                  alt={`https://harsh-project-6.onrender.com/uploads/${product.productImages[0]}`}
                   className="hoverable"
                 />
               ) : (
