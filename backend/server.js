@@ -3,9 +3,9 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
 const bodyParser = require('body-parser');
-const userRoutes = require('./routes/userRoutes')
-const productRoutes = require('./routes/productRoutes')
-const billRoutes = require('./routes/billingRoutes')
+const userRoutes = require('./api/userRoutes')
+const productRoutes = require('./api/productRoutes')
+const billRoutes = require('./api/billingRoutes')
 const Razorpay = require('razorpay')
 const crypto = require('crypto')
 
