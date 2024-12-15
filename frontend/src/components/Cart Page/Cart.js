@@ -8,9 +8,12 @@ import Navbar from "../Home/Navbar/Navbar";
 import Footer from "../Home/Footer/Footer";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useNavigate } from "react-router-dom";
+import useNotify from "../../hooks/useNotify";
+import { ToastContainer } from "react-toastify";
 
 
 function Cart() {
+  const {notify} = useNotify()
   useEffect(() => {
     window.scrollTo(0, 0); // This scrolls the window to the top
 }, []);
@@ -22,7 +25,7 @@ function Cart() {
 
   const fetchData = async () => {
     if (user) {
-      const response = await fetch(`https://harsh-project-6.onrender.com/users/getuserbyid/${user.user?._id}`, {
+      const response = await fetch(`http://localhost:5000/users/getuserbyid/${user.user?._id}`, {
         headers: {
           'Authorization': `Bearer ${user.token}`,
         },
@@ -45,7 +48,7 @@ useEffect(() => {
   const fetchData = async () => {
     try {
       const productPromises = adtItems.map(item => 
-        fetch(`https://harsh-project-6.onrender.com/products/getproductbyid/${item.product}`, {
+        fetch(`http://localhost:5000/products/getproductbyid/${item.product}`, {
           headers: {
             'Authorization': `Bearer ${user.token}`,
           }
@@ -91,7 +94,7 @@ useEffect(() => {
       }
       console.log(formData)
       
-      const response = await fetch(`https://harsh-project-6.onrender.com/users/removefromcart/${user.user?._id}`, {
+      const response = await fetch(`http://localhost:5000/users/removefromcart/${user.user?._id}`, {
         method: "DELETE",
         body: JSON.stringify(formData),
         headers: {
@@ -122,7 +125,7 @@ useEffect(() => {
       // console.log('chajer', cartItems.length)
       navigate('/billing')
     }else{
-      alert('Cart is empty, please add items to proceed')
+      notify('Cart is empty, please add items to proceed', "error")
     }
   }
 
@@ -143,7 +146,7 @@ useEffect(() => {
                     <div className="cItem">
                       <div className="cItemImg">
                         {" "}
-                        <img src={`https://harsh-project-6.onrender.com/uploads/${item.productDetails?.product?.productImages[0]}`} alt={item.title} />{" "}
+                        <img src={`http://localhost:5000/uploads/${item.productDetails?.product?.productImages[0]}`} alt={item.title} />{" "}
                       </div>
                       <div className="cItemDetails">
                         <h2>{item.productDetails?.product?.title}</h2>
@@ -192,6 +195,7 @@ useEffect(() => {
       </div>
     </div>
     <Footer></Footer>
+    <ToastContainer/>
     </>
   );
 

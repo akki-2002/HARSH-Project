@@ -22,7 +22,7 @@ function BuyProduct() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(`https://harsh-project-6.onrender.com/products/getproductbyid/${id}`);
+      const response = await fetch(`http://localhost:5000/products/getproductbyid/${id}`);
       const json = await response.json();
       if (response.ok) {
         console.log(json);
@@ -60,7 +60,7 @@ function BuyProduct() {
 
   const updateUserCart = async () => {
     try {
-      const response = await fetch(`https://harsh-project-6.onrender.com/users/getuserbyid/${user.user?._id}`, {
+      const response = await fetch(`http://localhost:5000/users/getuserbyid/${user.user?._id}`, {
         method: "GET",
         headers: {
           'Authorization': `Bearer ${user.token}`
@@ -79,41 +79,6 @@ function BuyProduct() {
     }
   };
 
-  const handleAddToCart = async (product) => {
-    try {
-
-      if(!user)
-        {
-         return alert('Login in to add to cart')
-        }
-  
-      const formData = {
-        'productId': product._id,
-        'quantity': quantity
-      }
-      console.log(formData)
-      
-      const response = await fetch(`https://harsh-project-6.onrender.com/users/addtocart/${user?.user?._id}`, {
-        method: "POST",
-        body: JSON.stringify(formData),
-        headers: {
-          'Authorization': `Bearer ${user.token}`,
-          'Content-Type': 'application/json'
-        }
-      });
-  
-      const json = await response.json();
-      if (response.ok) {
-        console.log('successfully added to the cart', json);
-        updateUserCart()
-        console.log('adt user', user);
-      } else {
-        console.log('Failed to add to cart', json);
-      }
-    } catch (error) {
-      console.log('Error:', error);
-    }
-  };
 
   return (
     <>
@@ -147,14 +112,14 @@ function BuyProduct() {
             {product?.productImages?.map((img, index) => (
               <img
                 key={index}
-                src={`https://harsh-project-6.onrender.com/uploads/${product.productImages[index]}`}
+                src={`http://localhost:5000/uploads/${product.productImages[index]}`}
                 alt={`pd${index + 1}`}
                 onClick={() => handleImageClick(index)}
               />
             ))}
           </div>
           <div className="prdiMax">
-            {selectedImage && <img src={`https://harsh-project-6.onrender.com/uploads/${product.productImages[imgIndex]}`} alt="Selected Product" />}
+            {selectedImage && <img src={`http://localhost:5000/uploads/${product.productImages[imgIndex]}`} alt="Selected Product" />}
           </div>
         </div>
         <div className="prdDets">

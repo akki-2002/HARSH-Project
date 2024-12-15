@@ -4,8 +4,11 @@ import './AddProduct.css'; // Updated styles
 import NavbarAdmin from '../Navbar/NavbarAdmin';
 import Footer from '../../Home/Footer/Footer';
 import { IoMdArrowRoundBack } from "react-icons/io";
+import useNotify from '../../../hooks/useNotify';
+import { ToastContainer } from 'react-toastify';
 
 function AddProduct() {
+  const {notify} = useNotify()
   useEffect(() => {
     window.scrollTo(0, 0); // This scrolls the window to the top
 }, []);
@@ -22,7 +25,7 @@ function AddProduct() {
     e.preventDefault();
   
     if (!image1) {
-      alert('Please upload at least one image.');
+      notify('Please upload at least one image.', 'error');
       return;
     }
   
@@ -45,7 +48,7 @@ function AddProduct() {
     console.log(formData)
   
     // Send the FormData directly
-    const response = await fetch(`https://harsh-project-6.onrender.com/products/addproduct`, {
+    const response = await fetch(`http://localhost:5000/products/addproduct`, {
       method: 'POST',
       body: formData,
     });
@@ -53,12 +56,12 @@ function AddProduct() {
     if (response.ok) {
       const result = await response.json();
       console.log('Product added successfully:', result);
-      alert('Product added successfully')
+      notify('Product added successfully', 'success')
       navigate('/')
 
     } else {
       console.error('Failed to add the product:', response.statusText);
-      alert('Failed to add the product')
+      notify('Failed to add the product', "error")
     }
   };
 
@@ -155,6 +158,7 @@ function AddProduct() {
         </form>
       </div>
       <Footer />
+      <ToastContainer/>
     </>
   );
 }

@@ -6,8 +6,11 @@ import Testimonials from "../Home/Testimonials/Testimonials";
 import Navbar from "../Home/Navbar/Navbar";
 import Footer from "../Home/Footer/Footer";
 import { useAuthContext } from "../../hooks/useAuthContext";
+import useNotify from "../../hooks/useNotify";
+import { ToastContainer } from "react-toastify";
 
 function CartProduct() {
+  const {notify} = useNotify()
   useEffect(() => {
     window.scrollTo(0, 0); // This scrolls the window to the top
 }, []);
@@ -23,7 +26,7 @@ function CartProduct() {
 // console.log('quantity: ' , quantity)
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(`https://harsh-project-6.onrender.com/products/getproductbyid/${id}`);
+      const response = await fetch(`http://localhost:5000/products/getproductbyid/${id}`);
       const json = await response.json();
       if (response.ok) {
         console.log(json);
@@ -62,7 +65,7 @@ function CartProduct() {
 
   const updateUserCart = async () => {
     try {
-      const response = await fetch(`https://harsh-project-6.onrender.com/users/getuserbyid/${user.user?._id}`, {
+      const response = await fetch(`http://localhost:5000/users/getuserbyid/${user.user?._id}`, {
         method: "GET",
         headers: {
           'Authorization': `Bearer ${user.token}`
@@ -86,7 +89,7 @@ function CartProduct() {
 
       if(!user)
         {
-         return alert('Login in to add to cart')
+         return notify('Login in to add to cart', 'error')
         }
   
       const formData = {
@@ -95,7 +98,7 @@ function CartProduct() {
       }
       console.log(formData)
       
-      const response = await fetch(`https://harsh-project-6.onrender.com/users/updatecart/${user?.user?._id}`, {
+      const response = await fetch(`http://localhost:5000/users/updatecart/${user?.user?._id}`, {
         method: "PUT",
         body: JSON.stringify(formData),
         headers: {
@@ -150,14 +153,14 @@ function CartProduct() {
             {product?.productImages?.map((img, index) => (
               <img
                 key={index}
-                src={`https://harsh-project-6.onrender.com/uploads/${product.productImages[index]}`}
+                src={`http://localhost:5000/uploads/${product.productImages[index]}`}
                 alt={`pd${index + 1}`}
                 onClick={() => handleImageClick(index)}
               />
             ))}
           </div>
           <div className="prdiMax">
-            {selectedImage && <img src={`https://harsh-project-6.onrender.com/uploads/${product.productImages[imgIndex]}`} alt="Selected Product" />}
+            {selectedImage && <img src={`http://localhost:5000/uploads/${product.productImages[imgIndex]}`} alt="Selected Product" />}
           </div>
         </div>
         <div className="prdDets">
@@ -225,6 +228,7 @@ function CartProduct() {
 
       <Testimonials />
       <Footer />
+      <ToastContainer/>
     </>
   );
 }

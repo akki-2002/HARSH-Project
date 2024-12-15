@@ -5,8 +5,11 @@ import '../Add Product/AddProduct.css'; // Updated styles
 import NavbarAdmin from '../Navbar/NavbarAdmin';
 import Footer from '../../Home/Footer/Footer';
 import { useAuthContext } from '../../../hooks/useAuthContext';
+import useNotify from '../../../hooks/useNotify';
+import { ToastContainer } from 'react-toastify';
 
 function EditProduct() {
+  const {notify} = useNotify()
   useEffect(() => {
     window.scrollTo(0, 0); // This scrolls the window to the top
 }, []);
@@ -25,15 +28,15 @@ function EditProduct() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(`https://harsh-project-6.onrender.com/products/getproductbyid/${id}`);
+      const response = await fetch(`http://localhost:5000/products/getproductbyid/${id}`);
       const json = await response.json();
       if (response.ok) {
         console.log(json.product);
         setProductName(json.product.title);
         setPrice(json.product.price);
         setDescription(json.product.description);
-        setImage1Preview(`https://harsh-project-6.onrender.com/uploads/${json.product?.productImages[0]}`);
-        setImage2Preview(`https://harsh-project-6.onrender.com/uploads/${json.product?.productImages[1]}`);
+        setImage1Preview(`http://localhost:5000/uploads/${json.product?.productImages[0]}`);
+        setImage2Preview(`http://localhost:5000/uploads/${json.product?.productImages[1]}`);
         setStock(json.product.itemInStock);
         setCategory(json.product.category);
       }
@@ -67,7 +70,7 @@ function EditProduct() {
 
     console.log(formData)
   
-    const response = await fetch(`https://harsh-project-6.onrender.com/products/updateproduct/${id}`, {
+    const response = await fetch(`http://localhost:5000/products/updateproduct/${id}`, {
       method: 'PUT',
       body: formData,
     });
@@ -75,11 +78,29 @@ function EditProduct() {
     if (response.ok) {
       const result = await response.json();
       console.log('Product edited successfully:', result);
-      alert('Product edited successfully')
+      notify('Product edited successfully', 'success')
       navigate('/')
     } else {
       console.error('Failed to edit product:', response.statusText);
-      alert('Failed to add the product')
+      notify('Failed to edit the product', 'error')
+    }
+  };
+
+  const handleDelete = async (e) => {
+    e.preventDefault();
+  
+    const response = await fetch(`http://localhost:5000/products/deleteproduct/${id}`, {
+      method: 'DELETE'
+    });
+  
+    if (response.ok) {
+      const result = await response.json();
+      console.log('Product deleted successfully:', result);
+      notify('Product deleted successfully', 'success')
+      navigate('/')
+    } else {
+      console.error('Failed to delete product:', response.statusText);
+      notify('Failed to delete the product', 'error')
     }
   };
 
@@ -104,6 +125,7 @@ function EditProduct() {
           <IoMdArrowRoundBack />
         </Link>
         <h1>Edit Product</h1>
+        
         <form onSubmit={handleSubmit} encType='multipart/form-data'>
           <div className="form-group">
             <label htmlFor="productName">Product Name</label>
@@ -184,8 +206,10 @@ function EditProduct() {
 
           <button type="submit">Edit Product</button>
         </form>
+        <button onClick={(e)=>handleDelete(e)} style={{marginTop: "10px"}}>Delete Product</button>
       </div>
       <Footer />
+      <ToastContainer/>
     </>
   );
 }

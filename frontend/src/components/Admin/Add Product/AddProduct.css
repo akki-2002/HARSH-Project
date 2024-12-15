@@ -47,7 +47,7 @@ body {
     outline: none;
   }
   
-  .nvLoginBtn, button{
+  .nvLoginBtn, .admin-upload-form button{
     display: block;
     width: 100%;
     padding: 8px;
@@ -60,7 +60,7 @@ body {
     border: 2px solid #7c126f;
   }
   
-  .nvLoginBtn, button:hover {
+  .nvLoginBtn, .admin-upload-form button:hover {
     background-color: #7c126f;
     color:  white;
   }

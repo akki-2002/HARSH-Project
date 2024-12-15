@@ -9,8 +9,16 @@ import logo from "../../components/Images/logo.png";
 import { useNavigate } from "react-router-dom";
 import useSignup from "../../hooks/useSignup";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import useNotify from "../../hooks/useNotify";
+
 
 function Signup() {
+
+const {notify} = useNotify();
+  
+  
   useEffect(() => {
     window.scrollTo(0, 0); // This scrolls the window to the top
 }, []);
@@ -36,7 +44,10 @@ useEffect(()=>{
   if(error === false)
     {
       console.log("Successfully logged in")
+      notify("Successfully logged in", "success")
       setTimeout(() => navigate('/'), 1000); 
+    }else{
+      notify(error, "error")
     }
 },[error])
 
@@ -151,7 +162,7 @@ useEffect(()=>{
             </div>
 
             <div className="signupBtns">
-            {error === false ? <p className="success">Successfully signed in!!</p>:<p className="error">{error}</p>}
+            {/* {error === false ? <p className="success">Successfully signed in!!</p>:<p className="error">{error}</p>} */}
               <div className="signupBtn">
                 {/* <Link
                   to={"/"}
@@ -175,6 +186,7 @@ useEffect(()=>{
           </form>
         </div>
       </div>
+      <ToastContainer />
 
     </>
   );
