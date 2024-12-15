@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useNavigate, useParams } from "react-router-dom";
+import useNotify from "../../hooks/useNotify";
+import { ToastContainer } from "react-toastify";
 
 function AcDetails() {
+  const {notify} = useNotify()
   useEffect(() => {
     window.scrollTo(0, 0); // This scrolls the window to the top
 }, []);
@@ -13,7 +16,7 @@ function AcDetails() {
   const {id} = useParams();
   useEffect(()=>{
     const fetchData = async()=>{
-      const response = await fetch(`https://harsh-project-6.onrender.com/users/getuserbyid/${id}`)
+      const response = await fetch(`http://localhost:5000/users/getuserbyid/${id}`)
       const json = await response.json()
       if(response.ok)
       {
@@ -62,7 +65,7 @@ const newUserData = {
         username: name,
         email
       }
-      const response = await fetch(`https://harsh-project-6.onrender.com/users/updateuser/${id}`, {
+      const response = await fetch(`http://localhost:5000/users/updateuser/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -75,8 +78,11 @@ const newUserData = {
       updateUserDetails(newUserData);
       if(response.ok)
       {
-        alert('User Details Updated Successfully')
-        navigate(`/`)
+        notify('User Details Updated Successfully', 'success')
+        // setTimeout(() => {
+          
+        //   navigate(`/`)
+        // }, 1000);
       }
     }catch(error)
     {
@@ -126,6 +132,7 @@ const newUserData = {
           </div>
         </form>
       </div>
+      <ToastContainer/>
     </>
   );
 }

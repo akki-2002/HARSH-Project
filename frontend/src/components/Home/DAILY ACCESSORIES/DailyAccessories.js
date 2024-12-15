@@ -8,8 +8,11 @@ import img16 from "../../Images/Product Photos/16.jpeg";
 import "./DailyAccessories.css";
 import { FaCartPlus } from "react-icons/fa";
 import { useAuthContext } from "../../../hooks/useAuthContext";
+import { ToastContainer, toast } from 'react-toastify';
+import useNotify from "../../../hooks/useNotify";
 
 function DailyAccessories() {
+  const {notify} = useNotify()
   // Array of product objects
   // const products = [
   //   { id: 1, name: "ABCDEF", price: 599, image: img13 },
@@ -22,7 +25,7 @@ function DailyAccessories() {
   const [products, setProducts] = useState([]);
 
   const fetchData = async () => {
-    const response = await fetch('https://harsh-project-6.onrender.com/products/getallproducts');
+    const response = await fetch('http://localhost:5000/products/getallproducts');
     const json = await response.json();
     if (response.ok) {
       const daProducts = json.products.filter((prd)=> prd.category === "Daily Accessories")
@@ -42,7 +45,7 @@ function DailyAccessories() {
 
   const updateUserCart = async () => {
     try {
-      const response = await fetch(`https://harsh-project-6.onrender.com/users/getuserbyid/${user.user?._id}`, {
+      const response = await fetch(`http://localhost:5000/users/getuserbyid/${user.user?._id}`, {
         method: "GET",
         headers: {
           'Authorization': `Bearer ${user.token}`
@@ -54,7 +57,7 @@ function DailyAccessories() {
       if (response.ok) {
         // setUser(updatedUser);
         localStorage.setItem('user', JSON.stringify({token: user.token, user: updatedUser}));
-        alert('Product added to cart')  
+        notify('Product added to cart', "success")  
         console.log("updt", user)
       }
     } catch (error) {
@@ -66,7 +69,7 @@ function DailyAccessories() {
     try {
       if(!user)
         {
-         return alert('Login in to add to cart')
+         return notify('Login in to add to cart', "error")
         }
   
 
@@ -76,7 +79,7 @@ function DailyAccessories() {
       }
       console.log(formData)
       
-      const response = await fetch(`https://harsh-project-6.onrender.com/users/addtocart/${user.user?._id}`, {
+      const response = await fetch(`http://localhost:5000/users/addtocart/${user.user?._id}`, {
         method: "POST",
         body: JSON.stringify(formData),
         headers: {
@@ -125,7 +128,7 @@ function DailyAccessories() {
             <div className="product-item" key={product._id}>
               <Link to={`/product/${product._id}`}>
                 <img
-                  src={`https://harsh-project-6.onrender.com/uploads/${product.productImages[0]}`}
+                  src={`http://localhost:5000/uploads/${product.productImages[0]}`}
                   alt={product.title}
                   className="hoverable"
                 />
@@ -145,6 +148,7 @@ function DailyAccessories() {
           ))}
         </div>
       </div>
+      <ToastContainer/>
     </>
   );
 }

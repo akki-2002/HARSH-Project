@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Link } from "react-router-dom";
 import Religious from "../../Images/religious.png";
 import img5 from "../../Images/Product Photos/5.jpeg";
@@ -13,10 +15,12 @@ import { FaCartPlus } from "react-icons/fa";
 import './ReligiousAccessories.css'
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import tick from '../../Images/tick.png'
+import useNotify from "../../../hooks/useNotify";
+
+
 
 function ReligiousAccessories() {
-
-
+  const {notify} = useNotify();
   // Array of product objects
   // const products = [
   //   { id: 1, name: "CABC", price: 599, image: img5 },
@@ -35,7 +39,7 @@ function ReligiousAccessories() {
   const [products, setProducts] = useState([]);
 
   const fetchData = async () => {
-    const response = await fetch('https://harsh-project-6.onrender.com/products/getallproducts');
+    const response = await fetch('http://localhost:5000/products/getallproducts');
     const json = await response.json();
     if (response.ok) {
       const daProducts = json.products.filter((prd)=> prd.category === "Religious Accessories")
@@ -54,7 +58,7 @@ function ReligiousAccessories() {
 
   const updateUserCart = async () => {
     try {
-      const response = await fetch(`https://harsh-project-6.onrender.com/users/getuserbyid/${user.user?._id}`, {
+      const response = await fetch(`http://localhost:5000/users/getuserbyid/${user.user?._id}`, {
         method: "GET",
         headers: {
           'Authorization': `Bearer ${user.token}`
@@ -66,10 +70,11 @@ function ReligiousAccessories() {
       if (response.ok) {
         // setUser(updatedUser);
         localStorage.setItem('user', JSON.stringify({token: user.token, user: updatedUser}));
-        alert('Product added to cart')
+        notify('Product added to cart', 'success')
         console.log("updt", user)
       }
     } catch (error) {
+      
       console.error('Failed to update user cart:', error);
     }
   };
@@ -80,7 +85,8 @@ function ReligiousAccessories() {
 
       if(!user)
       {
-       return alert('Login in to add to cart')
+      //  return alert('Login in to add to cart')
+       return notify("Login in to add to cart", "error");
       }
 
       const formData = {
@@ -89,7 +95,7 @@ function ReligiousAccessories() {
       }
       console.log(formData)
       
-      const response = await fetch(`https://harsh-project-6.onrender.com/users/addtocart/${user.user?._id}`, {
+      const response = await fetch(`http://localhost:5000/users/addtocart/${user.user?._id}`, {
         method: "POST",
         body: JSON.stringify(formData),
         headers: {
@@ -104,6 +110,7 @@ function ReligiousAccessories() {
         updateUserCart()
         console.log('adt user', user);
       } else {
+        
         console.log('Failed to add to cart', json);
       }
     } catch (error) {
@@ -113,6 +120,7 @@ function ReligiousAccessories() {
   
   return (
     <>
+   
       <div className="religious-accessories-container">
         <img
           src={Religious}
@@ -140,7 +148,7 @@ function ReligiousAccessories() {
           {products.map((product) => (
             <div className="product-item" key={product._id}>
               <Link to={`/product/${product._id}`}>
-              <img src={`https://harsh-project-6.onrender.com/uploads/${product.productImages[0]}`} alt={product.title} className="hoverable" />
+              <img src={`http://localhost:5000/uploads/${product.productImages[0]}`} alt={product.title} className="hoverable" />
             </Link>
               <div className="product-details">
                 <p className="model-type">{product.title}</p>
@@ -158,6 +166,7 @@ function ReligiousAccessories() {
           ))}
         </div>
       </div>
+      <ToastContainer />
     </>
   );
 }

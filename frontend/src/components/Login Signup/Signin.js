@@ -8,8 +8,14 @@ import logo from "../../components/Images/logo.png";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import useLogin from "../../hooks/useLogin";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import useNotify from "../../hooks/useNotify";
 
 function Signin() {
+
+  const {notify} = useNotify();
+
   useEffect(() => {
     window.scrollTo(0, 0); // This scrolls the window to the top
 }, []);
@@ -26,7 +32,8 @@ function Signin() {
     e.preventDefault();
     
     if (!email || !password) {
-      return alert('Please fill in all the details.');
+
+      return notify("Please fill in all the details.", "error")
     }
   
     await login(email, password);
@@ -38,6 +45,7 @@ function Signin() {
     if(error === false)
       {
         console.log("Successfully logged in")
+        notify("Successfully logged in", "success")
         setTimeout(() => navigate('/'), 1000); 
       }
   },[error])
@@ -122,7 +130,7 @@ function Signin() {
             </div>
 
             <div className="signupBtns">
-              {error === false ? <p className="success">Successfully logged in!!</p>:<p className="error">{error}</p>}
+              {/* {error === false ? <p className="success">Successfully logged in!!</p>:<p className="error">{error}</p>} */}
             
               <div className="signupBtn">
                 {/* <Link
@@ -147,7 +155,7 @@ function Signin() {
           </form>
         </div>
       </div>
-
+      <ToastContainer/>
     </>
   );
 }

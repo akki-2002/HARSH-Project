@@ -6,8 +6,12 @@ import Navbar from "../Home/Navbar/Navbar";
 import Footer from "../Home/Footer/Footer";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import NavbarAdmin from "../Admin/Navbar/NavbarAdmin";
+import useNotify from "../../hooks/useNotify";
+import { ToastContainer } from "react-toastify";
+
 
 function ProductPage() {
+  const {notify} = useNotify()
   useEffect(() => {
     window.scrollTo(0, 0); // This scrolls the window to the top
 }, []);
@@ -22,7 +26,7 @@ function ProductPage() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(`https://harsh-project-6.onrender.com/products/getproductbyid/${id}`);
+      const response = await fetch(`http://localhost:5000/products/getproductbyid/${id}`);
       const json = await response.json();
       if (response.ok) {
         console.log(json);
@@ -60,7 +64,7 @@ function ProductPage() {
 
   const updateUserCart = async () => {
     try {
-      const response = await fetch(`https://harsh-project-6.onrender.com/users/getuserbyid/${user.user?._id}`, {
+      const response = await fetch(`http://localhost:5000/users/getuserbyid/${user.user?._id}`, {
         method: "GET",
         headers: {
           'Authorization': `Bearer ${user.token}`
@@ -84,7 +88,7 @@ function ProductPage() {
 
       if(!user)
         {
-         return alert('Login in to continue!!')
+         return notify('Login in to continue!!', "error")
         }
   
       const formData = {
@@ -93,7 +97,7 @@ function ProductPage() {
       }
       console.log(formData)
       
-      const response = await fetch(`https://harsh-project-6.onrender.com/users/addtocart/${user?.user?._id}`, {
+      const response = await fetch(`http://localhost:5000/users/addtocart/${user?.user?._id}`, {
         method: "POST",
         body: JSON.stringify(formData),
         headers: {
@@ -105,7 +109,7 @@ function ProductPage() {
       const json = await response.json();
       if (response.ok) {
         console.log('successfully added to the cart', json);
-        alert('Product added to cart')
+        notify('Product added to cart', "success")
         updateUserCart()
         console.log('adt user', user);
       } else {
@@ -153,14 +157,14 @@ function ProductPage() {
             {product?.productImages?.map((img, index) => (
               <img
                 key={index}
-                src={`https://harsh-project-6.onrender.com/uploads/${product.productImages[index]}`}
+                src={`http://localhost:5000/uploads/${product.productImages[index]}`}
                 alt={`pd${index + 1}`}
                 onClick={() => handleImageClick(index)}
               />
             ))}
           </div>
           <div className="prdiMax">
-            {selectedImage && <img src={`https://harsh-project-6.onrender.com/uploads/${product.productImages[imgIndex]}`} alt="Selected Product" />}
+            {selectedImage && <img src={`http://localhost:5000/uploads/${product.productImages[imgIndex]}`} alt="Selected Product" />}
           </div>
         </div>
         <div className="prdDets">
@@ -241,6 +245,7 @@ function ProductPage() {
 
       <Testimonials />
       <Footer />
+      <ToastContainer/>
     </>
   );
 }
